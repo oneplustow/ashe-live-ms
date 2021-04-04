@@ -1,0 +1,28 @@
+
+server:
+  port: 7003
+  servlet:
+    context-path: /auth-center
+# 数据源配置
+spring:
+  messages:
+    basename: i18n/messages
+  profiles:
+    include: db,redis
+  main:
+    allow-bean-definition-overriding: true
+# token配置
+token:
+  # 令牌自定义标识
+  header: authorization
+  # 令牌秘钥
+  secret: abcdefghijklmnopqrstuvwxyz
+  # 令牌有效期（默认30分钟）
+  expireTime: 30
+debug: true
+
+feign:
+  sentinel:
+    enabled: true
+ribbon:
+  ReadTimeout: 5000

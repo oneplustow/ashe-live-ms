@@ -1,0 +1,11 @@
+server:
+  port: 7001
+  servlet:
+    context-path: /system-center
+# 数据源配置
+spring:
+  messages:
+    basename: i18n/messages
+  profiles:
+    include: db,redis
+debug: true
