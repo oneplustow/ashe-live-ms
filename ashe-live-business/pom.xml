@@ -14,7 +14,6 @@
     <description>业务中心</description>
     <modules>
         <module>system-center</module>
-        <module>order-center</module>
         <module>auth-center</module>
     </modules>
 
