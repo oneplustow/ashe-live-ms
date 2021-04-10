@@ -9,9 +9,11 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>system-center</artifactId>
+    <artifactId>live-centere</artifactId>
+
 
     <dependencies>
+
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
@@ -28,7 +30,6 @@
             <groupId>com.alibaba.cloud</groupId>
             <artifactId>spring-cloud-alibaba-sentinel</artifactId>
         </dependency>
-
         <dependency>
             <groupId>cn.oneplustow</groupId>
             <artifactId>auth-center-api</artifactId>
@@ -36,14 +37,6 @@
         <dependency>
             <groupId>cn.oneplustow</groupId>
             <artifactId>db-config</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cn.oneplustow</groupId>
-            <artifactId>redis-config</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity</artifactId>
         </dependency>
     </dependencies>
 </project>

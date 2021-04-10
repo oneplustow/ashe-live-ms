@@ -15,6 +15,8 @@
     <modules>
         <module>system-center</module>
         <module>auth-center</module>
+        <module>live-centere</module>
+        <module>message-center</module>
     </modules>
 
     <dependencies>
@@ -44,6 +46,7 @@
                     <include>**/*.xml</include>
                     <include>**/*.json</include>
                     <include>**/*.ftl</include>
+                    <include>**/*.vm</include>
                 </includes>
             </resource>
         </resources>

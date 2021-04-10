@@ -9,3 +9,6 @@ spring:
   profiles:
     include: db,redis
 debug: true
+gen:
+  author: cc
+  packageName: cn.oneplustow.xx
