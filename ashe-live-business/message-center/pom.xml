@@ -11,6 +11,32 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>message-center</artifactId>
+    <dependencies>
 
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-alibaba-sentinel</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.oneplustow</groupId>
+            <artifactId>auth-center-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.oneplustow</groupId>
+            <artifactId>db-config</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
