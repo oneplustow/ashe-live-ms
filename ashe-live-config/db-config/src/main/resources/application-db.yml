@@ -6,10 +6,7 @@ spring:
     druid:
       # 主库数据源
       master:
-#        url: jdbc:mysql://114.55.168.113:13306/fresh-order?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-#        username: fresh-order
-#        password: fresh-order
-        url: jdbc:mysql://47.106.232.250:3306/fresh-order?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+        url: jdbc:mysql://47.106.232.250:3306/ashe-live?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
         username: root
         password: root
       # 从库数据源

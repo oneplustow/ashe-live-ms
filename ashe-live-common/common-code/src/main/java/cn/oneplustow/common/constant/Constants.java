@@ -9,6 +9,11 @@ import io.jsonwebtoken.Claims;
  */
 public class Constants
 {
+    public interface SteamServerStatus{
+        String WAIT_CONNECTION = "0";
+        String CONNECTION_SUCCESS = "1";
+        String CONNECTION_FAILURE = "2";
+    }
     public interface DataScope{
         String 所有数据权限 = "1";
         String 自定义数据权限 = "2";

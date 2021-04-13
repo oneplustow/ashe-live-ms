@@ -15,14 +15,7 @@ import java.util.Arrays;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import cn.oneplustow.live.entity.StreamServer;
 import cn.oneplustow.live.service.IStreamServerService;
 
@@ -86,5 +79,14 @@ public class StreamServerController extends BaseController {
     @DeleteMapping("/{ids}" )
     public AjaxResult remove(@PathVariable Integer[] ids) {
         return toAjax(streamServerService.removeByIds(Arrays.asList(ids)) ? 1 : 0);
+    }
+
+    /**
+     * 测试连接流服务器
+     */
+    @Log(title = "测试连接流服务器" , businessType = BusinessType.QUERY)
+    @PostMapping("/connection" )
+    public AjaxResult connection(@RequestBody StreamServer streamServer) {
+        return AjaxResult.success(streamServerService.heartBeatDetectionById(streamServer.getId()));
     }
 }
