@@ -26,7 +26,7 @@ import cn.oneplustow.live.service.IStreamServerService;
  * @date 2021-04-09
  */
 @RestController
-@RequestMapping("/SteamServer" )
+@RequestMapping("/steamServer" )
 public class StreamServerController extends BaseController {
     @Autowired
     private IStreamServerService streamServerService;

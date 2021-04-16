@@ -25,7 +25,7 @@ import java.util.List;
  * @date 2021-04-14
  */
 @RestController
-@RequestMapping("/PlayRecord" )
+@RequestMapping("/playRecord" )
 public class PlayRecordController extends BaseController {
     @Autowired
     private IPlayRecordService playRecordService;

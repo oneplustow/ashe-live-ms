@@ -25,7 +25,7 @@ import java.util.List;
  * @date 2021-04-14
  */
 @RestController
-@RequestMapping("/PlayRoom" )
+@RequestMapping("/playRoom" )
 public class PlayRoomController extends BaseController {
     @Autowired
     private IPlayRoomService playRoomService;
