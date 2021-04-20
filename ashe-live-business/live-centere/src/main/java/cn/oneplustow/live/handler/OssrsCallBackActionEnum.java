@@ -1,5 +1,8 @@
 package cn.oneplustow.live.handler;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import lombok.ToString;
+
 /**
  * @author CC
  * @title: OssrsCallBackAction
@@ -21,5 +24,6 @@ public enum OssrsCallBackActionEnum {
     /**当客户端停止播放时。备注：停止播放可能不会关闭连接，还能再继续播放。*/
     on_stop,
     /**当DVR录制关闭一个flv文件时*/
-    on_dvr
+    on_dvr;
+
 }

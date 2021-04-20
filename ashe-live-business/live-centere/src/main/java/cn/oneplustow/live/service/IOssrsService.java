@@ -1,6 +1,6 @@
 package cn.oneplustow.live.service;
 
-import cn.oneplustow.live.vo.OssrsCallBackVo;
+import cn.oneplustow.live.vo.OssrsCallBackDto;
 
 /**
  * @author CC
@@ -10,6 +10,6 @@ import cn.oneplustow.live.vo.OssrsCallBackVo;
  * @date 2021/4/1622:47
  */
 public interface IOssrsService {
-    int callBack(OssrsCallBackVo ossrsCallBackVo);
+    int callBack(OssrsCallBackDto ossrsCallBackDto);
 
 }

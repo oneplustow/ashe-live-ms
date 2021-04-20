@@ -1,6 +1,9 @@
 package cn.oneplustow.live.handler;
 
-import cn.oneplustow.live.vo.OssrsCallBackVo;
+import cn.oneplustow.live.vo.OssrsCallBackDto;
+import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 /**
  * 处理当客户端关闭连接，或者SRS主动关闭连接时
@@ -11,14 +14,17 @@ import cn.oneplustow.live.vo.OssrsCallBackVo;
  * @description:
  * @date 2021/4/1623:09
  */
+@Component
+@Slf4j
 public class OnCloseOssrsCallBackHandler implements OssrsCallBackHandler{
     @Override
-    public int callBack(OssrsCallBackVo ossrsCallBackVo) {
+    public int callBack(OssrsCallBackDto ossrsCallBackDto) {
+        log.info(JSONObject.toJSONString(ossrsCallBackDto));
         return 0;
     }
 
     @Override
-    public boolean handlerAction(OssrsCallBackActionEnum actionEnum) {
-        return actionEnum == OssrsCallBackActionEnum.on_close;
+    public OssrsCallBackActionEnum handlerAction() {
+        return OssrsCallBackActionEnum.on_close;
     }
 }

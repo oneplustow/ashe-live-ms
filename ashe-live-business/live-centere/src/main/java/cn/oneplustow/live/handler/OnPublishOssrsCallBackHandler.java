@@ -1,6 +1,9 @@
 package cn.oneplustow.live.handler;
 
-import cn.oneplustow.live.vo.OssrsCallBackVo;
+import cn.oneplustow.live.vo.OssrsCallBackDto;
+import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 /**
  * 处理当客户端发布流时，譬如flash/FMLE方式推流到服务器
@@ -11,14 +14,17 @@ import cn.oneplustow.live.vo.OssrsCallBackVo;
  * @description:
  * @date 2021/4/1623:09
  */
+@Component
+@Slf4j
 public class OnPublishOssrsCallBackHandler implements OssrsCallBackHandler{
     @Override
-    public int callBack(OssrsCallBackVo ossrsCallBackVo) {
+    public int callBack(OssrsCallBackDto ossrsCallBackDto) {
+        log.info(JSONObject.toJSONString(ossrsCallBackDto));
         return 0;
     }
 
     @Override
-    public boolean handlerAction(OssrsCallBackActionEnum actionEnum) {
-        return actionEnum == OssrsCallBackActionEnum.on_publish;
+    public OssrsCallBackActionEnum handlerAction() {
+        return OssrsCallBackActionEnum.on_publish;
     }
 }

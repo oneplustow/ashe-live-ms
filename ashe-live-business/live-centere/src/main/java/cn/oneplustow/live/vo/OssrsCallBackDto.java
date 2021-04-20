@@ -12,7 +12,7 @@ import lombok.Data;
  * @date 2021/4/1622:47
  */
 @Data
-public class OssrsCallBackVo {
+public class OssrsCallBackDto {
     /**事件*/
     private OssrsCallBackActionEnum action;
 
