@@ -1,7 +1,7 @@
 package cn.oneplustow.live.entity;
 
 import cn.oneplustow.common.annoatation.Excel;
-import cn.oneplustow.config.db.model.BaseEntity;
+import cn.oneplustow.config.db.model.SysBaseEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -15,7 +15,7 @@ import java.util.Date;
  */
 @TableName("live_play_record")
 @Data
-public class PlayRecord extends BaseEntity
+public class PlayRecord extends SysBaseEntity
 {
     private static final long serialVersionUID = 1L;
 

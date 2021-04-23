@@ -5,7 +5,7 @@ import cn.oneplustow.api.auth.model.LoginUser;
 import cn.oneplustow.api.auth.util.SecurityUtils;
 import cn.oneplustow.api.user.model.SysRoleModel;
 import cn.oneplustow.api.user.model.SysUserModel;
-import cn.oneplustow.config.db.model.BaseEntity;
+import cn.oneplustow.config.db.model.SysBaseEntity;
 import cn.oneplustow.user.aspectj.lang.annotation.DataScope;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
@@ -135,7 +135,7 @@ public class DataScopeAspect
 
         if (StrUtil.isNotBlank(sqlString.toString()))
         {
-            BaseEntity baseEntity = (BaseEntity) joinPoint.getArgs()[0];
+            SysBaseEntity baseEntity = (SysBaseEntity) joinPoint.getArgs()[0];
             baseEntity.setDataScope(" AND (" + sqlString.substring(4) + ")");
         }
     }

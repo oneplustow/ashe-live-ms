@@ -2,7 +2,7 @@ package cn.oneplustow.user.entity;
 
 
 import cn.oneplustow.common.constant.GenConstants;
-import cn.oneplustow.config.db.model.BaseEntity;
+import cn.oneplustow.config.db.model.SysBaseEntity;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 
@@ -16,7 +16,7 @@ import java.util.List;
  * @author ruoyi
  */
 @Data
-public class GenTable extends BaseEntity
+public class GenTable extends SysBaseEntity
 {
     private static final long serialVersionUID = 1L;
 

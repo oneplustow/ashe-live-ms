@@ -1,7 +1,7 @@
 package cn.oneplustow.live.entity;
 
 import cn.oneplustow.common.annoatation.Excel;
-import cn.oneplustow.config.db.model.BaseEntity;
+import cn.oneplustow.config.db.model.SysBaseEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -15,7 +15,7 @@ import lombok.Data;
  */
 @Data
 @TableName("live_stream_server")
-public class StreamServer extends BaseEntity
+public class StreamServer extends SysBaseEntity
 {
 
     private static final long serialVersionUID = 1L;

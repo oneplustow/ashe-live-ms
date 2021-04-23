@@ -1,6 +1,6 @@
 package cn.oneplustow.user.entity;
 
-import cn.oneplustow.config.db.model.BaseEntity;
+import cn.oneplustow.config.db.model.SysBaseEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -14,7 +14,7 @@ import java.util.List;
  * 
  * @author ruoyi
  */
-public class SysMenu extends BaseEntity
+public class SysMenu extends SysBaseEntity
 {
     private static final long serialVersionUID = 1L;
 

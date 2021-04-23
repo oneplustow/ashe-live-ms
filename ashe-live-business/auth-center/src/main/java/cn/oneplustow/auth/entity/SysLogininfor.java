@@ -2,7 +2,7 @@ package cn.oneplustow.auth.entity;
 
 
 import cn.oneplustow.common.annoatation.Excel;
-import cn.oneplustow.config.db.model.BaseEntity;
+import cn.oneplustow.config.db.model.SysBaseEntity;
 
 import java.util.Date;
 
@@ -11,7 +11,7 @@ import java.util.Date;
  * 
  * @author ruoyi
  */
-public class SysLogininfor extends BaseEntity
+public class SysLogininfor extends SysBaseEntity
 {
     private static final long serialVersionUID = 1L;
 

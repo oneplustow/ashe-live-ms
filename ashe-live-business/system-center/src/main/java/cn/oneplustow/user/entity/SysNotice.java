@@ -1,6 +1,6 @@
 package cn.oneplustow.user.entity;
 
-import cn.oneplustow.config.db.model.BaseEntity;
+import cn.oneplustow.config.db.model.SysBaseEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
  * 
  * @author ruoyi
  */
-public class SysNotice extends BaseEntity
+public class SysNotice extends SysBaseEntity
 {
     private static final long serialVersionUID = 1L;
 

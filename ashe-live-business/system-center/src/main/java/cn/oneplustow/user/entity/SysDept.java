@@ -1,6 +1,6 @@
 package cn.oneplustow.user.entity;
 
-import cn.oneplustow.config.db.model.BaseEntity;
+import cn.oneplustow.config.db.model.SysBaseEntity;
 import cn.oneplustow.user.entity.vo.MetaVo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -17,7 +17,7 @@ import java.util.List;
  * 
  * @author ruoyi
  */
-public class SysDept extends BaseEntity
+public class SysDept extends SysBaseEntity
 {
     private static final long serialVersionUID = 1L;
 

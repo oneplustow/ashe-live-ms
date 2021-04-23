@@ -3,7 +3,7 @@ package cn.oneplustow.user.entity;
 
 import cn.oneplustow.common.annoatation.Excel;
 import cn.oneplustow.common.constant.UserConstants;
-import cn.oneplustow.config.db.model.BaseEntity;
+import cn.oneplustow.config.db.model.SysBaseEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -15,7 +15,7 @@ import javax.validation.constraints.Size;
  * 
  * @author ruoyi
  */
-public class SysDictData extends BaseEntity
+public class SysDictData extends SysBaseEntity
 {
     private static final long serialVersionUID = 1L;
 

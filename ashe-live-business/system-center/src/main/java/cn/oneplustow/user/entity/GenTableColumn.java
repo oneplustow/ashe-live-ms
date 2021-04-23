@@ -1,7 +1,7 @@
 package cn.oneplustow.user.entity;
 
 
-import cn.oneplustow.config.db.model.BaseEntity;
+import cn.oneplustow.config.db.model.SysBaseEntity;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.validation.constraints.NotBlank;
@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
  * 
  * @author ruoyi
  */
-public class GenTableColumn extends BaseEntity
+public class GenTableColumn extends SysBaseEntity
 {
     private static final long serialVersionUID = 1L;
 
