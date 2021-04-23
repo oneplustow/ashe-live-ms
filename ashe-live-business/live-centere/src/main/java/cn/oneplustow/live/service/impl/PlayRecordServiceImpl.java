@@ -6,6 +6,7 @@ import cn.oneplustow.config.db.util.PageUtil;
 import cn.oneplustow.live.entity.PlayRecord;
 import cn.oneplustow.live.mapper.PlayRecordMapper;
 import cn.oneplustow.live.service.IPlayRecordService;
+import cn.oneplustow.live.vo.QueryPlayRoomDto;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -30,8 +31,8 @@ public class PlayRecordServiceImpl extends ServiceImpl<PlayRecordMapper, PlayRec
         if (playRecord.getStartDateTime() != null) {
             queryWrapper.eq(PlayRecord::getStartDateTime, playRecord.getStartDateTime());
         }
-        if (playRecord.getEndTime() != null) {
-            queryWrapper.eq(PlayRecord::getEndDateTime, playRecord.getEndTime());
+        if (playRecord.getEndDateTime() != null) {
+            queryWrapper.eq(PlayRecord::getEndDateTime, playRecord.getEndDateTime());
         }
         if (StrUtil.isNotBlank(playRecord.getStatus())) {
             queryWrapper.eq(PlayRecord::getStatus, playRecord.getStatus());

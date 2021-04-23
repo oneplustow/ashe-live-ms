@@ -21,6 +21,12 @@ public interface IStreamServerService extends IService<StreamServer>{
     List<StreamServer> page(StreamServer streamServer);
 
     /**
+     * 获取一个可用的服务器
+     * @return
+     */
+    StreamServer getAvailable();
+
+    /**
      * 对所有流服务器进行心跳检测
      */
     void heartBeatDetection();

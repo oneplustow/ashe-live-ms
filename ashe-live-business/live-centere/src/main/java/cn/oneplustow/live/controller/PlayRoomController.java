@@ -1,16 +1,16 @@
 package cn.oneplustow.live.controller;
 
 
-import cn.hutool.core.util.StrUtil;
+import cn.oneplustow.api.auth.util.SecurityUtils;
 import cn.oneplustow.common.annoatation.Log;
 import cn.oneplustow.common.enume.BusinessType;
 import cn.oneplustow.common.web.controller.BaseController;
 import cn.oneplustow.common.web.domain.AjaxResult;
-import cn.oneplustow.common.web.page.TableDataInfo;
 import cn.oneplustow.config.db.util.PageUtil;
 import cn.oneplustow.live.entity.PlayRoom;
 import cn.oneplustow.live.service.IPlayRoomService;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import cn.oneplustow.live.vo.QueryPlayRoomDto;
+import cn.oneplustow.live.vo.SavePlayRoomDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -35,7 +35,7 @@ public class PlayRoomController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('live:PlayRoom:list')" )
     @GetMapping("/list" )
-    public AjaxResult list(PlayRoom playRoom) {
+    public AjaxResult list(QueryPlayRoomDto playRoom) {
         List<PlayRoom> list = playRoomService.selectPage(playRoom);
         return AjaxResult.success(PageUtil.getDataTable(list));
     }
@@ -47,17 +47,27 @@ public class PlayRoomController extends BaseController {
     @PreAuthorize("@ss.hasPermi('live:PlayRoom:query')" )
     @GetMapping(value = "/{id}" )
     public AjaxResult getInfo(@PathVariable("id" ) Long id) {
-        return AjaxResult.success(playRoomService.getById(id));
+        return AjaxResult.success(playRoomService.getPlayRoomById(id));
     }
 
     /**
-     * 新增直播间管理
+     * 新增直播间
      */
     @PreAuthorize("@ss.hasPermi('live:PlayRoom:add')" )
     @Log(title = "直播间管理" , businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody PlayRoom playRoom) {
-        return toAjax(playRoomService.save(playRoom) ? 1 : 0);
+    public AjaxResult add(@RequestBody SavePlayRoomDto savePlayRoomDto) {
+        return toAjax(playRoomService.savePlayRoom(savePlayRoomDto));
+    }
+
+    /**
+     * 开通直播间
+     */
+    @PreAuthorize("@ss.hasPermi('live:PlayRoom:add')" )
+    @Log(title = "直播间管理" , businessType = BusinessType.INSERT)
+    @PostMapping("/openUp")
+    public AjaxResult openUp(String name) {
+        return toAjax(playRoomService.openUp(name,SecurityUtils.getUserId()));
     }
 
     /**
@@ -66,8 +76,8 @@ public class PlayRoomController extends BaseController {
     @PreAuthorize("@ss.hasPermi('live:PlayRoom:edit')" )
     @Log(title = "直播间管理" , businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody PlayRoom playRoom) {
-        return toAjax(playRoomService.updateById(playRoom) ? 1 : 0);
+    public AjaxResult edit(@RequestBody SavePlayRoomDto savePlayRoomDto) {
+        return toAjax(playRoomService.savePlayRoom(savePlayRoomDto));
     }
 
     /**
@@ -77,6 +87,6 @@ public class PlayRoomController extends BaseController {
     @Log(title = "直播间管理" , businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}" )
     public AjaxResult remove(@PathVariable Long[] ids) {
-        return toAjax(playRoomService.removeByIds(Arrays.asList(ids)) ? 1 : 0);
+        return toAjax(playRoomService.delPlayRoom(Arrays.asList(ids)));
     }
 }

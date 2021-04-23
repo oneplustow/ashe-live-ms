@@ -1,8 +1,10 @@
 package cn.oneplustow.live.handler;
 
+import cn.oneplustow.live.service.IPlayRoomService;
 import cn.oneplustow.live.vo.OssrsCallBackDto;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,10 +19,20 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class OnPublishOssrsCallBackHandler implements OssrsCallBackHandler{
+
+    @Autowired
+    private IPlayRoomService iPlayRoomService;
+
     @Override
     public int callBack(OssrsCallBackDto ossrsCallBackDto) {
+        //相当于用户名
+        String app = ossrsCallBackDto.getApp();
+        //这里就是密码
+        String stream = ossrsCallBackDto.getStream();
+        Boolean success = iPlayRoomService.startPush(app,stream);
+        if(!success){return FAILURE;}
         log.info(JSONObject.toJSONString(ossrsCallBackDto));
-        return 0;
+        return SUCCESS;
     }
 
     @Override

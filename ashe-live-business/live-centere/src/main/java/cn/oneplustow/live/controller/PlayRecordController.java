@@ -10,6 +10,7 @@ import cn.oneplustow.common.web.page.TableDataInfo;
 import cn.oneplustow.config.db.util.PageUtil;
 import cn.oneplustow.live.entity.PlayRecord;
 import cn.oneplustow.live.service.IPlayRecordService;
+import cn.oneplustow.live.vo.QueryPlayRoomDto;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -9,6 +9,8 @@ import cn.oneplustow.live.mapper.StreamServerMapper;
 import cn.oneplustow.live.service.IStreamServerService;
 import com.alibaba.druid.sql.visitor.functions.If;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSONValidator;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +18,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+import static cn.oneplustow.common.constant.DbConstants.SteamServerStatus.CONNECTION_FAILURE;
+import static cn.oneplustow.common.constant.DbConstants.SteamServerStatus.CONNECTION_SUCCESS;
 
 /**
  * 流服务器信息Service业务层处理
@@ -51,18 +56,23 @@ public class StreamServerServiceImpl extends ServiceImpl<StreamServerMapper, Str
     }
 
     @Override
+    public StreamServer getAvailable() {
+        StreamServer streamServer = this.getOne(new LambdaQueryWrapper<StreamServer>()
+                .eq(StreamServer::getStatus, CONNECTION_SUCCESS)
+                .orderByDesc(StreamServer::getCpuUse), false);
+        return streamServer;
+
+    }
+
+    @Override
     public void heartBeatDetection() {
         List<StreamServer> streamServerList = this.list();
         for (StreamServer streamServer : streamServerList) {
-            try {
-                if(heartBeatDetection(streamServer.getIp(),streamServer.getPort())){
-                    streamServer.setStatus(Constants.SteamServerStatus.CONNECTION_SUCCESS);
-                    continue;
-                }
-            }catch (Exception e){
-                log.warn("流服务心跳解析失败...",e);
+            if(heartBeatDetection(streamServer.getIp(),streamServer.getPort())){
+                streamServer.setStatus(CONNECTION_SUCCESS);
+                continue;
             }
-            streamServer.setStatus(Constants.SteamServerStatus.CONNECTION_FAILURE);
+            streamServer.setStatus(CONNECTION_FAILURE);
         }
         updateBatchById(streamServerList);
     }
@@ -72,15 +82,10 @@ public class StreamServerServiceImpl extends ServiceImpl<StreamServerMapper, Str
         StreamServer streamServer = this.getById(id);
         boolean success = false;
         //这里如果解析错误，则说明返回的不是json
-        try {
-            if (heartBeatDetection(streamServer.getIp(),streamServer.getPort())) {
-                success = true;
-            }
-        }catch (Exception e){
-            log.warn("流服务心跳解析失败...",e);
+        if (heartBeatDetection(streamServer.getIp(),streamServer.getPort())) {
+            success = true;
         }
-        streamServer.setStatus(success?Constants.SteamServerStatus.CONNECTION_SUCCESS:
-            Constants.SteamServerStatus.CONNECTION_FAILURE);
+        streamServer.setStatus(success ? CONNECTION_SUCCESS : CONNECTION_FAILURE);
         updateById(streamServer);
         return success;
     }
@@ -88,20 +93,20 @@ public class StreamServerServiceImpl extends ServiceImpl<StreamServerMapper, Str
     @Override
     public boolean heartBeatDetectionTest(String ip,Integer port) {
         //这里如果解析错误，则说明返回的不是json
-        try {
-            return heartBeatDetection(ip,port);
-        }catch (Exception e){
-            log.warn("流服务心跳解析失败...",e);
-        }
-        return false;
+        return heartBeatDetection(ip,port);
     }
 
 
     @Override
-    public boolean heartBeatDetection(String ip,Integer port)throws Exception {
+    public boolean heartBeatDetection(String ip,Integer port) {
         String url = StrUtil.format(URL_TEMPLATE,ip,port);
         //这里如果解析错误，则说明返回的不是json
         String serverJsonRequest = HttpUtil.get(url);
+        boolean validate = JSONValidator.from(serverJsonRequest).validate();
+        if(!validate){
+            log.error("心跳检测错误，无法解析响应:{}",serverJsonRequest);
+            return false;
+        }
         JSONObject serverRequest = JSONObject.parseObject(serverJsonRequest);
         int code = serverRequest.getIntValue("code");
         String serverId = serverRequest.getString("server");

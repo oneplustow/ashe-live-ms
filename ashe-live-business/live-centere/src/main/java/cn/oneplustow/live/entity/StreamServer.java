@@ -7,8 +7,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
-import java.util.Date;
-
 /**
  * 流服务器信息对象 live_stream_server
  * 
@@ -37,6 +35,15 @@ public class StreamServer extends BaseEntity
     /** 服务器端口 */
     @Excel(name = "服务器端口")
     private Integer port;
+
+    /** cpu占用 */
+    private Integer cpuUse;
+
+    /** 推流数量 */
+    private Integer pushSteamCount;
+
+    /** 拉流数量 */
+    private Integer pullSteamCount;
 
     /** 状态（0正常 1停用） */
     @Excel(name = "状态", readConverterExp = "0=正常,1=停用")

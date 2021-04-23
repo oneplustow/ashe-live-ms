@@ -18,6 +18,10 @@ public class SecurityUtils {
         return getLoginUser().getUser().getUserName();
     }
 
+    public static Long getUserId() {
+        return getLoginUser().getUser().getUserId();
+    }
+
     public static String encryptPassword(String password) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         return passwordEncoder.encode(password);

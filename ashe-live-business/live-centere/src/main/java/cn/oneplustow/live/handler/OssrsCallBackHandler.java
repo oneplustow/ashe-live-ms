@@ -11,6 +11,9 @@ import cn.oneplustow.live.vo.OssrsCallBackDto;
  */
 public interface OssrsCallBackHandler {
 
+    int SUCCESS = 0;
+    int FAILURE = 1;
+
     /**
      * 执行具体的回调事件
      * @param ossrsCallBackDto 回调实体数据

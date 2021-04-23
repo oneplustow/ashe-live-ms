@@ -1,8 +1,10 @@
 package cn.oneplustow.live.handler;
 
+import cn.oneplustow.live.service.IPlayRoomService;
 import cn.oneplustow.live.vo.OssrsCallBackDto;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,8 +19,16 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class OnPlayOssrsCallBackHandler implements OssrsCallBackHandler{
+
+    @Autowired
+    private IPlayRoomService iPlayRoomService;
+
     @Override
     public int callBack(OssrsCallBackDto ossrsCallBackDto) {
+        String param = ossrsCallBackDto.getParam();
+        JSONObject jsonObject = JSONObject.parseObject(param);
+        String rommId = jsonObject.getString("id");
+        iPlayRoomService.viewPlay(rommId);
         log.info(JSONObject.toJSONString(ossrsCallBackDto));
         return 0;
     }
