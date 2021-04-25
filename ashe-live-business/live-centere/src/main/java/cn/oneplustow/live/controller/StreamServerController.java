@@ -9,6 +9,7 @@ import cn.oneplustow.config.db.util.PageUtil;
 import java.util.List;
 import java.util.Arrays;
 
+import io.swagger.annotations.Api;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ import cn.oneplustow.live.service.IStreamServerService;
  * @author cc
  * @date 2021-04-09
  */
+@Api(tags = "流服务器信息")
 @RestController
 @RequestMapping("/steamServer" )
 public class StreamServerController extends BaseController {

@@ -22,7 +22,7 @@ import java.util.List;
  *
  * @author ruoyi
  */
-@Api(description = "字典数据控制器")
+@Api(tags = "字典数据控制器")
 @RestController
 @RequestMapping("/system/dict/data")
 public class SysDictDataController extends BaseController

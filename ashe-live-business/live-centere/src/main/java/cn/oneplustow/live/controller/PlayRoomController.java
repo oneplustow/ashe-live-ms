@@ -11,6 +11,7 @@ import cn.oneplustow.live.entity.PlayRoom;
 import cn.oneplustow.live.service.IPlayRoomService;
 import cn.oneplustow.live.vo.QueryPlayRoomDto;
 import cn.oneplustow.live.vo.SavePlayRoomDto;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,7 @@ import java.util.List;
  * @author cc
  * @date 2021-04-14
  */
+@Api(tags = "直播间管理")
 @RestController
 @RequestMapping("/playRoom" )
 public class PlayRoomController extends BaseController {
@@ -67,7 +69,7 @@ public class PlayRoomController extends BaseController {
     @Log(title = "直播间管理" , businessType = BusinessType.INSERT)
     @PostMapping("/openUp")
     public AjaxResult openUp(String name) {
-        return toAjax(playRoomService.openUp(name,SecurityUtils.getUserId()));
+        return toAjax(playRoomService.openUp(name,1L/*SecurityUtils.getUserId()*/));
     }
 
     /**

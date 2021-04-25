@@ -22,7 +22,7 @@ import java.util.List;
  *
  * @author ruoyi
  */
-@Api(description = "部门信息控制器")
+@Api(tags = "部门信息控制器")
 @RestController
 @RequestMapping("/system/dept")
 public class SysDeptController extends BaseController

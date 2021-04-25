@@ -8,6 +8,7 @@ import cn.oneplustow.common.web.domain.AjaxResult;
 import cn.oneplustow.config.db.util.PageUtil;
 import cn.oneplustow.user.entity.SysConfig;
 import cn.oneplustow.user.service.ISysConfigService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -20,6 +21,7 @@ import java.util.List;
  * 
  * @author ruoyi
  */
+@Api(tags = "参数配置")
 @RestController
 @RequestMapping("/system/config")
 public class SysConfigController extends BaseController

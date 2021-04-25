@@ -24,7 +24,7 @@ import java.util.List;
  *
  * @author ruoyi
  */
-@Api(description = "菜单控制器")
+@Api(tags = "菜单控制器")
 @RestController
 @RequestMapping("/system/menu")
 public class SysMenuController extends BaseController

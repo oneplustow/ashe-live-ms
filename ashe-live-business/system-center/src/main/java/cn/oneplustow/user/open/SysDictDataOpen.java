@@ -22,7 +22,7 @@ import java.util.List;
  *
  * @author ruoyi
  */
-@Api(description = "用户信息控制器")
+@Api(tags = "用户信息控制器")
 @RestController
 @RequestMapping("/fegin/system/dictData")
 public class SysDictDataOpen extends BaseController

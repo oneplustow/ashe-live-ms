@@ -12,6 +12,7 @@ import cn.oneplustow.live.entity.PlayRecord;
 import cn.oneplustow.live.service.IPlayRecordService;
 import cn.oneplustow.live.vo.QueryPlayRoomDto;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,7 @@ import java.util.List;
  * @author cc
  * @date 2021-04-14
  */
+@Api(tags = "直播记录")
 @RestController
 @RequestMapping("/playRecord" )
 public class PlayRecordController extends BaseController {

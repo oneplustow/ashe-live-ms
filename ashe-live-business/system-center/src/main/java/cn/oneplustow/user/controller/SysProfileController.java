@@ -25,7 +25,7 @@ import java.io.IOException;
  *
  * @author ruoyi
  */
-@Api(description = "个人信息控制器")
+@Api(tags = "个人信息控制器")
 @RestController
 @RequestMapping("/system/user/profile")
 public class SysProfileController extends BaseController

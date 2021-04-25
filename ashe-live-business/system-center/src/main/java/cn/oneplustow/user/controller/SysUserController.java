@@ -27,7 +27,7 @@ import java.util.List;
  *
  * @author ruoyi
  */
-@Api(description = "用户信息控制器")
+@Api(tags = "用户信息控制器")
 @RestController
 @RequestMapping("/system/user")
 public class SysUserController extends BaseController

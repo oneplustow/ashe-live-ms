@@ -23,7 +23,7 @@ import java.util.List;
  *
  * @author ruoyi
  */
-@Api(description = "岗位信息控制器")
+@Api(tags = "岗位信息控制器")
 @RestController
 @RequestMapping("/system/post")
 public class SysPostController extends BaseController

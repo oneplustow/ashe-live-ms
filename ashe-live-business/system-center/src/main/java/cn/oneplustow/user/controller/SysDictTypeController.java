@@ -23,7 +23,7 @@ import java.util.List;
  * 
  * @author ruoyi
  */
-@Api(description = "字典类型控制器")
+@Api(tags = "字典类型控制器")
 @RestController
 @RequestMapping("/system/dict/type")
 public class SysDictTypeController extends BaseController

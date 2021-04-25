@@ -20,7 +20,7 @@ import java.util.Set;
  *
  * @author ruoyi
  */
-@Api(description = "用户信息控制器")
+@Api(tags = "用户信息控制器")
 @RestController
 @RequestMapping("/fegin/system/menu")
 public class SysMenuOpen extends BaseController

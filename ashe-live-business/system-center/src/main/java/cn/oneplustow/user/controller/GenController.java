@@ -11,6 +11,7 @@ import cn.oneplustow.user.entity.GenTable;
 import cn.oneplustow.user.entity.GenTableColumn;
 import cn.oneplustow.user.service.IGenTableColumnService;
 import cn.oneplustow.user.service.IGenTableService;
+import io.swagger.annotations.Api;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,6 +29,7 @@ import java.util.Map;
  * 
  * @author ruoyi
  */
+@Api(tags = "代码生成")
 @RestController
 @RequestMapping("/tool/gen")
 public class GenController extends BaseController

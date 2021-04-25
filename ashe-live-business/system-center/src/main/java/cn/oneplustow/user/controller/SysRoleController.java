@@ -23,7 +23,7 @@ import java.util.List;
  *
  * @author ruoyi
  */
-@Api(description = "角色信息控制器")
+@Api(tags = "角色信息控制器")
 @RestController
 @RequestMapping("/system/role")
 public class SysRoleController extends BaseController
