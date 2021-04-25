@@ -4,6 +4,10 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.ToString;
 
 /**
+ * 事件说明
+ * 推流: connect->publish->close
+ * 播放：play->close
+ *
  * @author CC
  * @title: OssrsCallBackAction
  * @projectName ashe-live-ms

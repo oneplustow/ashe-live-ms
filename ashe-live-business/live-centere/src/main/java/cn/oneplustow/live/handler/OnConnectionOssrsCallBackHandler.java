@@ -19,10 +19,8 @@ import org.springframework.stereotype.Component;
 public class OnConnectionOssrsCallBackHandler implements OssrsCallBackHandler{
     @Override
     public int callBack(OssrsCallBackDto ossrsCallBackDto) {
-        String app = ossrsCallBackDto.getApp();
-
         log.info(JSONObject.toJSONString(ossrsCallBackDto));
-        return 0;
+        return SUCCESS;
     }
 
     @Override

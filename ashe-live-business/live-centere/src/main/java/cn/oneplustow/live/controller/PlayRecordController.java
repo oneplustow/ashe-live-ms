@@ -36,7 +36,7 @@ public class PlayRecordController extends BaseController {
     /**
      * 查询直播记录列表
      */
-    @PreAuthorize("@ss.hasPermi('live:PlayRecord:list')" )
+    @PreAuthorize("@ss.hasPermi('live:playRecord:list')" )
     @GetMapping("/list" )
     public AjaxResult list(PlayRecord playRecord) {
         List<PlayRecord> list = playRecordService.page(playRecord);
@@ -48,7 +48,7 @@ public class PlayRecordController extends BaseController {
     /**
      * 获取直播记录详细信息
      */
-    @PreAuthorize("@ss.hasPermi('live:PlayRecord:query')" )
+    @PreAuthorize("@ss.hasPermi('live:playRecord:query')" )
     @GetMapping(value = "/{id}" )
     public AjaxResult getInfo(@PathVariable("id" ) Long id) {
         return AjaxResult.success(playRecordService.getById(id));
@@ -57,7 +57,7 @@ public class PlayRecordController extends BaseController {
     /**
      * 新增直播记录
      */
-    @PreAuthorize("@ss.hasPermi('live:PlayRecord:add')" )
+    @PreAuthorize("@ss.hasPermi('live:playRecord:add')" )
     @Log(title = "直播记录" , businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody PlayRecord playRecord) {
@@ -67,7 +67,7 @@ public class PlayRecordController extends BaseController {
     /**
      * 修改直播记录
      */
-    @PreAuthorize("@ss.hasPermi('live:PlayRecord:edit')" )
+    @PreAuthorize("@ss.hasPermi('live:playRecord:edit')" )
     @Log(title = "直播记录" , businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody PlayRecord playRecord) {
@@ -77,7 +77,7 @@ public class PlayRecordController extends BaseController {
     /**
      * 删除直播记录
      */
-    @PreAuthorize("@ss.hasPermi('live:PlayRecord:remove')" )
+    @PreAuthorize("@ss.hasPermi('live:playRecord:remove')" )
     @Log(title = "直播记录" , businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}" )
     public AjaxResult remove(@PathVariable Long[] ids) {

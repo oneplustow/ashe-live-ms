@@ -24,7 +24,7 @@ import cn.oneplustow.live.service.IStreamServerService;
  */
 @Api(tags = "流服务器信息")
 @RestController
-@RequestMapping("/steamServer" )
+@RequestMapping("/streamServer" )
 public class StreamServerController extends BaseController {
     @Autowired
     private IStreamServerService streamServerService;
@@ -32,7 +32,7 @@ public class StreamServerController extends BaseController {
     /**
      * 查询流服务器信息列表
      */
-    @PreAuthorize("@ss.hasPermi('live:SteamServer:list')" )
+    @PreAuthorize("@ss.hasPermi('live:streamServer:list')" )
     @GetMapping("/list" )
     public AjaxResult list(StreamServer streamServer) {
         List<StreamServer> list = streamServerService.page(streamServer);
@@ -43,7 +43,7 @@ public class StreamServerController extends BaseController {
     /**
      * 获取流服务器信息详细信息
      */
-    @PreAuthorize("@ss.hasPermi('live:SteamServer:query')" )
+    @PreAuthorize("@ss.hasPermi('live:streamServer:query')" )
     @GetMapping(value = "/{id}" )
     public AjaxResult getInfo(@PathVariable("id" ) Integer id) {
         return AjaxResult.success(streamServerService.getById(id));
@@ -52,7 +52,7 @@ public class StreamServerController extends BaseController {
     /**
      * 新增流服务器信息
      */
-    @PreAuthorize("@ss.hasPermi('live:SteamServer:add')" )
+    @PreAuthorize("@ss.hasPermi('live:streamServer:add')" )
     @Log(title = "流服务器信息" , businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody StreamServer streamServer) {
@@ -62,7 +62,7 @@ public class StreamServerController extends BaseController {
     /**
      * 修改流服务器信息
      */
-    @PreAuthorize("@ss.hasPermi('live:SteamServer:edit')" )
+    @PreAuthorize("@ss.hasPermi('live:streamServer:edit')" )
     @Log(title = "流服务器信息" , businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody StreamServer streamServer) {
@@ -72,7 +72,7 @@ public class StreamServerController extends BaseController {
     /**
      * 删除流服务器信息
      */
-    @PreAuthorize("@ss.hasPermi('live:SteamServer:remove')" )
+    @PreAuthorize("@ss.hasPermi('live:streamServer:remove')" )
     @Log(title = "流服务器信息" , businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}" )
     public AjaxResult remove(@PathVariable Integer[] ids) {

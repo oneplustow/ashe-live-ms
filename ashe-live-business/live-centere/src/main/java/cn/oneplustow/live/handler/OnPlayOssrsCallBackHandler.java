@@ -25,12 +25,12 @@ public class OnPlayOssrsCallBackHandler implements OssrsCallBackHandler{
 
     @Override
     public int callBack(OssrsCallBackDto ossrsCallBackDto) {
-        String param = ossrsCallBackDto.getParam();
-        JSONObject jsonObject = JSONObject.parseObject(param);
-        String rommId = jsonObject.getString("id");
-        iPlayRoomService.viewPlay(rommId);
+//        String param = ossrsCallBackDto.getParam();
+//        JSONObject jsonObject = JSONObject.parseObject(param);
+//        String rommId = jsonObject.getString("id");
+//        iPlayRoomService.viewPlay(rommId);
         log.info(JSONObject.toJSONString(ossrsCallBackDto));
-        return 0;
+        return SUCCESS;
     }
 
     @Override

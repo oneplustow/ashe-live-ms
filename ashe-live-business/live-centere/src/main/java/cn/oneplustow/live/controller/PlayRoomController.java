@@ -35,7 +35,7 @@ public class PlayRoomController extends BaseController {
     /**
      * 查询直播间管理列表
      */
-    @PreAuthorize("@ss.hasPermi('live:PlayRoom:list')" )
+    @PreAuthorize("@ss.hasPermi('live:playRoom:list')" )
     @GetMapping("/list" )
     public AjaxResult list(QueryPlayRoomDto playRoom) {
         List<PlayRoom> list = playRoomService.selectPage(playRoom);
@@ -46,7 +46,7 @@ public class PlayRoomController extends BaseController {
     /**
      * 获取直播间管理详细信息
      */
-    @PreAuthorize("@ss.hasPermi('live:PlayRoom:query')" )
+    @PreAuthorize("@ss.hasPermi('live:playRoom:query')" )
     @GetMapping(value = "/{id}" )
     public AjaxResult getInfo(@PathVariable("id" ) Long id) {
         return AjaxResult.success(playRoomService.getPlayRoomById(id));
@@ -55,7 +55,7 @@ public class PlayRoomController extends BaseController {
     /**
      * 新增直播间
      */
-    @PreAuthorize("@ss.hasPermi('live:PlayRoom:add')" )
+    @PreAuthorize("@ss.hasPermi('live:playRoom:add')" )
     @Log(title = "直播间管理" , businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody SavePlayRoomDto savePlayRoomDto) {
@@ -65,7 +65,7 @@ public class PlayRoomController extends BaseController {
     /**
      * 开通直播间
      */
-    @PreAuthorize("@ss.hasPermi('live:PlayRoom:add')" )
+    @PreAuthorize("@ss.hasPermi('live:playRoom:add')" )
     @Log(title = "直播间管理" , businessType = BusinessType.INSERT)
     @PostMapping("/openUp")
     public AjaxResult openUp(String name) {
@@ -75,7 +75,7 @@ public class PlayRoomController extends BaseController {
     /**
      * 修改直播间管理
      */
-    @PreAuthorize("@ss.hasPermi('live:PlayRoom:edit')" )
+    @PreAuthorize("@ss.hasPermi('live:playRoom:edit')" )
     @Log(title = "直播间管理" , businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody SavePlayRoomDto savePlayRoomDto) {
@@ -85,7 +85,7 @@ public class PlayRoomController extends BaseController {
     /**
      * 删除直播间管理
      */
-    @PreAuthorize("@ss.hasPermi('live:PlayRoom:remove')" )
+    @PreAuthorize("@ss.hasPermi('live:playRoom:remove')" )
     @Log(title = "直播间管理" , businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}" )
     public AjaxResult remove(@PathVariable Long[] ids) {

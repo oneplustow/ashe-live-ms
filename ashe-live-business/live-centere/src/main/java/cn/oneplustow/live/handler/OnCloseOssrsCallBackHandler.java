@@ -25,8 +25,8 @@ public class OnCloseOssrsCallBackHandler implements OssrsCallBackHandler{
 
     @Override
     public int callBack(OssrsCallBackDto ossrsCallBackDto) {
-        iPlayRoomService.unViewPlay(ossrsCallBackDto.getApp());
-        return 0;
+        log.info(JSONObject.toJSONString(ossrsCallBackDto));
+        return SUCCESS;
     }
 
     @Override
