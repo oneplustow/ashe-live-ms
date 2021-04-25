@@ -23,7 +23,7 @@ public class MapStructContext {
 
     private List<IMapStruct> iMapStructs;
 
-    @Autowired
+    @Autowired(required = false)
     public void setiMapStructs(List<IMapStruct> iMapStructs) {
         this.iMapStructs = iMapStructs;
     }
