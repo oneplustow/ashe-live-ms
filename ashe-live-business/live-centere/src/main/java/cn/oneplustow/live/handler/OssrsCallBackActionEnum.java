@@ -6,7 +6,7 @@ import lombok.ToString;
 /**
  * 事件说明
  * 推流: connect->publish->close
- * 播放：play->close
+ * 播放：play->stop
  *
  * @author CC
  * @title: OssrsCallBackAction
