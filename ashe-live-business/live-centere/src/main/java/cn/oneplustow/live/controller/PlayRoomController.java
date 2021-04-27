@@ -56,7 +56,7 @@ public class PlayRoomController extends BaseController {
      * 新增直播间
      */
     @PreAuthorize("@ss.hasPermi('live:playRoom:add')" )
-    @Log(title = "直播间管理" , businessType = BusinessType.INSERT)
+    @Log(title = "新增直播间" , businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody SavePlayRoomDto savePlayRoomDto) {
         return toAjax(playRoomService.savePlayRoom(savePlayRoomDto));
@@ -66,27 +66,27 @@ public class PlayRoomController extends BaseController {
      * 开通直播间
      */
     @PreAuthorize("@ss.hasPermi('live:playRoom:add')" )
-    @Log(title = "直播间管理" , businessType = BusinessType.INSERT)
+    @Log(title = "开通直播间" , businessType = BusinessType.INSERT)
     @PostMapping("/openUp")
     public AjaxResult openUp(String name) {
         return toAjax(playRoomService.openUp(name,1L/*SecurityUtils.getUserId()*/));
     }
 
     /**
-     * 修改直播间管理
+     * 修改直播间
      */
     @PreAuthorize("@ss.hasPermi('live:playRoom:edit')" )
-    @Log(title = "直播间管理" , businessType = BusinessType.UPDATE)
+    @Log(title = "修改直播间" , businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody SavePlayRoomDto savePlayRoomDto) {
         return toAjax(playRoomService.savePlayRoom(savePlayRoomDto));
     }
 
     /**
-     * 删除直播间管理
+     * 删除直播间
      */
     @PreAuthorize("@ss.hasPermi('live:playRoom:remove')" )
-    @Log(title = "直播间管理" , businessType = BusinessType.DELETE)
+    @Log(title = "删除直播间" , businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}" )
     public AjaxResult remove(@PathVariable Long[] ids) {
         return toAjax(playRoomService.delPlayRoom(Arrays.asList(ids)));

@@ -70,3 +70,4 @@ mybatis-plus:
   configuration:
     call-setters-on-nulls: true
     cache-enabled: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

@@ -1,6 +1,7 @@
 package cn.oneplustow.live.service.impl;
 
 
+import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
@@ -53,18 +54,25 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
         PlayRoom playRoom = mapStructContext.conver(savePlayRoomDto, PlayRoom.class);
 
         if(playRoom.getId() == null){
-            String roomNumber = IdUtil.simpleUUID();
-            if(StrUtil.isBlank(playRoom.getRoomNumbe())) {
-                playRoom.setRoomNumbe(roomNumber);
-            }
-            playRoom.setSteamApp(playRoom.getRoomNumbe());
-            playRoom.setSteamPassword(playRoom.getRoomNumbe());
-            StreamServer available = streamServerService.getAvailable();
-            String stream = StrUtil.format(streamTemplate, available.getIp(), available.getPort(), playRoom.getSteamApp());
-            playRoom.setSteamUrl(stream);
+            initPlayRoom(playRoom);
             return this.save(playRoom);
         }
         return this.updateById(playRoom);
+    }
+
+    private void initPlayRoom(PlayRoom playRoom){
+        Long userId = playRoom.getUserId();
+        int count = this.count(new LambdaQueryWrapper<PlayRoom>().eq(PlayRoom::getUserId, userId));
+        Assert.isTrue(count == 0,"当前用户已经拥有直播间");
+        String roomNumber = IdUtil.simpleUUID();
+        if(StrUtil.isBlank(playRoom.getRoomNumbe())) {
+            playRoom.setRoomNumbe(roomNumber);
+        }
+        playRoom.setSteamApp(playRoom.getRoomNumbe());
+        playRoom.setSteamPassword(playRoom.getRoomNumbe());
+        StreamServer available = streamServerService.getAvailable();
+        String stream = StrUtil.format(streamTemplate, available.getIp(), available.getPort(), playRoom.getSteamApp());
+        playRoom.setSteamUrl(stream);
     }
 
     @Override

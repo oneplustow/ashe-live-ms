@@ -71,30 +71,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>com.google.cloud.tools</groupId>
-                <artifactId>jib-maven-plugin</artifactId>
-                <version>1.6.1</version>
-                <configuration>
-                    <!--基础镜像，来自dockerhub,如果是私服，需要加上鉴权信息，和to下的auth节点相同-->
-                    <from>
-                        <image>openjdk:8-jdk-alpine</image>
-                    </from>
-                    <!--构建后的镜像名称以及私服地址、鉴权信息-->
-                    <to>
-                        <image>registry.cn-beijing.aliyuncs.com/oneplustow/${project.name}</image>
-                        <auth>
-                            <username>cc@oneplustow.cn</username>
-                            <password>cc2020920.</password>
-                        </auth>
-                        <tags>
-                            <tag>latest</tag>
-                        </tags>
-                    </to>
-                    <!--允许非https-->
-                    <allowInsecureRegistries>true</allowInsecureRegistries>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 </project>
