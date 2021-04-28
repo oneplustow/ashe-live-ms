@@ -15,7 +15,7 @@
     <modules>
         <module>system-center</module>
         <module>auth-center</module>
-        <module>live-centere</module>
+        <module>live-center</module>
         <module>message-center</module>
     </modules>
 
