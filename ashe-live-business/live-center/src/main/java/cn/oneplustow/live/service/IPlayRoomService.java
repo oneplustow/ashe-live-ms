@@ -2,6 +2,7 @@ package cn.oneplustow.live.service;
 
 
 import cn.oneplustow.live.entity.PlayRoom;
+import cn.oneplustow.live.vo.PlayRoomDetailVo;
 import cn.oneplustow.live.vo.QueryPlayRoomDto;
 import cn.oneplustow.live.vo.SavePlayRoomDto;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -26,37 +27,37 @@ public interface IPlayRoomService {
     /**
      * 观看直播接口
      * 会将观看人数加一
-     * @param id
+     * @param roomNumber 房间号
      * @return
      */
-    Boolean viewPlay(String id);
+    Boolean viewPlay(String roomNumber);
 
     /**
      * 退出观看直播接口
      * 会将观看人数减一
-     * @param app
+     * @param roomNumbe 房间号
      * @return
      */
-    Boolean unViewPlay(String app);
+    Boolean unViewPlay(String roomNumbe);
 
     /**
      * 开始推流接口（同时带验证功能）
      * 会验证app和stream是否匹配
      * 会将直播间状态修改为正在直播状态
-     * @param app
-     * @param stream
+     * @param roomNumbe
+     * @param password
      * @return 验证和修改成功返回true， 否则返回false
      */
-    Boolean startPush(String app, String stream);
+    Boolean startPush(String roomNumbe, String password);
 
     /**
      * 停止推流接口
      * 会将直播间状态修改为等待推送状态
-     * @param app
-     * @param stream
+     * @param roomNumbe
+     * @param password
      * @return
      */
-    Boolean stopPush(String app, String stream);
+    Boolean stopPush(String roomNumbe, String password);
 
     /**
      * 删除直播间
@@ -76,9 +77,10 @@ public interface IPlayRoomService {
     /**
      * 获取直播间详情
      * @param id
+     * @param userId
      * @return
      */
-    PlayRoom getPlayRoomById(Long id);
+    PlayRoomDetailVo getPlayRoomByIdOrUserId(Long id,Long userId);
 
     /**
      * 开通直播间
@@ -87,4 +89,5 @@ public interface IPlayRoomService {
      * @return
      */
     boolean openUp(String name, Long userId);
+
 }

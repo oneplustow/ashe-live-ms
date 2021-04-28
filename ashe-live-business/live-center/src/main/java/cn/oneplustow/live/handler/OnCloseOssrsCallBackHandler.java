@@ -24,9 +24,12 @@ public class OnCloseOssrsCallBackHandler implements OssrsCallBackHandler{
     private IPlayRoomService iPlayRoomService;
 
     @Override
-    public int callBack(OssrsCallBackDto ossrsCallBackDto) {
+    public boolean callBack(OssrsCallBackDto ossrsCallBackDto) {
         log.info(JSONObject.toJSONString(ossrsCallBackDto));
-        return SUCCESS;
+        String roomNumber = ossrsCallBackDto.getApp();
+        String password = ossrsCallBackDto.getStream();
+        iPlayRoomService.stopPush(roomNumber,password);
+        return true;
     }
 
     @Override

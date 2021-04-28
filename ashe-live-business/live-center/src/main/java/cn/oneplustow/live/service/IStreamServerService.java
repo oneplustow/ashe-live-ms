@@ -1,6 +1,8 @@
 package cn.oneplustow.live.service;
 
 import cn.oneplustow.live.entity.StreamServer;
+import cn.oneplustow.live.vo.QueryStreamServerDto;
+import cn.oneplustow.live.vo.SaveStreamServerDto;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -11,14 +13,21 @@ import java.util.List;
  * @author cc
  * @date 2021-04-09
  */
-public interface IStreamServerService extends IService<StreamServer>{
+public interface IStreamServerService {
 
     /**
      *
      * @param streamServer
      * @return
      */
-    List<StreamServer> page(StreamServer streamServer);
+    List<StreamServer> page(QueryStreamServerDto streamServer);
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    StreamServer getStreamServerById(Long id);
 
     /**
      * 获取一个可用的服务器
@@ -53,4 +62,10 @@ public interface IStreamServerService extends IService<StreamServer>{
      * @throws Exception
      */
     boolean heartBeatDetection(String ip, Integer port)throws Exception;
+
+    boolean addStreamServer(SaveStreamServerDto streamServer);
+
+    boolean updateStreamServer(SaveStreamServerDto streamServer);
+
+    boolean delById(List<Integer> asList);
 }

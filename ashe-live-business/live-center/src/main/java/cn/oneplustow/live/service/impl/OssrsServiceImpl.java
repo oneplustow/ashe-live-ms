@@ -17,9 +17,9 @@ import org.springframework.stereotype.Service;
 @Service("ossrsService")
 public class OssrsServiceImpl implements IOssrsService {
     /**成功的情况下返回给ossrs服务器的*/
-    private int success = 0;
+    private static final int SUCCESS = 0;
     /**失败情况下返回给ossrs服务器*/
-    private int fail = 1;
+    private static final int FAIL = 1;
 
     @Autowired
     private OssrsCallBackHandlerFactory callBackHandlerFactory;
@@ -27,6 +27,6 @@ public class OssrsServiceImpl implements IOssrsService {
     @Override
     public int callBack(OssrsCallBackDto ossrsCallBackDto) {
         OssrsCallBackHandler ossrsCallBackHandler = callBackHandlerFactory.getOssrsCallBackHandler(ossrsCallBackDto.getAction());
-        return ossrsCallBackHandler.callBack(ossrsCallBackDto);
+        return ossrsCallBackHandler.callBack(ossrsCallBackDto) ? SUCCESS : FAIL;
     }
 }

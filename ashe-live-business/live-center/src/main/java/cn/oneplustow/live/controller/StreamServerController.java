@@ -9,6 +9,8 @@ import cn.oneplustow.config.db.util.PageUtil;
 import java.util.List;
 import java.util.Arrays;
 
+import cn.oneplustow.live.vo.QueryStreamServerDto;
+import cn.oneplustow.live.vo.SaveStreamServerDto;
 import io.swagger.annotations.Api;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +36,8 @@ public class StreamServerController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('live:streamServer:list')" )
     @GetMapping("/list" )
-    public AjaxResult list(StreamServer streamServer) {
-        List<StreamServer> list = streamServerService.page(streamServer);
+    public AjaxResult list(QueryStreamServerDto queryStreamServerDto) {
+        List<StreamServer> list = streamServerService.page(queryStreamServerDto);
         return AjaxResult.success(PageUtil.getDataTable(list));
     }
 
@@ -45,8 +47,8 @@ public class StreamServerController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('live:streamServer:query')" )
     @GetMapping(value = "/{id}" )
-    public AjaxResult getInfo(@PathVariable("id" ) Integer id) {
-        return AjaxResult.success(streamServerService.getById(id));
+    public AjaxResult getInfo(@PathVariable("id" ) Long id) {
+        return AjaxResult.success(streamServerService.getStreamServerById(id));
     }
 
     /**
@@ -55,8 +57,8 @@ public class StreamServerController extends BaseController {
     @PreAuthorize("@ss.hasPermi('live:streamServer:add')" )
     @Log(title = "流服务器信息" , businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody StreamServer streamServer) {
-        return toAjax(streamServerService.save(streamServer) ? 1 : 0);
+    public AjaxResult add(@RequestBody SaveStreamServerDto streamServer) {
+        return toAjax(streamServerService.addStreamServer(streamServer));
     }
 
     /**
@@ -65,8 +67,8 @@ public class StreamServerController extends BaseController {
     @PreAuthorize("@ss.hasPermi('live:streamServer:edit')" )
     @Log(title = "流服务器信息" , businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody StreamServer streamServer) {
-        return toAjax(streamServerService.updateById(streamServer) ? 1 : 0);
+    public AjaxResult edit(@RequestBody SaveStreamServerDto streamServer) {
+        return toAjax(streamServerService.updateStreamServer(streamServer));
     }
 
     /**
@@ -76,7 +78,7 @@ public class StreamServerController extends BaseController {
     @Log(title = "流服务器信息" , businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}" )
     public AjaxResult remove(@PathVariable Integer[] ids) {
-        return toAjax(streamServerService.removeByIds(Arrays.asList(ids)) ? 1 : 0);
+        return toAjax(streamServerService.delById(Arrays.asList(ids)));
     }
 
     /**
@@ -84,7 +86,7 @@ public class StreamServerController extends BaseController {
      */
     @Log(title = "测试连接流服务器" , businessType = BusinessType.QUERY)
     @PostMapping("/connection" )
-    public AjaxResult connection(@RequestBody StreamServer streamServer) {
-        return AjaxResult.success(streamServerService.heartBeatDetectionById(streamServer.getId()));
+    public AjaxResult connection(@RequestBody SaveStreamServerDto streamServerDto) {
+        return AjaxResult.success(streamServerService.heartBeatDetectionById(streamServerDto.getId()));
     }
 }

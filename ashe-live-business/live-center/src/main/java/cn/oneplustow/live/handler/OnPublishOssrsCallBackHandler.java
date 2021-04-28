@@ -24,15 +24,13 @@ public class OnPublishOssrsCallBackHandler implements OssrsCallBackHandler{
     private IPlayRoomService iPlayRoomService;
 
     @Override
-    public int callBack(OssrsCallBackDto ossrsCallBackDto) {
-        //相当于用户名
-        String app = ossrsCallBackDto.getApp();
-        //这里就是密码
-        String stream = ossrsCallBackDto.getStream();
-        Boolean success = iPlayRoomService.startPush(app,stream);
-        if(!success){return FAILURE;}
+    public boolean callBack(OssrsCallBackDto ossrsCallBackDto) {
         log.info(JSONObject.toJSONString(ossrsCallBackDto));
-        return SUCCESS;
+        //相当于用户名
+        String roomNumber = ossrsCallBackDto.getApp();
+        //这里就是密码
+        String password = ossrsCallBackDto.getStream();
+        return iPlayRoomService.startPush(roomNumber,password);
     }
 
     @Override

@@ -24,11 +24,9 @@ public class OnUnpublishOssrsCallBackHandler implements OssrsCallBackHandler{
     private IPlayRoomService iPlayRoomService;
 
     @Override
-    public int callBack(OssrsCallBackDto ossrsCallBackDto) {
-        String app = ossrsCallBackDto.getApp();
-        String stream = ossrsCallBackDto.getStream();
-        iPlayRoomService.stopPush(app,stream);
-        return 0;
+    public boolean callBack(OssrsCallBackDto ossrsCallBackDto) {
+        log.info(JSONObject.toJSONString(ossrsCallBackDto));
+        return true;
     }
 
     @Override

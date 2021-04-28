@@ -49,7 +49,16 @@ public class PlayRoomController extends BaseController {
     @PreAuthorize("@ss.hasPermi('live:playRoom:query')" )
     @GetMapping(value = "/{id}" )
     public AjaxResult getInfo(@PathVariable("id" ) Long id) {
-        return AjaxResult.success(playRoomService.getPlayRoomById(id));
+        return AjaxResult.success(playRoomService.getPlayRoomByIdOrUserId(id,null));
+    }
+
+    /**
+     * 获取当前登录用户直播间详细信息
+     */
+    @PreAuthorize("@ss.hasPermi('live:playRoom:query')" )
+    @GetMapping(value = "/getUserPlayRoom" )
+    public AjaxResult getInfoByUserId() {
+        return AjaxResult.success(playRoomService.getPlayRoomByIdOrUserId(null,SecurityUtils.getUserId()));
     }
 
     /**
@@ -69,7 +78,7 @@ public class PlayRoomController extends BaseController {
     @Log(title = "开通直播间" , businessType = BusinessType.INSERT)
     @PostMapping("/openUp")
     public AjaxResult openUp(String name) {
-        return toAjax(playRoomService.openUp(name,1L/*SecurityUtils.getUserId()*/));
+        return toAjax(playRoomService.openUp(name,SecurityUtils.getUserId()));
     }
 
     /**

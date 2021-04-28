@@ -1,6 +1,7 @@
 package cn.oneplustow.live.entity;
 
 import cn.oneplustow.common.annoatation.Excel;
+import cn.oneplustow.config.db.model.BaseEntity;
 import cn.oneplustow.config.db.model.SysBaseEntity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -15,14 +16,11 @@ import lombok.Data;
  */
 @Data
 @TableName("live_stream_server")
-public class StreamServer extends SysBaseEntity
+public class StreamServer extends BaseEntity
 {
 
     private static final long serialVersionUID = 1L;
 
-    /** 流服务器ID */
-    @TableId(type = IdType.AUTO)
-    private Integer id;
 
     /** 流服务器名称 */
     @Excel(name = "流服务器名称")
@@ -45,12 +43,10 @@ public class StreamServer extends SysBaseEntity
     /** 拉流数量 */
     private Integer pullSteamCount;
 
-    /** 状态（0正常 1停用） */
-    @Excel(name = "状态", readConverterExp = "0=正常,1=停用")
+    /** 状态<p/>
+     * {@link cn.oneplustow.common.constant.DbConstants.SteamServerStatus}
+     */
     private String status;
-
-    /** 删除标志（0代表存在 2代表删除） */
-    private String delFlag;
 
 
 

@@ -18,9 +18,9 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class OnDvrOssrsCallBackHandler implements OssrsCallBackHandler{
     @Override
-    public int callBack(OssrsCallBackDto ossrsCallBackDto) {
+    public boolean callBack(OssrsCallBackDto ossrsCallBackDto) {
         log.info(JSONObject.toJSONString(ossrsCallBackDto));
-        return 0;
+        return true;
     }
 
     @Override

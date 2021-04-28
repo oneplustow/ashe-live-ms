@@ -11,15 +11,14 @@ import cn.oneplustow.live.vo.OssrsCallBackDto;
  */
 public interface OssrsCallBackHandler {
 
-    int SUCCESS = 0;
-    int FAILURE = 1;
+
 
     /**
      * 执行具体的回调事件
      * @param ossrsCallBackDto 回调实体数据
      * @return 0代表成功 其他代表失败
      */
-    int callBack(OssrsCallBackDto ossrsCallBackDto);
+    boolean callBack(OssrsCallBackDto ossrsCallBackDto);
 
     /**
      * 判断当前是否可以处理当前回调事件
