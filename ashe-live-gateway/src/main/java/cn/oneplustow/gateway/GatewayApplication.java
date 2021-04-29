@@ -25,7 +25,7 @@ import springfox.documentation.swagger.web.InMemorySwaggerResourcesProvider;
  */
 @EnableFeignClients("cn.oneplustow.api")
 @EnableDiscoveryClient
-@SpringBootApplication(scanBasePackages = "cn.oneplustow.*"/*,exclude = OpenApiAutoConfiguration.class*/)
+@SpringBootApplication(scanBasePackages = "cn.oneplustow.*")
 public class GatewayApplication {
     public static void main(String[] args) {
         SpringApplication.run(GatewayApplication.class,args);
