@@ -46,14 +46,6 @@ public interface IStreamServerService {
     boolean heartBeatDetectionById(Integer id);
 
     /**
-     * 对指定的ip和port进行连接测试
-     * @param ip 服务器ip
-     * @param port 服务器端口
-     * @return 是否连接成功
-     */
-    boolean heartBeatDetectionTest(String ip, Integer port);
-
-    /**
      *
      * @param ip
      * @param port

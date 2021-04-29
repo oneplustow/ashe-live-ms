@@ -49,7 +49,7 @@ public class PlayRoomController extends BaseController {
     @PreAuthorize("@ss.hasPermi('lc:playRoom:query')" )
     @GetMapping(value = "/{id}" )
     public AjaxResult getInfo(@PathVariable("id" ) Long id) {
-        return AjaxResult.success(playRoomService.getPlayRoomByIdOrUserId(id,null));
+        return AjaxResult.success(playRoomService.getPlayRoomDetailVoByIdOrUserId(id,null));
     }
 
     /**
@@ -58,7 +58,7 @@ public class PlayRoomController extends BaseController {
     @PreAuthorize("@ss.hasPermi('lc:playRoom:query')" )
     @GetMapping(value = "/getUserPlayRoom" )
     public AjaxResult getInfoByUserId() {
-        return AjaxResult.success(playRoomService.getPlayRoomByIdOrUserId(null,SecurityUtils.getUserId()));
+        return AjaxResult.success(playRoomService.getPlayRoomDetailVoByIdOrUserId(null,SecurityUtils.getUserId()));
     }
 
     /**
@@ -80,6 +80,17 @@ public class PlayRoomController extends BaseController {
     public AjaxResult openUp(String name) {
         return toAjax(playRoomService.openUp(name,SecurityUtils.getUserId()));
     }
+
+    /**
+     * 开通直播间
+     */
+    @PreAuthorize("@ss.hasPermi('lc:playRoom:add')" )
+    @Log(title = "开始直播" , businessType = BusinessType.INSERT)
+    @PostMapping("/startLive")
+    public AjaxResult startLive() {
+        return AjaxResult.success(playRoomService.startLive(SecurityUtils.getUserId()));
+    }
+
 
     /**
      * 修改直播间

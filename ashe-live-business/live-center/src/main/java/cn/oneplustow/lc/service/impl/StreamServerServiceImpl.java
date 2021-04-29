@@ -7,7 +7,9 @@ import cn.oneplustow.common.verify.ValidatorContext;
 import cn.oneplustow.config.db.util.PageUtil;
 import cn.oneplustow.lc.entity.StreamServer;
 import cn.oneplustow.lc.mapper.StreamServerMapper;
+import cn.oneplustow.lc.service.IOssrsService;
 import cn.oneplustow.lc.service.IStreamServerService;
+import cn.oneplustow.lc.vo.OssrsSystemSummariesDto;
 import cn.oneplustow.lc.vo.QueryStreamServerDto;
 import cn.oneplustow.lc.vo.SaveStreamServerDto;
 import com.alibaba.fastjson.JSONObject;
@@ -40,6 +42,9 @@ public class StreamServerServiceImpl extends ServiceImpl<StreamServerMapper, Str
 
     @Autowired
     private ValidatorContext validatorContext;
+
+    @Autowired
+    private IOssrsService iOssrsService;
 
     @Override
     public boolean delById(List<Integer> idList) {
@@ -122,26 +127,7 @@ public class StreamServerServiceImpl extends ServiceImpl<StreamServerMapper, Str
     }
 
     @Override
-    public boolean heartBeatDetectionTest(String ip,Integer port) {
-        //这里如果解析错误，则说明返回的不是json
-        return heartBeatDetection(ip,port);
-    }
-
-
-    @Override
     public boolean heartBeatDetection(String ip,Integer port) {
-        String url = StrUtil.format(URL_TEMPLATE,ip,port);
-        //这里如果解析错误，则说明返回的不是json
-        String serverJsonRequest = HttpUtil.get(url);
-        boolean validate = JSONValidator.from(serverJsonRequest).validate();
-        if(!validate){
-            log.error("心跳检测错误，无法解析响应:{}",serverJsonRequest);
-            return false;
-        }
-        JSONObject serverRequest = JSONObject.parseObject(serverJsonRequest);
-        int code = serverRequest.getIntValue("code");
-        String serverId = serverRequest.getString("server");
-        //如果状态和serviceid 都OK 则说明服务器在线
-        return (code == 0 && StrUtil.isNotBlank(serverId));
+        return iOssrsService.connectinoOssrsServer(ip, port);
     }
 }

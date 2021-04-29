@@ -11,6 +11,7 @@ import cn.oneplustow.config.db.util.PageUtil;
 import cn.oneplustow.lc.entity.PlayRoom;
 import cn.oneplustow.lc.entity.StreamServer;
 import cn.oneplustow.lc.mapper.PlayRoomMapper;
+import cn.oneplustow.lc.service.IOssrsService;
 import cn.oneplustow.lc.service.IPlayRoomService;
 import cn.oneplustow.lc.service.IStreamServerService;
 import cn.oneplustow.lc.vo.PlayRoomDetailVo;
@@ -45,6 +46,9 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
     @Autowired
     private MapStructContext mapStructContext;
 
+    @Autowired
+    private IOssrsService ossrsService;
+
     @Override
     public Boolean delPlayRoom(List<Long> idList) {
         return this.removeByIds(idList);
@@ -68,16 +72,11 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
             playRoom.setRoomNumbe(IdUtil.simpleUUID());
         }
         playRoom.setStreamPassword(RandomUtil.randomString(6));
-        StreamServer available = streamServerService.getAvailable();
-        playRoom.setStreamServerId(available.getId());
     }
 
     @Override
-    public PlayRoomDetailVo getPlayRoomByIdOrUserId(Long id,Long userId) {
-        LambdaQueryChainWrapper<PlayRoom> wrapper = this.lambdaQuery();
-        if(id != null){wrapper.eq(PlayRoom::getId,id);}
-        if(userId != null){wrapper.eq(PlayRoom::getUserId,userId);}
-        PlayRoom playRoom = this.getOne(wrapper);
+    public PlayRoomDetailVo getPlayRoomDetailVoByIdOrUserId(Long id, Long userId) {
+        PlayRoom playRoom = getPlayRoomByIdOrUserId(id,userId);
         PlayRoomDetailVo playRoomDetailVo = mapStructContext.conver(playRoom, PlayRoomDetailVo.class);
         // todo 这里应该从用户中心获取
         playRoomDetailVo.setUserName("张三");
@@ -85,11 +84,23 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
         return playRoomDetailVo;
     }
 
+
+    private PlayRoom getPlayRoomByIdOrUserId(Long id,Long userId) {
+        LambdaQueryChainWrapper<PlayRoom> wrapper = this.lambdaQuery();
+        if(id != null){wrapper.eq(PlayRoom::getId,id);}
+        if(userId != null){wrapper.eq(PlayRoom::getUserId,userId);}
+        return this.getOne(wrapper);
+    }
+
+    /**
+     * 选取一个可用的服务器用于进行构建推流连接
+     * @param playRoom
+     * @return
+     */
     private String getStreamUrl(PlayRoom playRoom) {
-        Long streamServerId = playRoom.getStreamServerId();
-        StreamServer streamServerById = streamServerService.getStreamServerById(streamServerId);
-        String ip = streamServerById.getIp();
-        Integer port = streamServerById.getPort();
+        StreamServer available = streamServerService.getAvailable();
+        String ip = available.getIp();
+        Integer port = available.getPort();
         return StrUtil.format(streamTemplate,ip,port,playRoom.getRoomNumbe());
     }
 
@@ -116,6 +127,21 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
         savePlayRoomDto.setName(name);
         savePlayRoomDto.setUserId(userId);
         return this.savePlayRoom(savePlayRoomDto);
+    }
+
+    @Override
+    public PlayRoomDetailVo startLive(Long userId) {
+        PlayRoom playRoom = getPlayRoomByIdOrUserId(null, userId);
+        Assert.notNull(playRoom,"您已经在直播中");
+        Assert.isFalse(playRoom.getStatus() == WAIT_PUSH,"您已经在直播中");
+        Assert.isFalse(playRoom.getStatus() == START,"您已经在直播中");
+
+        playRoom.setStreamPassword(RandomUtil.randomString(6));
+        playRoom.setStatus(WAIT_PUSH);
+        this.updateById(playRoom);
+        PlayRoomDetailVo playRoomDetailVo = mapStructContext.conver(playRoom, PlayRoomDetailVo.class);
+        playRoomDetailVo.setSteamUrl(getStreamUrl(playRoom));
+        return playRoomDetailVo;
     }
 
     @Override
@@ -148,7 +174,7 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
 
 
     @Override
-    public Boolean startPush(String roomNumbe, String password) {
+    public Boolean startPush(String roomNumbe, String password,String clientId) {
         PlayRoom playRoom = getPlayRoomByAppAndPassword(roomNumbe, password);
         if(playRoom == null){
             log.info("房间号或密码错误：app:{},password:{}",roomNumbe,password);
@@ -161,21 +187,15 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
         //先干掉之前的推流 然后接入新的推流
         if(StrUtil.equals(playRoom.getStatus(),START)){
             log.info("用户已经推流了，但是再次推流");
-            // todo 这里需要加入踢流的逻辑
+            // 加入踢流的逻辑
+            String odlClientId = playRoom.getClientId();
+            //踢流
+            //ossrsService.eliminateStream(streamServer.getIp(),streamServer.getPort(),clientId);
         }
-        Boolean success = updateStatusByAppAndApssword(roomNumbe, password, null, START);
-        //如果验证成功，自动更新密码
-        if (success){
-            updatePassword(roomNumbe,RandomUtil.randomString(6));
-        }
-        return success;
-
-    }
-
-    private void updatePassword(String roomNumbe, String password) {
-        this.update(new LambdaUpdateWrapper<PlayRoom>()
-                .eq(PlayRoom::getRoomNumbe,roomNumbe)
-                .set(PlayRoom::getStreamPassword, password));
+        playRoom.setStatus(START);
+        playRoom.setClientId(clientId);
+        playRoom.setStreamPassword(RandomUtil.randomString(6));
+        return this.updateById(playRoom);
     }
 
     @Override
@@ -188,7 +208,6 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
                 .eq(PlayRoom::getRoomNumbe, roomNumbe)
                 .eq(PlayRoom::getStreamPassword, password));
         return playRoom;
-
     }
 
     private Boolean updateStatusByAppAndApssword(String roomNumbe,String password,String oldStatus,String newStatus){

@@ -47,7 +47,7 @@ public interface IPlayRoomService {
      * @param password
      * @return 验证和修改成功返回true， 否则返回false
      */
-    Boolean startPush(String roomNumbe, String password);
+    Boolean startPush(String roomNumbe, String password,String clientId);
 
     /**
      * 停止推流接口
@@ -79,7 +79,7 @@ public interface IPlayRoomService {
      * @param userId
      * @return
      */
-    PlayRoomDetailVo getPlayRoomByIdOrUserId(Long id,Long userId);
+    PlayRoomDetailVo getPlayRoomDetailVoByIdOrUserId(Long id, Long userId);
 
     /**
      * 开通直播间
@@ -89,4 +89,5 @@ public interface IPlayRoomService {
      */
     boolean openUp(String name, Long userId);
 
+    PlayRoomDetailVo startLive(Long userId);
 }
