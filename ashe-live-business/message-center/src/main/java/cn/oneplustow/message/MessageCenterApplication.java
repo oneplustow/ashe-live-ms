@@ -18,7 +18,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @author cc
  * @date 14/09/2020 14:07
  */
-@EnableScheduling
 @EnableFeignClients("cn.oneplustow.api")
 @MapperScan(value={"cn.oneplustow.message.mapper"})
 @EnableSpringUtil

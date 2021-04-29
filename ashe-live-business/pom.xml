@@ -17,6 +17,7 @@
         <module>auth-center</module>
         <module>live-center</module>
         <module>message-center</module>
+        <module>user-center</module>
     </modules>
 
     <dependencies>
