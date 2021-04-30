@@ -55,11 +55,11 @@ public class SysLoginController
      */
     @ApiOperation("登录接口")
     @PostMapping("/login")
-    public AjaxResult login(String username, String password, String code, String uuid)
+    public AjaxResult login(String username, String password, String code, String uuid,String clientType)
     {
         AjaxResult ajax = AjaxResult.success();
         // 生成令牌
-        String token = loginService.login(username, password, code, uuid);
+        String token = loginService.login(username, password, code, uuid, clientType);
         ajax.put(Constants.TOKEN, token);
         return ajax;
     }

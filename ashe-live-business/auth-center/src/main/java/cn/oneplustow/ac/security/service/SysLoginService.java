@@ -46,7 +46,7 @@ public class SysLoginService
      * @param uuid 唯一标识
      * @return 结果
      */
-    public String login(String username, String password, String code, String uuid)
+    public String login(String username, String password, String code, String uuid,String clientType)
     {
 //        String verifyKey = Constants.CAPTCHA_CODE_KEY + uuid;
 //        String captcha = redisCache.getCacheObject(verifyKey);
@@ -68,7 +68,7 @@ public class SysLoginService
         {
             // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
             authentication = authenticationManager
-                    .authenticate(new UsernamePasswordAuthenticationToken(username, password));
+                    .authenticate(new UsernamePasswordAuthenticationToken(clientType+":"+username, password));
         }
         catch (Exception e)
         {

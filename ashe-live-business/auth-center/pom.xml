@@ -22,6 +22,10 @@
         </dependency>
         <dependency>
             <groupId>cn.oneplustow</groupId>
+            <artifactId>user-center-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.oneplustow</groupId>
             <artifactId>auth-center-api</artifactId>
         </dependency>
         <dependency>

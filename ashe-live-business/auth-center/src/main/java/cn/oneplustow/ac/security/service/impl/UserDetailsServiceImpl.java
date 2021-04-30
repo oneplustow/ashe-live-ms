@@ -1,9 +1,13 @@
-package cn.oneplustow.ac.security.service;
+package cn.oneplustow.ac.security.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
+import cn.oneplustow.ac.security.service.SysPermissionService;
 import cn.oneplustow.api.sc.model.SysUserModel;
 import cn.oneplustow.api.sc.service.UserService;
 import cn.oneplustow.ac.entity.LoginUserDetails;
+import cn.oneplustow.api.uc.service.MemberService;
+import cn.oneplustow.api.uc.service.model.MemberModel;
 import cn.oneplustow.common.enume.UserStatus;
 import cn.oneplustow.common.exception.BaseException;
 import org.slf4j.Logger;
@@ -26,6 +30,8 @@ public class UserDetailsServiceImpl implements UserDetailsService
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private MemberService memberService;
 
     @Autowired
     private SysPermissionService permissionService;
@@ -33,6 +39,17 @@ public class UserDetailsServiceImpl implements UserDetailsService
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
     {
+        String[] clientTypeAndUserName = StrUtil.split(username, ":");
+        String clientType = clientTypeAndUserName.length < 2 ? "sc":clientTypeAndUserName[0];
+        if(StrUtil.equals(clientType,"sc")){
+            SysUserModel user = userService.getUserByName(username);
+        }
+        if(StrUtil.equals(clientType,"uc")){
+            log.info("用户中心登录 直接返回");
+            MemberModel member = memberService.getMemberByName(username);
+        }
+
+
         SysUserModel user = userService.getUserByName(username);
         if (ObjectUtil.isNull(user))
         {
