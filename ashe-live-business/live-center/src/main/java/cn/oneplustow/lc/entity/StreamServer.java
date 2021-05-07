@@ -35,10 +35,10 @@ public class StreamServer extends BaseEntity
     private Integer cpuUse;
 
     /** 推流数量 */
-    private Integer pushSteamCount;
+    private Integer pushStreamCount;
 
     /** 拉流数量 */
-    private Integer pullSteamCount;
+    private Integer pullStreamCount;
 
     /** 状态<p/>
      * {@link cn.oneplustow.common.constant.DbConstants.SteamServerStatus}

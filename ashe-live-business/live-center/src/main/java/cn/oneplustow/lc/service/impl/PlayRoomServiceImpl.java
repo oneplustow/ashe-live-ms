@@ -19,7 +19,6 @@ import cn.oneplustow.lc.vo.QueryPlayRoomDto;
 import cn.oneplustow.lc.vo.SavePlayRoomDto;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,13 +79,13 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
         PlayRoomDetailVo playRoomDetailVo = mapStructContext.conver(playRoom, PlayRoomDetailVo.class);
         // todo 这里应该从用户中心获取
         playRoomDetailVo.setUserName("张三");
-        playRoomDetailVo.setSteamUrl(getStreamUrl(playRoom));
+        playRoomDetailVo.setStreamUrl(getStreamUrl(playRoom));
         return playRoomDetailVo;
     }
 
 
     private PlayRoom getPlayRoomByIdOrUserId(Long id,Long userId) {
-        LambdaQueryChainWrapper<PlayRoom> wrapper = this.lambdaQuery();
+        LambdaQueryWrapper<PlayRoom> wrapper = new LambdaQueryWrapper<PlayRoom>();
         if(id != null){wrapper.eq(PlayRoom::getId,id);}
         if(userId != null){wrapper.eq(PlayRoom::getUserId,userId);}
         return this.getOne(wrapper);
@@ -140,7 +139,7 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
         playRoom.setStatus(WAIT_PUSH);
         this.updateById(playRoom);
         PlayRoomDetailVo playRoomDetailVo = mapStructContext.conver(playRoom, PlayRoomDetailVo.class);
-        playRoomDetailVo.setSteamUrl(getStreamUrl(playRoom));
+        playRoomDetailVo.setStreamUrl(getStreamUrl(playRoom));
         return playRoomDetailVo;
     }
 

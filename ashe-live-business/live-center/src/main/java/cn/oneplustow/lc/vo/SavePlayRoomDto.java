@@ -23,5 +23,5 @@ public class SavePlayRoomDto implements Serializable {
     private Long userId;
 
     /** 推流密码 */
-    private String steamPassword;
+    private String streamPassword;
 }

@@ -23,10 +23,10 @@ public class PlayRoomDetailVo {
     private String userName;
 
     /** 推流地址 */
-    private String steamUrl;
+    private String streamUrl;
 
     /** 推流密码 */
-    private String steamPassword;
+    private String streamPassword;
 
     /** 观看人数 */
     private Long viewNumber;

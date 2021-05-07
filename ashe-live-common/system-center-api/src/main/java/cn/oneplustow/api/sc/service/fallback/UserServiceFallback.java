@@ -3,6 +3,7 @@ package cn.oneplustow.api.sc.service.fallback;
 import cn.oneplustow.api.sc.model.SimpleUser;
 import cn.oneplustow.api.sc.model.SysUserModel;
 import cn.oneplustow.api.sc.service.UserService;
+import cn.oneplustow.api.sc.vo.SaveUserDto;
 import feign.hystrix.FallbackFactory;
 import org.springframework.stereotype.Component;
 
@@ -27,6 +28,11 @@ public class UserServiceFallback implements FallbackFactory<UserService> {
             @Override
             public List<SimpleUser> getSimpleUserListById(Set<String> userIdSet) {
                 return new ArrayList<>();
+            }
+
+            @Override
+            public Long saveMemberUser(SaveUserDto saveUserDto) {
+                return null;
             }
         };
     }
