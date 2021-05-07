@@ -1,9 +1,8 @@
 package cn.oneplustow.sc.open;
 
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.ObjectUtil;
 import cn.oneplustow.api.sc.model.SimpleUser;
+import cn.oneplustow.api.sc.vo.SaveUserDto;
 import cn.oneplustow.sc.entity.SysUser;
 import cn.oneplustow.sc.service.ISysUserService;
 import io.swagger.annotations.Api;
@@ -18,7 +17,7 @@ import java.util.Set;
  *
  * @author ruoyi
  */
-@Api(description = "用户信息控制器")
+@Api(tags = "用户信息控制器")
 @RestController
 @RequestMapping("/fegin/system/user")
 public class SysUserOpen
@@ -33,20 +32,17 @@ public class SysUserOpen
     @GetMapping("getUserByName")
     public SysUser getUserByName(@RequestParam("userName") String userName)
     {
-        if (ObjectUtil.isNotNull(userName))
-        {
-            SysUser sysUser = userService.selectUserByUserName(userName);
-            return sysUser;
-        }
-        return null;
+        SysUser sysUser = userService.selectUserByUserName(userName);
+        return sysUser;
     }
 
     @GetMapping("getSimpleUserListById")
     public List<SimpleUser> getSimpleUserListById(@RequestParam("userIdSet") Set<String> userIdSet) {
-        if (CollUtil.isNotEmpty(userIdSet))
-        {
-            return userService.selectSimpleUserListById(userIdSet);
-        }
-        return null;
+        return userService.selectSimpleUserListById(userIdSet);
+    }
+
+    @PostMapping("saveMemberUser")
+    public Long saveMemberUser(@RequestBody SaveUserDto saveUserDto) {
+        return userService.saveMemberUser(saveUserDto);
     }
 }

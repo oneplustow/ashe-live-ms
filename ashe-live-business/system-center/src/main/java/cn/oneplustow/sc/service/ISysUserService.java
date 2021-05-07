@@ -1,6 +1,7 @@
 package cn.oneplustow.sc.service;
 
 
+import cn.oneplustow.api.sc.vo.SaveUserDto;
 import cn.oneplustow.sc.entity.SysUser;
 import cn.oneplustow.api.sc.model.SimpleUser;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -173,5 +174,7 @@ public interface ISysUserService extends IService<SysUser>
     public String importUser(List<SysUser> userList, Boolean isUpdateSupport, String operName);
 
     List<SimpleUser> selectUserListByRole(String roleKey);
+
+    Long saveMemberUser(SaveUserDto saveUserDto);
 
 }

@@ -49,19 +49,12 @@ public class SysUser extends SysBaseEntity
     @Excel(name = "用户性别", readConverterExp = "0=男,1=女,2=未知")
     private String sex;
 
-    /** 收货地址 */
-    @Excel(name = "收货地址")
-    private String shippingAddress;
-
     /** 用户头像 */
     private String avatar;
 
     /** 密码 */
     private String password;
 
-    /** 销控区 */
-    @Excel(name = "销控区域")
-    private String pinControl;
     /** 盐加密 */
     private String salt;
 
@@ -106,13 +99,6 @@ public class SysUser extends SysBaseEntity
         this.userId = userId;
     }
 
-    public String getPinControl() {
-        return pinControl;
-    }
-
-    public void setPinControl(String pinControl) {
-        this.pinControl = pinControl;
-    }
 
     public Long getUserId()
     {
@@ -308,14 +294,6 @@ public class SysUser extends SysBaseEntity
     public void setPostIds(Long[] postIds)
     {
         this.postIds = postIds;
-    }
-
-    public String getShippingAddress() {
-        return shippingAddress;
-    }
-
-    public void setShippingAddress(String shippingAddress) {
-        this.shippingAddress = shippingAddress;
     }
 
     @Override

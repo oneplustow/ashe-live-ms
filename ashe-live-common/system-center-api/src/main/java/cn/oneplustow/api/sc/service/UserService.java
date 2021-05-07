@@ -3,10 +3,9 @@ package cn.oneplustow.api.sc.service;
 import cn.oneplustow.api.sc.model.SimpleUser;
 import cn.oneplustow.api.sc.model.SysUserModel;
 import cn.oneplustow.api.sc.service.fallback.UserServiceFallback;
+import cn.oneplustow.api.sc.vo.SaveUserDto;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Set;
@@ -34,4 +33,12 @@ public interface UserService {
      */
     @GetMapping("getSimpleUserListById")
     List<SimpleUser> getSimpleUserListById(@RequestParam("userIdSet") Set<String> userIdSet);
+
+    /**
+     * 保存会员用户
+     * @param saveUserDto
+     * @return
+     */
+    @PostMapping("saveMemberUser")
+    public Long saveMemberUser(@RequestBody SaveUserDto saveUserDto);
 }
