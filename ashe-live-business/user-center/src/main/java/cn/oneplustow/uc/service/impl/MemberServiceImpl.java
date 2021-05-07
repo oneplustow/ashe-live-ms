@@ -1,17 +1,16 @@
 package cn.oneplustow.uc.service.impl;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.util.StrUtil;
-import cn.oneplustow.api.ac.util.SecurityUtils;
+import cn.oneplustow.api.sc.service.UserService;
+import cn.oneplustow.api.sc.vo.SaveUserDto;
+import cn.oneplustow.common.mapstruct.MapStructContext;
 import cn.oneplustow.uc.entity.Member;
 import cn.oneplustow.uc.mapper.MemberMapper;
 import cn.oneplustow.uc.service.IMemberService;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
+import cn.oneplustow.uc.vo.SaveMemberDto;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -21,19 +20,11 @@ import java.util.List;
  */
 @Service
 public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> implements IMemberService {
-    @Override
-    public List<Member> selectSimpleMemberListById(Collection<String> ids) {
-        if (CollUtil.isEmpty(ids)) {
-            return CollUtil.newArrayList();
-        }
-        LambdaQueryWrapper<Member> wrapper = new LambdaQueryWrapper();
-        wrapper.select(Member::getId, Member::getSex,
-                Member::getNickName, Member::getAccount,
-                Member::getEmail, Member::getPhone)
-                .in(Member::getId, ids);
-        List<Member> sysMembers = list(wrapper);
-        return sysMembers;
-    }
+
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private MapStructContext mapStructContext;
 
     /**
      * 根据条件分页查询用户列表
@@ -68,23 +59,6 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         return this.getById(memberId);
     }
 
-
-    @Override
-    public boolean checkUnique(String nickName, String phone, String email) {
-        LambdaQueryChainWrapper<Member> lambdaQuery = this.lambdaQuery();
-        if(StrUtil.isNotBlank(nickName)){
-            lambdaQuery.eq(Member::getNickName,nickName);
-        }
-        if(StrUtil.isNotBlank(phone)){
-            lambdaQuery.eq(Member::getPhone,phone);
-        }
-        if(StrUtil.isNotBlank(email)){
-            lambdaQuery.eq(Member::getEmail,email);
-        }
-        int count = this.count(lambdaQuery);
-        return count <= 0;
-    }
-
     /**
      * 新增保存用户信息
      *
@@ -92,9 +66,11 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
      * @return 结果
      */
     @Override
-    public boolean insertMember(Member member) {
-        // 新增用户信息
-        member.setPassword(SecurityUtils.encryptPassword(member.getPassword()));
+    public boolean insertMember(SaveMemberDto saveMemberDto) {
+        SaveUserDto saveuserdto = mapStructContext.conver(saveMemberDto, SaveUserDto.class);
+        Long userid = userService.saveMemberUser(saveuserdto);
+        Member member = mapStructContext.conver(saveMemberDto, Member.class);
+        member.setUserId(userid);
         return this.save(member);
     }
 
@@ -119,22 +95,10 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
      */
     @Override
     public boolean updateMemberAvatar(String id, String avatar) {
-        return this.update(this.lambdaUpdate().eq(Member::getId,id).set(Member::getAvatar,avatar));
+        return false;
     }
 
 
-    /**
-     * 重置用户密码
-     *
-     * @param memberName 用户名
-     * @param password   密码
-     * @return 结果
-     */
-    @Override
-    public boolean resetMemberPwd(String id, String password) {
-        password = SecurityUtils.encryptPassword(password);
-        return this.update(this.lambdaUpdate().eq(Member::getId,id).set(Member::getPassword,password));
-    }
 
 
     /**
@@ -148,13 +112,5 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         return this.removeByIds(memberIds);
     }
 
-    @Override
-    public boolean updateMember(Member user) {
-        return this.updateById(user);
-    }
 
-    @Override
-    public boolean updateMemberStatus(String id, String status) {
-        return this.update(this.lambdaUpdate().eq(Member::getId,id).set(Member::getStatus,status));
-    }
 }

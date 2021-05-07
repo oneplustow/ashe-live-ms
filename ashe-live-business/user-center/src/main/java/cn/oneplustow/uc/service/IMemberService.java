@@ -2,9 +2,9 @@ package cn.oneplustow.uc.service;
 
 
 import cn.oneplustow.uc.entity.Member;
+import cn.oneplustow.uc.vo.SaveMemberDto;
 import com.baomidou.mybatisplus.extension.service.IService;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -14,8 +14,6 @@ import java.util.List;
  */
 public interface IMemberService extends IService<Member>
 {
-    List<Member> selectSimpleMemberListById(Collection<String> ids);
-
     /**
      * 根据条件分页查询会员列表
      * 
@@ -41,13 +39,6 @@ public interface IMemberService extends IService<Member>
     Member selectMemberById(Long memberId);
 
 
-    /**
-     * 校验nickName,phone,email是否唯一
-     *
-     * @param member 会员信息
-     * @return 结果
-     */
-    boolean checkUnique(String nickName,String phone,String email);
 
     /**
      * 新增会员信息
@@ -55,7 +46,7 @@ public interface IMemberService extends IService<Member>
      * @param member 会员信息
      * @return 结果
      */
-    boolean insertMember(Member member);
+    boolean insertMember(SaveMemberDto saveMemberDto);
 
 
 
@@ -76,14 +67,6 @@ public interface IMemberService extends IService<Member>
      */
     boolean updateMemberAvatar(String memberName, String avatar);
 
-    /**
-     * 重置会员密码
-     * 
-     * @param memberName 会员名
-     * @param password 密码
-     * @return 结果
-     */
-    boolean resetMemberPwd(String memberName, String password);
 
     /**
      * 批量删除会员信息
@@ -92,8 +75,4 @@ public interface IMemberService extends IService<Member>
      * @return 结果
      */
     boolean deleteMemberByIds(List<Long> memberIds);
-
-    boolean updateMember(Member user);
-
-    boolean updateMemberStatus(String id, String status);
 }
