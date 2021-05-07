@@ -33,6 +33,14 @@
             <groupId>cn.oneplustow</groupId>
             <artifactId>common-web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-jdk8</artifactId>
+        </dependency>
         <!-- SpringBoot 测试 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
