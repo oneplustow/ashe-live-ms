@@ -23,6 +23,8 @@ public interface IPlayRoomService {
      */
     List<PlayRoom> selectPage(QueryPlayRoomDto playRoom);
 
+    PlayRoomDetailVo stopLive(Long userId);
+
     /**
      * 观看直播接口
      * 会将观看人数加一

@@ -1,22 +1,21 @@
 package cn.oneplustow.lc.controller;
 
 import cn.oneplustow.common.annoatation.Log;
+import cn.oneplustow.common.domain.AjaxResult;
 import cn.oneplustow.common.enume.BusinessType;
 import cn.oneplustow.common.web.controller.BaseController;
-import cn.oneplustow.common.web.domain.AjaxResult;
 import cn.oneplustow.config.db.util.PageUtil;
-
-import java.util.List;
-import java.util.Arrays;
-
+import cn.oneplustow.lc.entity.StreamServer;
+import cn.oneplustow.lc.service.IStreamServerService;
 import cn.oneplustow.lc.vo.QueryStreamServerDto;
 import cn.oneplustow.lc.vo.SaveStreamServerDto;
 import io.swagger.annotations.Api;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import cn.oneplustow.lc.entity.StreamServer;
-import cn.oneplustow.lc.service.IStreamServerService;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 流服务器信息Controller

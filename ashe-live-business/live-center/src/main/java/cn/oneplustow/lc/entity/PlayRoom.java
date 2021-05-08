@@ -26,9 +26,6 @@ public class PlayRoom extends BaseEntity
     /** 直播间用户id */
     private Long userId;
 
-    /** 推流密码 */
-    private String streamPassword;
-
     /** 观看人数 */
     private Long viewNumber;
 

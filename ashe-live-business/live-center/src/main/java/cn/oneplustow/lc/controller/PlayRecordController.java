@@ -4,7 +4,7 @@ package cn.oneplustow.lc.controller;
 import cn.oneplustow.common.annoatation.Log;
 import cn.oneplustow.common.enume.BusinessType;
 import cn.oneplustow.common.web.controller.BaseController;
-import cn.oneplustow.common.web.domain.AjaxResult;
+import cn.oneplustow.common.domain.AjaxResult;
 import cn.oneplustow.config.db.util.PageUtil;
 import cn.oneplustow.lc.entity.PlayRecord;
 import cn.oneplustow.lc.service.IPlayRecordService;

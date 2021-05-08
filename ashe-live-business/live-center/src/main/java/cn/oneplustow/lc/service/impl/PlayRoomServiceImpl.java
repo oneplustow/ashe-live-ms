@@ -3,17 +3,16 @@ package cn.oneplustow.lc.service.impl;
 
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.IdUtil;
-import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.oneplustow.common.exception.WarningMessageException;
 import cn.oneplustow.common.mapstruct.MapStructContext;
 import cn.oneplustow.config.db.util.PageUtil;
 import cn.oneplustow.lc.entity.PlayRoom;
-import cn.oneplustow.lc.entity.StreamServer;
+import cn.oneplustow.lc.entity.StreamServerAllotRecord;
 import cn.oneplustow.lc.mapper.PlayRoomMapper;
 import cn.oneplustow.lc.service.IOssrsService;
 import cn.oneplustow.lc.service.IPlayRoomService;
-import cn.oneplustow.lc.service.IStreamServerService;
+import cn.oneplustow.lc.service.IStreamServerAllotRecordService;
 import cn.oneplustow.lc.vo.PlayRoomDetailVo;
 import cn.oneplustow.lc.vo.QueryPlayRoomDto;
 import cn.oneplustow.lc.vo.SavePlayRoomDto;
@@ -23,6 +22,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -38,10 +38,9 @@ import static cn.oneplustow.common.constant.DbConstants.PalyRoomStatus.*;
 @Service
 public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> implements IPlayRoomService
 {
-    private final String streamTemplate = "rtmp:{}:{}/{}";
-    @Autowired
-    private IStreamServerService streamServerService;
 
+    @Autowired
+    private IStreamServerAllotRecordService allotRecordService;
     @Autowired
     private MapStructContext mapStructContext;
 
@@ -70,7 +69,6 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
         if(StrUtil.isBlank(playRoom.getRoomNumbe())) {
             playRoom.setRoomNumbe(IdUtil.simpleUUID());
         }
-        playRoom.setStreamPassword(RandomUtil.randomString(6));
     }
 
     @Override
@@ -79,29 +77,19 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
         PlayRoomDetailVo playRoomDetailVo = mapStructContext.conver(playRoom, PlayRoomDetailVo.class);
         // todo 这里应该从用户中心获取
         playRoomDetailVo.setUserName("张三");
-        playRoomDetailVo.setStreamUrl(getStreamUrl(playRoom));
+        //playRoomDetailVo.setStreamUrl(getStreamUrl(playRoom));
         return playRoomDetailVo;
     }
 
 
     private PlayRoom getPlayRoomByIdOrUserId(Long id,Long userId) {
-        LambdaQueryWrapper<PlayRoom> wrapper = new LambdaQueryWrapper<PlayRoom>();
+        LambdaQueryWrapper<PlayRoom> wrapper = new LambdaQueryWrapper<>();
         if(id != null){wrapper.eq(PlayRoom::getId,id);}
         if(userId != null){wrapper.eq(PlayRoom::getUserId,userId);}
         return this.getOne(wrapper);
     }
 
-    /**
-     * 选取一个可用的服务器用于进行构建推流连接
-     * @param playRoom
-     * @return
-     */
-    private String getStreamUrl(PlayRoom playRoom) {
-        StreamServer available = streamServerService.getAvailable();
-        String ip = available.getIp();
-        Integer port = available.getPort();
-        return StrUtil.format(streamTemplate,ip,port,playRoom.getRoomNumbe());
-    }
+
 
     @Override
     public List<PlayRoom> selectPage(QueryPlayRoomDto playRoom) {
@@ -129,17 +117,30 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public PlayRoomDetailVo startLive(Long userId) {
         PlayRoom playRoom = getPlayRoomByIdOrUserId(null, userId);
-        Assert.notNull(playRoom,"您已经在直播中");
+        Assert.notNull(playRoom,"无法找到您的直播间");
         Assert.isFalse(playRoom.getStatus() == WAIT_PUSH,"您已经在直播中");
         Assert.isFalse(playRoom.getStatus() == START,"您已经在直播中");
-
-        playRoom.setStreamPassword(RandomUtil.randomString(6));
         playRoom.setStatus(WAIT_PUSH);
         this.updateById(playRoom);
         PlayRoomDetailVo playRoomDetailVo = mapStructContext.conver(playRoom, PlayRoomDetailVo.class);
-        playRoomDetailVo.setStreamUrl(getStreamUrl(playRoom));
+        StreamServerAllotRecord streamServerAllotRecord = allotRecordService.allotStreamServer(playRoom);
+        playRoomDetailVo.setStreamUrl(streamServerAllotRecord.getPushStreamUrl());
+        playRoomDetailVo.setStreamPassword(streamServerAllotRecord.getPushStreamPassword());
+        return playRoomDetailVo;
+    }
+
+    @Override
+    public PlayRoomDetailVo stopLive(Long userId) {
+        PlayRoom playRoom = getPlayRoomByIdOrUserId(null, userId);
+        Assert.notNull(playRoom,"无法找到您的直播间");
+        Assert.isFalse(playRoom.getStatus() == NOT_START,"您已经是关闭状态");
+        playRoom.setStatus(NOT_START);
+        this.updateById(playRoom);
+        allotRecordService.invalidRecord(playRoom.getId());
+        PlayRoomDetailVo playRoomDetailVo = mapStructContext.conver(playRoom, PlayRoomDetailVo.class);
         return playRoomDetailVo;
     }
 
@@ -152,6 +153,12 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
         return updateViewNumber(id,-1);
     }
 
+    /**
+     * 更新观看数量
+     * @param roomNumber
+     * @param count
+     * @return
+     */
     private Boolean updateViewNumber(String roomNumber, Integer count){
         while (true) {
             //1 查询出现在的观看数量
@@ -193,7 +200,6 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
         }
         playRoom.setStatus(START);
         playRoom.setClientId(clientId);
-        playRoom.setStreamPassword(RandomUtil.randomString(6));
         return this.updateById(playRoom);
     }
 
@@ -204,15 +210,24 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
 
     private PlayRoom getPlayRoomByAppAndPassword(String roomNumbe,String password){
         PlayRoom playRoom = this.getOne(new LambdaQueryWrapper<PlayRoom>()
-                .eq(PlayRoom::getRoomNumbe, roomNumbe)
-                .eq(PlayRoom::getStreamPassword, password));
-        return playRoom;
+                .eq(PlayRoom::getRoomNumbe, roomNumbe));
+        StreamServerAllotRecord recordByPlayRoomId = allotRecordService.getAllotRecordByPlayRoomId(playRoom.getId());
+        if (StrUtil.equals(password,recordByPlayRoomId.getPushStreamPassword())) {
+            return playRoom;
+        }
+        return null;
+
     }
 
     private Boolean updateStatusByAppAndApssword(String roomNumbe,String password,String oldStatus,String newStatus){
+        PlayRoom playRoom = getPlayRoomByAppAndPassword(roomNumbe, password);
+        if(playRoom == null){return false;}
+        return updateStatus(playRoom.getId(),oldStatus,newStatus);
+    }
+
+    private Boolean updateStatus(Long id,String oldStatus,String newStatus){
         LambdaUpdateWrapper<PlayRoom> lambdaUpdateWrapper = new LambdaUpdateWrapper<PlayRoom>()
-                .eq(PlayRoom::getRoomNumbe, roomNumbe)
-                .eq(PlayRoom::getStreamPassword, password)
+                .eq(PlayRoom::getId, id)
                 .set(PlayRoom::getStatus, newStatus);
         if(StrUtil.isNotBlank(oldStatus)){
             lambdaUpdateWrapper.eq(PlayRoom::getStatus, oldStatus);
