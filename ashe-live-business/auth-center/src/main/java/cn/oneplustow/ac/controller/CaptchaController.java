@@ -4,7 +4,7 @@ import cn.hutool.core.codec.Base64;
 import cn.hutool.core.util.IdUtil;
 import cn.oneplustow.common.constant.Constants;
 import cn.oneplustow.common.util.VerifyCodeUtils;
-import cn.oneplustow.common.web.domain.AjaxResult;
+import cn.oneplustow.common.domain.AjaxResult;
 import cn.oneplustow.config.redis.util.RedisCache;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;

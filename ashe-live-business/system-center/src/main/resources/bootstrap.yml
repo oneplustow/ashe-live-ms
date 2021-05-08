@@ -7,7 +7,7 @@ spring:
     nacos:
       discovery:
         server-addr: oneplustow.cn:8848
-        namespace: e9a491ff-cf57-4085-9136-0e05af478b37
+      #        namespace: e9a491ff-cf57-4085-9136-0e05af478b37
       config:
         server-addr: oneplustow.cn:8848
         namespace: e9a491ff-cf57-4085-9136-0e05af478b37

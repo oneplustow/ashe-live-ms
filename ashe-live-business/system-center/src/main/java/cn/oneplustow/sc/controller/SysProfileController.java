@@ -9,7 +9,7 @@ import cn.oneplustow.common.config.RuoYiConfig;
 import cn.oneplustow.common.enume.BusinessType;
 import cn.oneplustow.common.web.util.FileUploadUtils;
 import cn.oneplustow.common.web.controller.BaseController;
-import cn.oneplustow.common.web.domain.AjaxResult;
+import cn.oneplustow.common.domain.AjaxResult;
 import cn.oneplustow.sc.entity.SysUser;
 import cn.oneplustow.sc.service.ISysUserService;
 import io.swagger.annotations.Api;

@@ -2,8 +2,8 @@ package cn.oneplustow.ac.security.handle;
 
 
 import cn.hutool.core.util.StrUtil;
-import cn.oneplustow.common.web.constant.HttpStatus;
-import cn.oneplustow.common.web.domain.AjaxResult;
+import cn.oneplustow.common.constant.HttpStatus;
+import cn.oneplustow.common.domain.AjaxResult;
 import cn.oneplustow.common.web.util.ServletUtils;
 import com.alibaba.fastjson.JSON;
 import org.springframework.security.core.AuthenticationException;

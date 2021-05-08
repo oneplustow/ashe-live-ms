@@ -8,7 +8,7 @@ import cn.oneplustow.api.sc.model.SysUserModel;
 import cn.oneplustow.api.sc.service.MenuService;
 import cn.oneplustow.api.sc.service.UserService;
 import cn.oneplustow.common.constant.Constants;
-import cn.oneplustow.common.web.domain.AjaxResult;
+import cn.oneplustow.common.domain.AjaxResult;
 import cn.oneplustow.ac.security.service.SysLoginService;
 import cn.oneplustow.ac.security.service.SysPermissionService;
 import io.swagger.annotations.Api;

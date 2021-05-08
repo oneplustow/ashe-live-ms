@@ -1,8 +1,8 @@
-package cn.oneplustow.common.web.domain;
+package cn.oneplustow.common.domain;
 
 
 import cn.hutool.core.util.ObjectUtil;
-import cn.oneplustow.common.web.constant.HttpStatus;
+import cn.oneplustow.common.constant.HttpStatus;
 
 import java.util.HashMap;
 

@@ -20,4 +20,10 @@ public class DbConstants {
         /**开始直播*/
         String START = "2";
     }
+    public interface SteamServerAllotRecordStatus{
+        /**正常*/
+        String NORMAL = "0";
+        /**失效*/
+        String INVALID = "1";
+    }
 }

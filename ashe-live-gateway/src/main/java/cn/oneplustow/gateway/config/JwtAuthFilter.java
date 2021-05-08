@@ -5,7 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.oneplustow.api.ac.model.LoginUser;
 import cn.oneplustow.api.ac.service.AuthService;
 import cn.oneplustow.api.sc.service.MenuService;
-import cn.oneplustow.common.web.domain.AjaxResult;
+import cn.oneplustow.common.domain.AjaxResult;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

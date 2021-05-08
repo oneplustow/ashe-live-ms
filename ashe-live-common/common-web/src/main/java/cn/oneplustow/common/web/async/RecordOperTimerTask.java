@@ -1,4 +1,4 @@
-package cn.oneplustow.api.sc.async;
+package cn.oneplustow.common.web.async;
 
 import cn.hutool.extra.spring.SpringUtil;
 import cn.oneplustow.api.sc.model.SysOperLogModel;

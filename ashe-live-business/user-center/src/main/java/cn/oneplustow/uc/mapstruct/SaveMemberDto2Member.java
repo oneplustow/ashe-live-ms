@@ -4,7 +4,6 @@ import cn.oneplustow.common.mapstruct.IMapStruct;
 import cn.oneplustow.uc.entity.Member;
 import cn.oneplustow.uc.vo.SaveMemberDto;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
 /**
@@ -19,7 +18,7 @@ public interface SaveMemberDto2Member extends IMapStruct<SaveMemberDto, Member> 
      * @return
      */
     @Mappings({
-            @Mapping(target = "account",source = "userName")
+            //@Mapping(target = "account",source = "userName")
     })
     @Override
     Member convers(SaveMemberDto saveMemberDto);

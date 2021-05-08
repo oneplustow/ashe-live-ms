@@ -2,7 +2,7 @@ package cn.oneplustow.ac.util;
 
 
 import cn.oneplustow.ac.entity.LoginUserDetails;
-import cn.oneplustow.common.web.constant.HttpStatus;
+import cn.oneplustow.common.constant.HttpStatus;
 import cn.oneplustow.common.exception.CustomException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

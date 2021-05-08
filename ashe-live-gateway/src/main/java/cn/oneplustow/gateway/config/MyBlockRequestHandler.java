@@ -1,7 +1,7 @@
 package cn.oneplustow.gateway.config;
 
-import cn.oneplustow.common.web.domain.AjaxResult;
-import cn.oneplustow.common.web.enume.HttpCode;
+import cn.oneplustow.common.domain.AjaxResult;
+import cn.oneplustow.common.enume.HttpCode;
 import com.alibaba.csp.sentinel.adapter.gateway.sc.callback.BlockRequestHandler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.InvalidMediaTypeException;

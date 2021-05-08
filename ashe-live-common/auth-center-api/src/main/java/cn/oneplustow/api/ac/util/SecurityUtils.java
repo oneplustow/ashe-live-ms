@@ -3,11 +3,12 @@ package cn.oneplustow.api.ac.util;
 import cn.hutool.core.codec.Base64;
 import cn.hutool.core.util.StrUtil;
 import cn.oneplustow.api.ac.model.LoginUser;
+import cn.oneplustow.common.constant.HttpStatus;
 import cn.oneplustow.common.exception.CustomException;
-import cn.oneplustow.common.web.constant.HttpStatus;
-import cn.oneplustow.common.web.util.ServletUtils;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
  * @author cc
@@ -45,7 +46,8 @@ public class SecurityUtils {
     }
 
     public static LoginUser getLoginUser() {
-        String loginUserString = ServletUtils.getRequest().getHeader("login_user");
+        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        String loginUserString = requestAttributes.getRequest().getHeader("login_user");
         if(StrUtil.isBlank(loginUserString)) {
             throw new CustomException("获取用户信息异常", HttpStatus.UNAUTHORIZED);
         }

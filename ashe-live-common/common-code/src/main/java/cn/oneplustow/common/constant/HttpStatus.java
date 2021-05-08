@@ -1,4 +1,4 @@
-package cn.oneplustow.common.web.constant;
+package cn.oneplustow.common.constant;
 
 /**
  * 返回状态码

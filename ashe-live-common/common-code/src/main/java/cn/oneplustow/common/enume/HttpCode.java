@@ -1,4 +1,4 @@
-package cn.oneplustow.common.web.enume;
+package cn.oneplustow.common.enume;
 /**
  * @author cc
  */

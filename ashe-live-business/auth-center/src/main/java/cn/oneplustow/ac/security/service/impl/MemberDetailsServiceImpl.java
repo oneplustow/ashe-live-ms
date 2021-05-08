@@ -13,14 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 
 /**
  * 用户验证处理
  *
  * @author ruoyi
  */
-@Service
 public class MemberDetailsServiceImpl implements UserDetailsService
 {
     private static final Logger log = LoggerFactory.getLogger(MemberDetailsServiceImpl.class);

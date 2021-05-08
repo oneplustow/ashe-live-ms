@@ -1,6 +1,6 @@
 package cn.oneplustow.sc.controller;
 
-import cn.oneplustow.common.web.domain.AjaxResult;
+import cn.oneplustow.common.domain.AjaxResult;
 import cn.oneplustow.sc.entity.UserEntity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
