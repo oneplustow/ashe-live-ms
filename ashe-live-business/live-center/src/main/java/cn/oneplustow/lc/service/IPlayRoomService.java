@@ -1,10 +1,7 @@
 package cn.oneplustow.lc.service;
 
 
-import cn.oneplustow.lc.entity.PlayRoom;
-import cn.oneplustow.lc.vo.PlayRoomDetailVo;
-import cn.oneplustow.lc.vo.QueryPlayRoomDto;
-import cn.oneplustow.lc.vo.SavePlayRoomDto;
+import cn.oneplustow.lc.vo.*;
 
 import java.util.List;
 
@@ -17,12 +14,23 @@ import java.util.List;
 public interface IPlayRoomService {
 
     /**
+     * 查询开始直播状态的直播间
+     * @return
+     */
+    List<PlayRoomPageVo> selectStartStatusPage(String roomNumbe,String roomName);
+
+    /**
      * 查询直播间分页
      * @param playRoom
      * @return
      */
-    List<PlayRoom> selectPage(QueryPlayRoomDto playRoom);
+    List<PlayRoomPageVo> selectPage(QueryPlayRoomDto playRoom);
 
+    /**
+     * 关闭直播
+     * @param userId
+     * @return
+     */
     PlayRoomDetailVo stopLive(Long userId);
 
     /**
@@ -82,6 +90,13 @@ public interface IPlayRoomService {
      * @return
      */
     PlayRoomDetailVo getPlayRoomDetailVoByIdOrUserId(Long id, Long userId);
+    /**
+     * 获取直播间详情
+     * @param id
+     * @param userId
+     * @return
+     */
+    PlayRoomPlayDetailVo getPlayRoomPlayDetailVoById(Long id);
 
     /**
      * 开通直播间

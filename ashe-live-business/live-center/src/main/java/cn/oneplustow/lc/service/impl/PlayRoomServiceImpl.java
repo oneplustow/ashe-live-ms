@@ -10,12 +10,11 @@ import cn.oneplustow.config.db.util.PageUtil;
 import cn.oneplustow.lc.entity.PlayRoom;
 import cn.oneplustow.lc.entity.StreamServerAllotRecord;
 import cn.oneplustow.lc.mapper.PlayRoomMapper;
+import cn.oneplustow.lc.mapstruct.PlayRoom2PlayRoomDetailVo;
 import cn.oneplustow.lc.service.IOssrsService;
 import cn.oneplustow.lc.service.IPlayRoomService;
 import cn.oneplustow.lc.service.IStreamServerAllotRecordService;
-import cn.oneplustow.lc.vo.PlayRoomDetailVo;
-import cn.oneplustow.lc.vo.QueryPlayRoomDto;
-import cn.oneplustow.lc.vo.SavePlayRoomDto;
+import cn.oneplustow.lc.vo.*;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -47,6 +46,35 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
     @Autowired
     private IOssrsService ossrsService;
 
+
+    @Override
+    public List<PlayRoomPageVo> selectStartStatusPage(String roomNumbe, String roomName) {
+        QueryPlayRoomDto queryPlayRoomDto = new QueryPlayRoomDto();
+        queryPlayRoomDto.setStatus(START);
+        queryPlayRoomDto.setRoomNumbe(roomNumbe);
+        queryPlayRoomDto.setName(roomName);
+        return selectPage(queryPlayRoomDto);
+    }
+
+    @Override
+    public List<PlayRoomPageVo> selectPage(QueryPlayRoomDto playRoom) {
+        PageUtil.startPage();
+        LambdaQueryWrapper<PlayRoom> queryWrapper = new LambdaQueryWrapper<>();
+        if (StrUtil.isNotBlank(playRoom.getName())) {
+            queryWrapper.like(PlayRoom::getName, playRoom.getName());
+        }
+        if (playRoom.getUserId() != null) {
+            queryWrapper.eq(PlayRoom::getUserId, playRoom.getUserId());
+        }
+        if (StrUtil.isNotBlank(playRoom.getStatus())) {
+            queryWrapper.eq(PlayRoom::getStatus, playRoom.getStatus());
+        }
+        List<PlayRoom> playRoomList = this.list(queryWrapper);
+        List<PlayRoomPageVo> playRoomPageVoList = mapStructContext.conver(playRoomList, PlayRoomPageVo.class);
+        return playRoomPageVoList;
+    }
+
+
     @Override
     public Boolean delPlayRoom(List<Long> idList) {
         return this.removeByIds(idList);
@@ -74,38 +102,25 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
     @Override
     public PlayRoomDetailVo getPlayRoomDetailVoByIdOrUserId(Long id, Long userId) {
         PlayRoom playRoom = getPlayRoomByIdOrUserId(id,userId);
-        PlayRoomDetailVo playRoomDetailVo = mapStructContext.conver(playRoom, PlayRoomDetailVo.class);
-        // todo 这里应该从用户中心获取
-        playRoomDetailVo.setUserName("张三");
-        //playRoomDetailVo.setStreamUrl(getStreamUrl(playRoom));
+        StreamServerAllotRecord allotRecord = allotRecordService.getAllotRecordByPlayRoomId(playRoom.getId());
+        PlayRoom2PlayRoomDetailVo iMapStruct = (PlayRoom2PlayRoomDetailVo)mapStructContext.getIMapStruct(playRoom.getClass(), PlayRoomDetailVo.class);
+        PlayRoomDetailVo playRoomDetailVo = iMapStruct.convers(playRoom, allotRecord);
         return playRoomDetailVo;
     }
 
+    @Override
+    public PlayRoomPlayDetailVo getPlayRoomPlayDetailVoById(Long id) {
+        PlayRoomDetailVo playRoomDetailVo = getPlayRoomDetailVoByIdOrUserId(id, null);
+        Assert.isTrue(StrUtil.equals(playRoomDetailVo.getStatus(),START),"当前直播间还未开播，请选择其他直播间");
+        PlayRoomPlayDetailVo roomPlayDetailVo = mapStructContext.conver(playRoomDetailVo, PlayRoomPlayDetailVo.class);
+        return roomPlayDetailVo;
+    }
 
-    private PlayRoom getPlayRoomByIdOrUserId(Long id,Long userId) {
+    private PlayRoom getPlayRoomByIdOrUserId(Long id, Long userId) {
         LambdaQueryWrapper<PlayRoom> wrapper = new LambdaQueryWrapper<>();
         if(id != null){wrapper.eq(PlayRoom::getId,id);}
         if(userId != null){wrapper.eq(PlayRoom::getUserId,userId);}
         return this.getOne(wrapper);
-    }
-
-
-
-    @Override
-    public List<PlayRoom> selectPage(QueryPlayRoomDto playRoom) {
-        PageUtil.startPage();
-        LambdaQueryWrapper<PlayRoom> queryWrapper = new LambdaQueryWrapper<>();
-        if (StrUtil.isNotBlank(playRoom.getName())) {
-            queryWrapper.like(PlayRoom::getName, playRoom.getName());
-        }
-        if (playRoom.getUserId() != null) {
-            queryWrapper.eq(PlayRoom::getUserId, playRoom.getUserId());
-        }
-        if (StrUtil.isNotBlank(playRoom.getStatus())) {
-            queryWrapper.eq(PlayRoom::getStatus, playRoom.getStatus());
-        }
-        List<PlayRoom> list = this.list(queryWrapper);
-        return list;
     }
 
     @Override
@@ -127,8 +142,8 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
         this.updateById(playRoom);
         PlayRoomDetailVo playRoomDetailVo = mapStructContext.conver(playRoom, PlayRoomDetailVo.class);
         StreamServerAllotRecord streamServerAllotRecord = allotRecordService.allotStreamServer(playRoom);
-        playRoomDetailVo.setStreamUrl(streamServerAllotRecord.getPushStreamUrl());
-        playRoomDetailVo.setStreamPassword(streamServerAllotRecord.getPushStreamPassword());
+        playRoomDetailVo.setPushStreamUrl(streamServerAllotRecord.getPushStreamUrl());
+        playRoomDetailVo.setPushStreamPassword(streamServerAllotRecord.getPushStreamPassword());
         return playRoomDetailVo;
     }
 

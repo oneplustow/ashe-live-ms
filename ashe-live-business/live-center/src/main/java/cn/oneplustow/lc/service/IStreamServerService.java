@@ -43,7 +43,7 @@ public interface IStreamServerService {
      * 对指定IP的流服务器进行心跳检测
      * @param id 流服务器ID
      */
-    boolean heartBeatDetectionById(Integer id);
+    boolean heartBeatDetectionById(Long id);
 
     /**
      *

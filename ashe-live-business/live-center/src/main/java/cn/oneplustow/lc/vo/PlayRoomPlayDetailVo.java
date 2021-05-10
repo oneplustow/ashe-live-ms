@@ -6,7 +6,7 @@ import lombok.Data;
  * @author cc
  */
 @Data
-public class PlayRoomDetailVo {
+public class PlayRoomPlayDetailVo {
 
     private Long id;
 
@@ -16,20 +16,8 @@ public class PlayRoomDetailVo {
     /** 直播间名称 */
     private String name;
 
-    /** 直播间用户id */
-    private Long userId;
-
-    /** 直播间用户id */
-    private String userName;
-
-    /** 推流地址 */
-    private String pushStreamUrl;
-
-    /** 播放流地址 */
+    /** 播放地址 */
     private String playStreamUrl;
-
-    /** 推流密码 */
-    private String pushStreamPassword;
 
     /** 观看人数 */
     private Long viewNumber;

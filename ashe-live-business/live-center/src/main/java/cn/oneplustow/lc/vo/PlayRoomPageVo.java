@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class PlayRoomPageVo {
 
-    private Integer id;
+    private Long id;
 
     /** 直播间号 */
     private String roomNumbe;

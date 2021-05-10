@@ -3,12 +3,12 @@ package cn.oneplustow.lc.controller;
 
 import cn.oneplustow.api.ac.util.SecurityUtils;
 import cn.oneplustow.common.annoatation.Log;
+import cn.oneplustow.common.domain.AjaxResult;
 import cn.oneplustow.common.enume.BusinessType;
 import cn.oneplustow.common.web.controller.BaseController;
-import cn.oneplustow.common.domain.AjaxResult;
 import cn.oneplustow.config.db.util.PageUtil;
-import cn.oneplustow.lc.entity.PlayRoom;
 import cn.oneplustow.lc.service.IPlayRoomService;
+import cn.oneplustow.lc.vo.PlayRoomPageVo;
 import cn.oneplustow.lc.vo.QueryPlayRoomDto;
 import cn.oneplustow.lc.vo.SavePlayRoomDto;
 import io.swagger.annotations.Api;
@@ -35,10 +35,19 @@ public class PlayRoomController extends BaseController {
     /**
      * 查询直播间管理列表
      */
+    @GetMapping("/startStatusList" )
+    public AjaxResult selectStartStatusPage(String roomNumbe,String roomName) {
+        List<PlayRoomPageVo> list = playRoomService.selectStartStatusPage(roomNumbe,roomName);
+        return AjaxResult.success(PageUtil.getDataTable(list));
+    }
+
+    /**
+     * 查询直播间管理列表
+     */
     @PreAuthorize("@ss.hasPermi('lc:playRoom:list')" )
     @GetMapping("/list" )
     public AjaxResult list(QueryPlayRoomDto playRoom) {
-        List<PlayRoom> list = playRoomService.selectPage(playRoom);
+        List<PlayRoomPageVo> list = playRoomService.selectPage(playRoom);
         return AjaxResult.success(PageUtil.getDataTable(list));
     }
 
@@ -59,6 +68,14 @@ public class PlayRoomController extends BaseController {
     @GetMapping(value = "/getUserPlayRoom" )
     public AjaxResult getInfoByUserId() {
         return AjaxResult.success(playRoomService.getPlayRoomDetailVoByIdOrUserId(null,SecurityUtils.getUserId()));
+    }
+
+    /**
+     * 获取直播间信息用于播放
+     */
+    @GetMapping(value = "/getPlayRoomByPlay" )
+    public AjaxResult getInfoByPlay(@RequestParam Long id) {
+        return AjaxResult.success(playRoomService.getPlayRoomPlayDetailVoById(id));
     }
 
     /**

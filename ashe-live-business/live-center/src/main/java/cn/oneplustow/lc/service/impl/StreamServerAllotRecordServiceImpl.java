@@ -10,6 +10,7 @@ import cn.oneplustow.lc.entity.StreamServerAllotRecord;
 import cn.oneplustow.lc.mapper.StreamServerAllotRecordMapper;
 import cn.oneplustow.lc.service.IStreamServerAllotRecordService;
 import cn.oneplustow.lc.service.IStreamServerService;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,8 @@ import static cn.oneplustow.common.constant.DbConstants.SteamServerAllotRecordSt
 @Service
 public class StreamServerAllotRecordServiceImpl extends ServiceImpl<StreamServerAllotRecordMapper, StreamServerAllotRecord> implements IStreamServerAllotRecordService
 {
-    private final String streamTemplate = "rtmp:{}:{}/{}";
+    private final String PULL_STREAM_TEMPLATE = "rtmp:{}:{}/{}";
+    private final String PLAY_STREAM_TEMPLATE = "http://{}:{}/{}.flv";
     @Autowired
     private IStreamServerService streamServerService;
 
@@ -46,22 +48,26 @@ public class StreamServerAllotRecordServiceImpl extends ServiceImpl<StreamServer
 
     @Override
     public StreamServerAllotRecord getAllotRecordByPlayRoomId(Long playRoomId){
-        StreamServerAllotRecord allotRecord = this.getOne(this.lambdaQuery()
+        StreamServerAllotRecord allotRecord = this.getOne(
+                new LambdaQueryWrapper<StreamServerAllotRecord>()
                 .eq(StreamServerAllotRecord::getPlayRoomId, playRoomId)
                 .eq(StreamServerAllotRecord::getStatus, NORMAL));
         return allotRecord;
     }
 
     @Override
-    public StreamServerAllotRecord allotStreamServer(PlayRoom playRomm){
-        StreamServerAllotRecord allotRecord = getAllotRecordByPlayRoomId(playRomm.getId());
+    public StreamServerAllotRecord allotStreamServer(PlayRoom playRoom){
+        StreamServerAllotRecord allotRecord = getAllotRecordByPlayRoomId(playRoom.getId());
         if(allotRecord != null){return allotRecord;}
         StreamServer available = streamServerService.getAvailable();
-        String streamUrl = getStreamUrl(available, playRomm);
+
+        String pullStreamUrl = getPullStreamUrl(available, playRoom);
+        String playStreamUrl = getPlayStreamUrl(available, playRoom);
         StreamServerAllotRecord serverAllotRecord = StreamServerAllotRecord.builder()
-                .playRoomId(playRomm.getId())
+                .playRoomId(playRoom.getId())
                 .streamServerId(available.getId())
-                .pushStreamUrl(streamUrl)
+                .pushStreamUrl(pullStreamUrl)
+                .playStreamUrl(playStreamUrl)
                 .pushStreamPassword(RandomUtil.randomNumbers(6))
                 .createTime(new Date())
                 .build();
@@ -69,15 +75,21 @@ public class StreamServerAllotRecordServiceImpl extends ServiceImpl<StreamServer
         return serverAllotRecord;
     }
 
+    private String getPlayStreamUrl(StreamServer streamServer, PlayRoom playRoom) {
+        String ip = streamServer.getIp();
+        Integer port = streamServer.getPort();
+        return StrUtil.format(PLAY_STREAM_TEMPLATE,ip,port,playRoom.getRoomNumbe());
+    }
+
     /**
      * 选取一个可用的服务器用于进行构建推流连接
      * @param playRoom
      * @return
      */
-    private String getStreamUrl(StreamServer streamServer,PlayRoom playRoom) {
+    private String getPullStreamUrl(StreamServer streamServer, PlayRoom playRoom) {
         String ip = streamServer.getIp();
         Integer port = streamServer.getPort();
-        return StrUtil.format(streamTemplate,ip,port,playRoom.getRoomNumbe());
+        return StrUtil.format(PULL_STREAM_TEMPLATE,ip,port,playRoom.getRoomNumbe());
     }
 
 }

@@ -1,6 +1,7 @@
 package cn.oneplustow.lc.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import java.util.Date;
 /**
  * @author cc
  */
+@AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Data
@@ -23,6 +25,8 @@ public class StreamServerAllotRecord implements Serializable {
     private Long playRoomId;
     /**推流url*/
     private String pushStreamUrl;
+    /**播放流url*/
+    private String playStreamUrl;
     /**推流参数*/
     private String pushStreamParam;
     /**推流密码*/

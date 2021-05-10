@@ -33,16 +33,6 @@ public class GlobalExceptionHandler
     }
 
     /**
-     * 拦截未知的运行时异常
-     */
-    @ExceptionHandler(RuntimeException.class)
-    public AjaxResult notFount(RuntimeException e)
-    {
-        log.error("运行时异常:", e);
-        return AjaxResult.error("运行时异常:" + e.getMessage());
-    }
-
-    /**
      * 系统异常
      */
     @ExceptionHandler(Exception.class)

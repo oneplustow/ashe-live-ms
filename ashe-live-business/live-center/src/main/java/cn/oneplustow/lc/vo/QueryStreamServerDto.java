@@ -11,7 +11,7 @@ import java.io.Serializable;
 public class QueryStreamServerDto implements Serializable {
 
     /** 流服务器ID */
-    private Integer id;
+    private Long id;
 
     /** 流服务器名称 */
     private String serverName;

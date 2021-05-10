@@ -1,7 +1,5 @@
 package cn.oneplustow.lc.service.impl;
 
-import cn.hutool.core.util.StrUtil;
-import cn.hutool.http.HttpUtil;
 import cn.oneplustow.common.mapstruct.MapStructContext;
 import cn.oneplustow.common.verify.ValidatorContext;
 import cn.oneplustow.config.db.util.PageUtil;
@@ -9,11 +7,8 @@ import cn.oneplustow.lc.entity.StreamServer;
 import cn.oneplustow.lc.mapper.StreamServerMapper;
 import cn.oneplustow.lc.service.IOssrsService;
 import cn.oneplustow.lc.service.IStreamServerService;
-import cn.oneplustow.lc.vo.OssrsSystemSummariesDto;
 import cn.oneplustow.lc.vo.QueryStreamServerDto;
 import cn.oneplustow.lc.vo.SaveStreamServerDto;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.JSONValidator;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -24,7 +19,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static cn.oneplustow.common.constant.DbConstants.SteamServerStatus.*;
+import static cn.oneplustow.common.constant.DbConstants.SteamServerStatus.CONNECTION_FAILURE;
+import static cn.oneplustow.common.constant.DbConstants.SteamServerStatus.CONNECTION_SUCCESS;
 
 /**
  * 流服务器信息Service业务层处理
@@ -114,7 +110,7 @@ public class StreamServerServiceImpl extends ServiceImpl<StreamServerMapper, Str
     }
 
     @Override
-    public boolean heartBeatDetectionById(Integer id) {
+    public boolean heartBeatDetectionById(Long id) {
         StreamServer streamServer = this.getById(id);
         boolean success = false;
         //这里如果解析错误，则说明返回的不是json

@@ -9,6 +9,7 @@ import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 import javax.annotation.PostConstruct;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -36,7 +37,7 @@ public class MapStructContext {
     private ConcurrentHashMap<String, MapStructParse> map = new ConcurrentHashMap<>(48);
 
     public <T> List<T>conver(List<?> from,Class<T> to){
-        if(CollectionUtils.isEmpty(from)){return null;}
+        if(CollectionUtils.isEmpty(from)){return new ArrayList<T>();}
         Boolean forward = isForward(from.get(0).getClass(), to);
         if(forward == null){return null;}
         IMapStruct iMapStruct = getIMapStruct(from.get(0).getClass(), to);
