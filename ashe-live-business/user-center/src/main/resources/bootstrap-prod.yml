@@ -1,10 +1,10 @@
 spring:
   profiles:
-    active: dev
+    active: prod
   application:
-    name: message-center
+    name: user-center
   cloud:
     nacos:
       discovery:
         server-addr: oneplustow.cn:8848
-        namespace: e9a491ff-cf57-4085-9136-0e05af478b37
+        namespace: 0340360d-3c02-47ac-a729-f9ccfa72a9e8
