@@ -34,6 +34,10 @@
             <artifactId>common-web</artifactId>
         </dependency>
         <dependency>
+            <groupId>cn.oneplustow</groupId>
+            <artifactId>log-config</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct-processor</artifactId>
         </dependency>

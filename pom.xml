@@ -171,6 +171,11 @@
             </dependency>
             <dependency>
                 <groupId>cn.oneplustow</groupId>
+                <artifactId>log-config</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.oneplustow</groupId>
                 <artifactId>common-code</artifactId>
                 <version>${project.version}</version>
             </dependency>

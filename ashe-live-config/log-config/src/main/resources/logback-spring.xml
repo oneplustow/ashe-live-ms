@@ -14,6 +14,7 @@
         </encoder>
     </appender>
 
+    <springProfile name="prod">
     <!-- 按照每天生成日志文件 -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
@@ -60,7 +61,7 @@
         </encoder>
     </appender>
     <!-- 每天生成一个html格式的日志结束 -->
-
+    </springProfile>
     <!--myibatis log configure -->
     <logger name="com.apache.ibatis" level="TRACE" />
     <logger name="java.sql.Connection" level="DEBUG" />
@@ -70,9 +71,11 @@
     <!-- 日志输出级别 -->
     <root level="INFO">
         <appender-ref ref="STDOUT" />
-        <appender-ref ref="FILE" />
-        <appender-ref ref="HTML" />
-        <appender-ref ref="FILE_HTML" />
+        <springProfile name="prod">
+            <appender-ref ref="FILE" />
+            <appender-ref ref="HTML" />
+            <appender-ref ref="FILE_HTML" />
+        </springProfile>
     </root>
 
 </configuration>
