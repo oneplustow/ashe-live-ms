@@ -99,13 +99,23 @@ public class PlayRoomController extends BaseController {
     }
 
     /**
-     * 开通直播间
+     * 开始直播
      */
     @PreAuthorize("@ss.hasPermi('lc:playRoom:add')" )
     @Log(title = "开始直播" , businessType = BusinessType.INSERT)
     @PostMapping("/startLive")
     public AjaxResult startLive() {
         return AjaxResult.success(playRoomService.startLive(SecurityUtils.getUserId()));
+    }
+
+    /**
+     * 关闭直播
+     */
+    @PreAuthorize("@ss.hasPermi('lc:playRoom:add')" )
+    @Log(title = "开始直播" , businessType = BusinessType.INSERT)
+    @PostMapping("/stopLive")
+    public AjaxResult stopLive() {
+        return AjaxResult.success(playRoomService.stopLive(SecurityUtils.getUserId()));
     }
 
 

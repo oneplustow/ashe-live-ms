@@ -11,6 +11,7 @@ import cn.oneplustow.lc.mapper.StreamServerAllotRecordMapper;
 import cn.oneplustow.lc.service.IStreamServerAllotRecordService;
 import cn.oneplustow.lc.service.IStreamServerService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +33,7 @@ import static cn.oneplustow.common.constant.DbConstants.SteamServerAllotRecordSt
 public class StreamServerAllotRecordServiceImpl extends ServiceImpl<StreamServerAllotRecordMapper, StreamServerAllotRecord> implements IStreamServerAllotRecordService
 {
     private final String PULL_STREAM_TEMPLATE = "rtmp:{}:{}/{}";
-    private final String PLAY_STREAM_TEMPLATE = "http://{}:{}/{}.flv";
+    private final String PLAY_STREAM_TEMPLATE = "http://{}:{}/{}/{}.flv";
     @Autowired
     private IStreamServerService streamServerService;
 
@@ -41,8 +42,10 @@ public class StreamServerAllotRecordServiceImpl extends ServiceImpl<StreamServer
 
     @Override
     public Boolean invalidRecord(Long playRoomId){
-        this.update(this.lambdaUpdate().eq(StreamServerAllotRecord::getPlayRoomId,playRoomId)
-        .eq(StreamServerAllotRecord::getStatus,NORMAL).set(StreamServerAllotRecord::getStatus,INVALID));
+        this.update(new LambdaUpdateWrapper<StreamServerAllotRecord>()
+                .eq(StreamServerAllotRecord::getPlayRoomId,playRoomId)
+                .eq(StreamServerAllotRecord::getStatus,NORMAL)
+                .set(StreamServerAllotRecord::getStatus,INVALID));
         return true;
     }
 
@@ -61,24 +64,26 @@ public class StreamServerAllotRecordServiceImpl extends ServiceImpl<StreamServer
         if(allotRecord != null){return allotRecord;}
         StreamServer available = streamServerService.getAvailable();
 
+        String password = RandomUtil.randomNumbers(6);
         String pullStreamUrl = getPullStreamUrl(available, playRoom);
-        String playStreamUrl = getPlayStreamUrl(available, playRoom);
+        String playStreamUrl = getPlayStreamUrl(available, playRoom,password);
         StreamServerAllotRecord serverAllotRecord = StreamServerAllotRecord.builder()
                 .playRoomId(playRoom.getId())
                 .streamServerId(available.getId())
                 .pushStreamUrl(pullStreamUrl)
                 .playStreamUrl(playStreamUrl)
-                .pushStreamPassword(RandomUtil.randomNumbers(6))
+                .pushStreamPassword(password)
                 .createTime(new Date())
+                .status(NORMAL)
                 .build();
         this.save(serverAllotRecord);
         return serverAllotRecord;
     }
 
-    private String getPlayStreamUrl(StreamServer streamServer, PlayRoom playRoom) {
+    private String getPlayStreamUrl(StreamServer streamServer, PlayRoom playRoom,String password) {
         String ip = streamServer.getIp();
         Integer port = streamServer.getPort();
-        return StrUtil.format(PLAY_STREAM_TEMPLATE,ip,port,playRoom.getRoomNumbe());
+        return StrUtil.format(PLAY_STREAM_TEMPLATE,ip,port,playRoom.getRoomNumbe(),password);
     }
 
     /**

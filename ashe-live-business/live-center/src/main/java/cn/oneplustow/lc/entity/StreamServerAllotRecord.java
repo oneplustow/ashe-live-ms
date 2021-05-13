@@ -1,5 +1,7 @@
 package cn.oneplustow.lc.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,6 +20,7 @@ import java.util.Date;
 @Data
 @TableName("lc_stream_server_allot_record")
 public class StreamServerAllotRecord implements Serializable {
+    @TableId(type = IdType.AUTO)
     private Long id;
     /**流服务器id*/
     private Long streamServerId;

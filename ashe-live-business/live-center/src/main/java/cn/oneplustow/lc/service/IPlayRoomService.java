@@ -27,13 +27,6 @@ public interface IPlayRoomService {
     List<PlayRoomPageVo> selectPage(QueryPlayRoomDto playRoom);
 
     /**
-     * 关闭直播
-     * @param userId
-     * @return
-     */
-    PlayRoomDetailVo stopLive(Long userId);
-
-    /**
      * 观看直播接口
      * 会将观看人数加一
      * @param roomNumber 房间号
@@ -55,6 +48,7 @@ public interface IPlayRoomService {
      * 会将直播间状态修改为正在直播状态
      * @param roomNumbe
      * @param password
+     * @param clientId
      * @return 验证和修改成功返回true， 否则返回false
      */
     Boolean startPush(String roomNumbe, String password,String clientId);
@@ -106,5 +100,17 @@ public interface IPlayRoomService {
      */
     boolean openUp(String name, Long userId);
 
+    /**
+     * 开始直播
+     * @param userId
+     * @return
+     */
     PlayRoomDetailVo startLive(Long userId);
+
+    /**
+     * 关闭直播
+     * @param userId
+     * @return
+     */
+    PlayRoomDetailVo stopLive(Long userId);
 }

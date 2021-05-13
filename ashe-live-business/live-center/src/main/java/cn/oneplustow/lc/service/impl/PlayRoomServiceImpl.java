@@ -148,6 +148,7 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public PlayRoomDetailVo stopLive(Long userId) {
         PlayRoom playRoom = getPlayRoomByIdOrUserId(null, userId);
         Assert.notNull(playRoom,"无法找到您的直播间");
