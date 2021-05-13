@@ -3,7 +3,7 @@ spring:
   # redis 配置
   redis:
     # 地址
-    host: 47.106.232.250
+    host: oneplustow.cn
     # 端口，默认为6379
     port: 6379
     password: redis2020920.

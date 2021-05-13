@@ -8,7 +8,7 @@ spring:
   messages:
     basename: i18n/messages
   profiles:
-    include: db,redis
+    include: db-dev,redis-dev
   main:
     allow-bean-definition-overriding: true
 # token配置

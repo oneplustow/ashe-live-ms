@@ -1,0 +1,12 @@
+# 数据源配置
+spring:
+  # redis 配置
+  redis:
+    # 地址
+    host: oneplustow.cn
+    # 端口，默认为6379
+    port: 6379
+    password: redis2020920.
+    # 连接超时时间
+    timeout: 10s
+    database: 1

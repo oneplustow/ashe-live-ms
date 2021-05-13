@@ -8,7 +8,7 @@ spring:
   messages:
     basename: i18n/messages
   profiles:
-    include: db
+    include: db-dev
   main:
     allow-bean-definition-overriding: true
 feign:

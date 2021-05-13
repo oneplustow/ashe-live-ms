@@ -7,7 +7,7 @@ spring:
   messages:
     basename: i18n/messages
   profiles:
-    include: db,redis
+    include: db-dev,redis-dev
 debug: true
 gen:
   author: cc
