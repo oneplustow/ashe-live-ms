@@ -132,6 +132,12 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
     }
 
     @Override
+    public Boolean isOpenPlayRoom(Long userId) {
+        PlayRoom playRoom = getPlayRoomByIdOrUserId(null, userId);
+        return playRoom != null;
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public PlayRoomDetailVo startLive(Long userId) {
         PlayRoom playRoom = getPlayRoomByIdOrUserId(null, userId);

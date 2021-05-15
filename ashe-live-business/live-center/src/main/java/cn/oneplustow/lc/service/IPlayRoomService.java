@@ -113,4 +113,11 @@ public interface IPlayRoomService {
      * @return
      */
     PlayRoomDetailVo stopLive(Long userId);
+
+    /**
+     * 用户是否开通直播间
+     * @param userId 用户id
+     * @return
+     */
+    Boolean isOpenPlayRoom(Long userId);
 }
