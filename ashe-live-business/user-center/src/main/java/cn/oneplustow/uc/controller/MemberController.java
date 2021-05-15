@@ -52,12 +52,11 @@ public class MemberController extends BaseController
     }
 
     /**
-     * 新增用户
+     * 注册用户
      */
-    @PreAuthorize("@ss.hasPermi('uc:member:add')")
     @Log(title = "用户管理", businessType = BusinessType.INSERT)
-    @PostMapping
-    public AjaxResult add(@RequestBody SaveMemberDto saveMemberDto)
+    @PostMapping("public/register")
+    public AjaxResult register(@RequestBody SaveMemberDto saveMemberDto)
     {
         return toAjax(memberService.insertMember(saveMemberDto));
     }

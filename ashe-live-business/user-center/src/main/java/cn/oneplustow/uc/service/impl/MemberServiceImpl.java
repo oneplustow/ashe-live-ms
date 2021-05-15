@@ -61,7 +61,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
 
     /**
      * 新增保存用户信息
-     *
+     * todo 需要加分布式事务
      * @param member 用户信息
      * @return 结果
      */
