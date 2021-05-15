@@ -1,7 +1,6 @@
 package cn.oneplustow.ac.config;
 
 
-import cn.oneplustow.ac.security.filter.JwtAuthenticationTokenFilter;
 import cn.oneplustow.ac.security.handle.AuthenticationEntryPointImpl;
 import cn.oneplustow.ac.security.handle.LogoutSuccessHandlerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * spring security配置
@@ -46,8 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
     /**
      * token认证过滤器
      */
-    @Autowired
-    private JwtAuthenticationTokenFilter authenticationTokenFilter;
+//    @Autowired
+//    private JwtAuthenticationTokenFilter authenticationTokenFilter;
     
     /**
      * 解决 无法直接注入 AuthenticationManager
@@ -91,7 +89,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                 .authorizeRequests()
                 // 对于登录login 验证码captchaImage 允许匿名访问
 
-                .antMatchers("/login", "/captchaImage","/**/public/**").anonymous()
+                //.antMatchers("/login", "/captchaImage","/**/public/**").anonymous()
                 .antMatchers(
                         HttpMethod.GET,
                         "/*.html",
@@ -99,12 +97,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter
                         "/**/*.css",
                         "/**/*.js"
                 ).permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().anonymous()//.authenticated()
                 .and();
                 //.headers().frameOptions().disable();
         httpSecurity.logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler);
         // 添加JWT filter
-        httpSecurity.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        //httpSecurity.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     

@@ -2,6 +2,8 @@ package cn.oneplustow.ac.controller;
 
 
 import cn.oneplustow.ac.entity.LoginUserDetails;
+import cn.oneplustow.ac.security.service.SysLoginService;
+import cn.oneplustow.ac.security.service.SysPermissionService;
 import cn.oneplustow.ac.security.service.TokenService;
 import cn.oneplustow.ac.util.SecurityUtils;
 import cn.oneplustow.api.sc.model.SysUserModel;
@@ -9,8 +11,7 @@ import cn.oneplustow.api.sc.service.MenuService;
 import cn.oneplustow.api.sc.service.UserService;
 import cn.oneplustow.common.constant.Constants;
 import cn.oneplustow.common.domain.AjaxResult;
-import cn.oneplustow.ac.security.service.SysLoginService;
-import cn.oneplustow.ac.security.service.SysPermissionService;
+import cn.oneplustow.common.web.controller.GlobalExceptionHandler;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ import java.util.Set;
  */
 @Api(tags = "登录控制器")
 @RestController
-public class SysLoginController
+public class SysLoginController extends GlobalExceptionHandler
 {
     @Autowired
     private SysLoginService loginService;
