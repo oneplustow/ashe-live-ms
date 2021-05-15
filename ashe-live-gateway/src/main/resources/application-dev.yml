@@ -34,5 +34,5 @@ feign:
     enabled: true
 fo:
   auth:
-    excludeUrls: /**/auth-center/**,swagger-resources/**,/**/v3/api-docs
+    excludeUrls: /**/public/**,/**/auth-center/**,swagger-resources/**,/**/v3/api-docs
 debug: true
