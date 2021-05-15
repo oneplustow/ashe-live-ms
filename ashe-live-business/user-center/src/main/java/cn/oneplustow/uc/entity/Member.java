@@ -1,6 +1,7 @@
 package cn.oneplustow.uc.entity;
 
 import cn.oneplustow.config.db.model.BaseEntity;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 /**
@@ -9,6 +10,7 @@ import lombok.Data;
  * @author cc
  */
 @Data
+@TableName("uc_member")
 public class Member extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
