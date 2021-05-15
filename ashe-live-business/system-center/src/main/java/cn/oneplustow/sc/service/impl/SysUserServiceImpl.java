@@ -159,6 +159,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      */
     @Override
     public String checkUserNameUnique(String userName) {
+        if(StrUtil.isBlank(userName)){
+            return UserConstants.UNIQUE;
+        }
         int count = userMapper.checkUserNameUnique(userName);
         if (count > 0) {
             return UserConstants.NOT_UNIQUE;
@@ -174,6 +177,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      */
     @Override
     public String checkPhoneUnique(SysUser user) {
+        if(StrUtil.isBlank(user.getPhonenumber())){
+            return UserConstants.UNIQUE;
+        }
         Long userId = ObjectUtil.isNull(user.getUserId()) ? -1L : user.getUserId();
         SysUser info = userMapper.checkPhoneUnique(user.getPhonenumber());
         if (ObjectUtil.isNotNull(info) && info.getUserId().longValue() != userId.longValue()) {
@@ -190,6 +196,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      */
     @Override
     public String checkEmailUnique(SysUser user) {
+        if(StrUtil.isBlank(user.getEmail())){
+            return UserConstants.UNIQUE;
+        }
         Long userId = ObjectUtil.isNull(user.getUserId()) ? -1L : user.getUserId();
         SysUser info = userMapper.checkEmailUnique(user.getEmail());
         if (ObjectUtil.isNotNull(info) && info.getUserId().longValue() != userId.longValue()) {
