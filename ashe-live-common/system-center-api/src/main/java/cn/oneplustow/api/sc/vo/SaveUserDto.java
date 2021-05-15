@@ -1,11 +1,14 @@
 package cn.oneplustow.api.sc.vo;
 
 
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
  * @author cc
  */
+@Data
 public class SaveUserDto implements Serializable {
 
     /** 用户账号 */

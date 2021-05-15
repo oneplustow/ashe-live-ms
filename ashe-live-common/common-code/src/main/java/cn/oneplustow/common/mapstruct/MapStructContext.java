@@ -1,5 +1,6 @@
 package cn.oneplustow.common.mapstruct;
 
+import cn.hutool.core.lang.Assert;
 import lombok.Data;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,9 +49,9 @@ public class MapStructContext {
     public <T> T conver(Object from,Class<T> to){
         if(from == null){return null;}
         Boolean forward = isForward(from.getClass(), to);
-        if(forward == null){return null;}
+        Assert.notNull(forward,"无法找到具体的转换规则");
         IMapStruct iMapStruct = getIMapStruct(from.getClass(), to);
-        if (iMapStruct == null) {return null;}
+        Assert.notNull(iMapStruct,"无法找到具体的转换规则");
         return forward ? (T)iMapStruct.convers(from) : (T)iMapStruct.convert(from);
     }
 
