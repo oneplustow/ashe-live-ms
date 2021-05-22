@@ -31,6 +31,22 @@ public class AjaxResult extends HashMap<String, Object>
     {
     }
 
+    public String getMsg(){
+        Object msg = this.get(MSG_TAG);
+        if (msg != null) {
+            return msg.toString();
+        }
+        return null;
+    }
+
+    public Integer getCode(){
+        Object code = this.get(CODE_TAG);
+        if (code != null) {
+            return Integer.valueOf(code.toString());
+        }
+        return null;
+    }
+
     /**
      * 初始化一个新创建的 AjaxResult 对象
      * 

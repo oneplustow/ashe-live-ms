@@ -27,7 +27,9 @@ public enum HttpCode {
 	LOCKED(423,"已被锁定"),
 	TOO_MANY_REQUESTS(429, "Too Many Requests"),
 	/** 500服务器出错 */
-	INTERNAL_SERVER_ERROR(500,"服务器内部错误");
+	INTERNAL_SERVER_ERROR(500,"服务器内部错误"),
+
+	BUSINESS_ERROR(600,"业务异常错误");
 
 	private Integer code;
 

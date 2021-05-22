@@ -5,9 +5,11 @@ import cn.oneplustow.common.exception.BaseException;
 import cn.oneplustow.common.exception.CustomException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,6 +47,7 @@ public class GlobalExceptionHandler
     /**
      * 业务异常
      */
+    @ResponseStatus(value = HttpStatus.PRECONDITION_FAILED)
     @ExceptionHandler({BaseException.class, CustomException.class,IllegalArgumentException.class})
     public AjaxResult businessException(HttpServletRequest request, Exception e)
     {
@@ -55,6 +58,7 @@ public class GlobalExceptionHandler
     /**
      * 自定义验证异常
      */
+    @ResponseStatus(HttpStatus.PRECONDITION_FAILED)
     @ExceptionHandler(BindException.class)
     public AjaxResult validatedBindException(BindException e)
     {
