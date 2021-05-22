@@ -13,8 +13,6 @@
         <module>ashe-live-common</module>
         <module>ashe-live-gateway</module>
         <module>ashe-live-config</module>
-
-
     </modules>
 
     <properties>
@@ -65,7 +63,6 @@
 
     <dependencyManagement>
         <dependencies>
-
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
@@ -124,16 +121,6 @@
                 <version>${springfox-boot-starter.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.zyplayer</groupId>
-                <artifactId>swagger-mg-ui</artifactId>
-                <version>${swagger.mg.ui.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.github.zlt2000</groupId>
-                <artifactId>swagger-butler-core</artifactId>
-                <version>${swagger.butler.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-starter-server</artifactId>
                 <version>${spring-boot-admin.version}</version>
@@ -142,12 +129,6 @@
                 <groupId>cn.afterturn</groupId>
                 <artifactId>easypoi-base</artifactId>
                 <version>${easypoi.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.google.guava</groupId>
-                        <artifactId>guava</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <!--hutool-->
             <dependency>
