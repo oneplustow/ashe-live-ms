@@ -2,12 +2,14 @@ package cn.oneplustow.uc.service.impl;
 
 import cn.oneplustow.api.sc.service.UserService;
 import cn.oneplustow.api.sc.vo.SaveUserDto;
+import cn.oneplustow.common.exception.WarningMessageException;
 import cn.oneplustow.common.mapstruct.MapStructContext;
 import cn.oneplustow.uc.entity.Member;
 import cn.oneplustow.uc.mapper.MemberMapper;
 import cn.oneplustow.uc.service.IMemberService;
 import cn.oneplustow.uc.vo.SaveMemberDto;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -65,10 +67,14 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
      * @param member 用户信息
      * @return 结果
      */
+    @GlobalTransactional
     @Override
     public boolean insertMember(SaveMemberDto saveMemberDto) {
         SaveUserDto saveuserdto = mapStructContext.conver(saveMemberDto, SaveUserDto.class);
         Long userid = userService.saveMemberUser(saveuserdto);
+        if(userid == null){
+            throw new WarningMessageException("注册用户失败");
+        }
         Member member = mapStructContext.conver(saveMemberDto, Member.class);
         member.setUserId(userid);
         return this.save(member);
