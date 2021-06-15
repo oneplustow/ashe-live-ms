@@ -1,6 +1,6 @@
 package cn.oneplustow.lc.service.impl;
 
-import cn.oneplustow.common.mapstruct.MapStructContext;
+import cn.opl.mapstruct.MapStructContext;
 import cn.oneplustow.common.verify.ValidatorContext;
 import cn.oneplustow.config.db.util.PageUtil;
 import cn.oneplustow.lc.entity.StreamServer;

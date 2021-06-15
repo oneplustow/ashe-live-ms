@@ -10,7 +10,7 @@ import cn.oneplustow.api.sc.vo.SaveUserDto;
 import cn.oneplustow.common.constant.UserConstants;
 import cn.oneplustow.common.exception.CustomException;
 import cn.oneplustow.common.exception.ParameterMissingException;
-import cn.oneplustow.common.mapstruct.MapStructContext;
+import cn.opl.mapstruct.MapStructContext;
 import cn.oneplustow.sc.aspectj.lang.annotation.DataScope;
 import cn.oneplustow.sc.entity.*;
 import cn.oneplustow.sc.mapper.*;

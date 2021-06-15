@@ -3,13 +3,13 @@ package cn.oneplustow.lc.service.impl;
 
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.oneplustow.common.mapstruct.MapStructContext;
 import cn.oneplustow.lc.entity.PlayRoom;
 import cn.oneplustow.lc.entity.StreamServer;
 import cn.oneplustow.lc.entity.StreamServerAllotRecord;
 import cn.oneplustow.lc.mapper.StreamServerAllotRecordMapper;
 import cn.oneplustow.lc.service.IStreamServerAllotRecordService;
 import cn.oneplustow.lc.service.IStreamServerService;
+import cn.opl.mapstruct.MapStructContext;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

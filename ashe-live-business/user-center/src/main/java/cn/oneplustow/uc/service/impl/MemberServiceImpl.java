@@ -3,7 +3,7 @@ package cn.oneplustow.uc.service.impl;
 import cn.oneplustow.api.sc.service.UserService;
 import cn.oneplustow.api.sc.vo.SaveUserDto;
 import cn.oneplustow.common.exception.WarningMessageException;
-import cn.oneplustow.common.mapstruct.MapStructContext;
+import cn.opl.mapstruct.MapStructContext;
 import cn.oneplustow.uc.entity.Member;
 import cn.oneplustow.uc.mapper.MemberMapper;
 import cn.oneplustow.uc.service.IMemberService;

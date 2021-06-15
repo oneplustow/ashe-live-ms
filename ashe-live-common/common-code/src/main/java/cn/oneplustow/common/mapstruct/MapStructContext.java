@@ -20,7 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * 对外提供统一方法进行调用
  * @author cc
  */
-@Component
+//@Component
 public class MapStructContext {
 
     private List<IMapStruct> iMapStructs;
