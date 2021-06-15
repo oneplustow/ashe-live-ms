@@ -12,7 +12,10 @@
     <artifactId>common-code</artifactId>
 
     <dependencies>
-
+        <dependency>
+            <groupId>cn.oneplustow</groupId>
+            <artifactId>opl-tool</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>

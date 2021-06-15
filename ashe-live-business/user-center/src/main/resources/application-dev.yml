@@ -16,3 +16,22 @@ feign:
     enabled: true
 ribbon:
   ReadTimeout: 5000
+
+
+
+#seata:
+#  enabled: true
+#  application-id: user-center
+#  #客户端和服务端在同一个事务组
+#  tx-service-group: DEFAULT_GROUP
+#  enable-auto-data-source-proxy: true
+#  service:
+#    vgroup-mapping:
+#      my_test_tx_group: default
+#  config:
+#    type: nacos
+#    nacos:
+#      namespace: e9a491ff-cf57-4085-9136-0e05af478b37
+#      serverAddr: oneplustow.cn:8848
+#      group: DEFAULT_GROUP
+

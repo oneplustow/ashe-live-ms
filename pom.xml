@@ -46,7 +46,7 @@
         <velocity.version>1.7</velocity.version>
         <pagehelper.spring.boot.starter.version>1.2.5</pagehelper.spring.boot.starter.version>
         <mapstruct.version>1.3.0.Final</mapstruct.version>
-
+        <opl-tool.version>1.0-SNAPSHOT</opl-tool.version>
     </properties>
 
     <dependencies>
@@ -225,6 +225,11 @@
                 <artifactId>mapstruct-jdk8</artifactId>
                 <version>${mapstruct.version}</version>
             </dependency>
+            <dependency>
+                <groupId>cn.oneplustow</groupId>
+                <artifactId>opl-tool</artifactId>
+                <version>${opl-tool.version}</version>
+            </dependency>
         </dependencies>
 
     </dependencyManagement>
@@ -239,4 +244,13 @@
             </plugins>
         </pluginManagement>
     </build>
+
+    <repositories>
+        <repository>
+            <id>sonatype</id>
+            <name>Maven Central</name>
+            <url>https://s01.oss.sonatype.org/content/groups/public/</url>
+            <snapshots>true</snapshots>
+        </repository>
+    </repositories>
 </project>
