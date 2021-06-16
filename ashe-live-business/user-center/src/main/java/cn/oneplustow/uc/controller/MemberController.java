@@ -58,6 +58,7 @@ public class MemberController extends BaseController
     @PostMapping("public/register")
     public AjaxResult register(@RequestBody SaveMemberDto saveMemberDto)
     {
+        saveMemberDto.setNickName(saveMemberDto.getUserName());
         return toAjax(memberService.insertMember(saveMemberDto));
     }
 
