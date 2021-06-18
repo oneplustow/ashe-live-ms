@@ -20,26 +20,15 @@ import java.util.Arrays;
  * @date 2021-06-18
  */
 @RestController
-@RequestMapping("/system/info" )
+@RequestMapping("/system/apiInfo" )
 public class SysApiInfoController extends BaseController {
     @Autowired
     private ISysApiInfoService sysApiInfoService;
 
     /**
-     * 初始化系统API信息
-     */
-    @PreAuthorize("@ss.hasPermi('system:info:list')" )
-    @GetMapping("/init" )
-    public AjaxResult init() {
-        return AjaxResult.success(sysApiInfoService.init());
-    }
-
-
-
-    /**
      * 查询系统api信息列表
      */
-    @PreAuthorize("@ss.hasPermi('system:info:list')" )
+    @PreAuthorize("@ss.hasPermi('system:apiInfo:list')" )
     @GetMapping("/list" )
     public TableDataInfo list(SysApiInfo sysApiInfo) {
         return null;
@@ -49,7 +38,7 @@ public class SysApiInfoController extends BaseController {
     /**
      * 获取系统api信息详细信息
      */
-    @PreAuthorize("@ss.hasPermi('system:info:query')" )
+    @PreAuthorize("@ss.hasPermi('system:apiInfo:query')" )
     @GetMapping(value = "/{id}" )
     public AjaxResult getInfo(@PathVariable("id" ) Long id) {
         return AjaxResult.success(sysApiInfoService.getById(id));
@@ -58,7 +47,7 @@ public class SysApiInfoController extends BaseController {
     /**
      * 新增系统api信息
      */
-    @PreAuthorize("@ss.hasPermi('system:info:add')" )
+    @PreAuthorize("@ss.hasPermi('system:apiInfo:add')" )
     @Log(title = "系统api信息" , businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody SysApiInfo sysApiInfo) {
@@ -68,7 +57,7 @@ public class SysApiInfoController extends BaseController {
     /**
      * 修改系统api信息
      */
-    @PreAuthorize("@ss.hasPermi('system:info:edit')" )
+    @PreAuthorize("@ss.hasPermi('system:apiInfo:edit')" )
     @Log(title = "系统api信息" , businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody SysApiInfo sysApiInfo) {
@@ -78,7 +67,7 @@ public class SysApiInfoController extends BaseController {
     /**
      * 删除系统api信息
      */
-    @PreAuthorize("@ss.hasPermi('system:info:remove')" )
+    @PreAuthorize("@ss.hasPermi('system:apiInfo:remove')" )
     @Log(title = "系统api信息" , businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}" )
     public AjaxResult remove(@PathVariable Long[] ids) {

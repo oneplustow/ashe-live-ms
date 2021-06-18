@@ -12,10 +12,11 @@ import java.util.List;
  * @author cc
  * @date 2021-06-18
  */
-public interface ISysApiInfoService extends IService<SysApiInfo>
-{
-
-    boolean init();
-
-    void saveApiInfo(List<SysApiInfo> apiInfoList);
+public interface ISysApiInfoService {
+    /**
+     * 批量保存api信息
+     * @param apiInfoList
+     * @return
+     */
+    boolean saveApiInfo(List<SysApiInfo> apiInfoList);
 }

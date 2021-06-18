@@ -11,11 +11,4 @@ import static org.junit.Assert.*;
 @SpringBootTest
 public class ISysApiInfoServiceTest {
 
-    @Autowired
-    ISysApiInfoService sysApiInfoService;
-
-    @Test
-    public void init() {
-        sysApiInfoService.init();
-    }
 }
