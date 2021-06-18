@@ -12,7 +12,7 @@ import java.util.List;
  * @author cc
  * @date 2021-06-18
  */
-public interface ISysApiInfoService {
+public interface ISysApiInfoService extends IService<SysApiInfo>{
     /**
      * 批量保存api信息
      * @param apiInfoList
