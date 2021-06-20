@@ -2,15 +2,11 @@ package cn.oneplustow.api.sc.service;
 
 import cn.oneplustow.api.sc.model.SysApiInfoModel;
 import cn.oneplustow.api.sc.service.fallback.ApiInfoServiceFallback;
-import cn.oneplustow.api.sc.service.fallback.MenuServiceFallback;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author cc
@@ -25,5 +21,6 @@ public interface ApiInfoService {
      * @param apiInfoModelList
      * @return
      */
+    @GetMapping("saveApiInfo")
     Boolean saveApiInfo(List<SysApiInfoModel> apiInfoModelList);
 }

@@ -1,19 +1,45 @@
 package cn.oneplustow;
 
 import cn.oneplustow.mc.MessageCenterApplication;
-import cn.oneplustow.mc.controller.Controller;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.jasypt.encryption.StringEncryptor;
+import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
+import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.core.env.Environment;
 import org.springframework.util.AntPathMatcher;
-import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 
-import java.util.List;
-
-//
+@SpringBootTest(classes = MessageCenterApplication.class)
 public class SpringMvcTest {
+
+    @Autowired
+    private Environment environment;
+
+    @Autowired
+    private StringEncryptor stringEncryptorl;
+
+    @Test
+    public void test1(){
+        System.out.println(environment.getProperty("cc"));
+    }
+
+    @Test
+    public void testProperties(){
+        PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
+        SimpleStringPBEConfig config = new SimpleStringPBEConfig();
+        config.setPassword("password");
+        config.setAlgorithm("PBEWithMD5AndDES");
+        config.setKeyObtentionIterations("1000");
+        config.setPoolSize("1");
+        config.setProviderName("SunJCE");
+        config.setSaltGeneratorClassName("org.jasypt.salt.RandomSaltGenerator");
+        config.setIvGeneratorClassName("org.jasypt.iv.RandomIvGenerator");
+        config.setStringOutputType("base64");
+        encryptor.setConfig(config);
+        System.out.println(encryptor.encrypt("ashe-live"));
+        System.out.println(encryptor.encrypt("ashe-live-prod"));
+    }
 
 
 

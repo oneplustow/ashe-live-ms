@@ -47,9 +47,11 @@
         <pagehelper.spring.boot.starter.version>1.2.5</pagehelper.spring.boot.starter.version>
         <mapstruct.version>1.3.0.Final</mapstruct.version>
         <opl-tool.version>1.0.1-SNAPSHOT</opl-tool.version>
+        <jasypt-spring-boot-starter.version>3.0.3</jasypt-spring-boot-starter.version>
     </properties>
 
     <dependencies>
+
         <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -129,6 +131,12 @@
                 <groupId>cn.afterturn</groupId>
                 <artifactId>easypoi-base</artifactId>
                 <version>${easypoi.version}</version>
+            </dependency>
+            <!-- Jasypt加密 -->
+            <dependency>
+                <groupId>com.github.ulisesbocchio</groupId>
+                <artifactId>jasypt-spring-boot-starter</artifactId>
+                <version>${jasypt-spring-boot-starter.version}</version>
             </dependency>
             <!--hutool-->
             <dependency>

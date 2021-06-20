@@ -7,8 +7,8 @@ spring:
       # 主库数据源
       master:
         url: jdbc:mysql://oneplustow.cn:3306/ashe-live-prod?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-        username: ashe-live-prod
-        password: ashe-live-prod
+        username: ENC(QTUsd7k5G6MXOyEVihmeBz4GCfTSRObpjl9DeJ8dszo=)
+        password: ENC(QTUsd7k5G6MXOyEVihmeBz4GCfTSRObpjl9DeJ8dszo=)
       # 从库数据源
       slave:
         # 从数据源开关/默认关闭

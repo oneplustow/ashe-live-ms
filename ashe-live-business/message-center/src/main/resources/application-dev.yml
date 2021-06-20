@@ -16,3 +16,8 @@ feign:
     enabled: true
 ribbon:
   ReadTimeout: 5000
+
+jasypt:
+  encryptor:
+    password: password
+    algorithm: PBEWithMD5AndDES
