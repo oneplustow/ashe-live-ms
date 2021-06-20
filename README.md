@@ -1,10 +1,16 @@
 # ashe-live-ms（寒冰直播）
+<p align="center">
+  <img src="https://img.shields.io/badge/Spring%20Boot-2.2.2.RELEASE-blue" alt="Downloads"/>
+  <img src="https://img.shields.io/badge/Spring%20Cloud-Hoxton.RELEASE-blue" alt="Downloads"/>
+  <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2.2.0.RELEASE-blue" alt="Downloads"/>
+  <img src="https://img.shields.io/badge/license-MIT-green" alt="Downloads"/>
+</p>
 
 #### 1.介绍
 ***寒冰直播是一款基于OSSRS流服务器的直播平台。***
 在此基础上开发了授权鉴权、直播间管理、直播管理等相关功能。项目整体采用微服务 和 前端后分离架构，为了方便操作将多个微服务放在了一个git项目下面，除此之外还包括两个前端项目分别是：
-1. ashe-live（寒冰直播客户端项目） <https://gitee.com/oneplustow/ashe-live>
-2. ashe-live-ui（寒冰直播后台管理项目）<https://gitee.com/oneplustow/ashe-live-ui>  
+1. ashe-live（寒冰直播客户端项目） [源码](https://gitee.com/oneplustow/ashe-live)    体验(暂未开放)
+2. ashe-live-ui（寒冰直播后台管理项目）[源码](https://gitee.com/oneplustow/ashe-live-ui)  体验(暂未开放)  
 以上两个项目可以点击链接跳转到对应的git项目页面
 #### 2.系统模块规划
 寒冰直播将整体划分为七个模块中心，现阶段各模块中心规划图和进度如下  
@@ -15,6 +21,7 @@
 * 消息中心：规划中
 * 监控中心：等待规划
 * 扩展中心：规划中
+
 ![alt 系统模块规划](./image/寒冰直播.png)
 
 #### 3.系统架构
