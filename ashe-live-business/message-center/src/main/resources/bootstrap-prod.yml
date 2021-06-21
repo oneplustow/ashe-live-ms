@@ -6,5 +6,8 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: oneplustow.cn:8848
-        namespace: 0340360d-3c02-47ac-a729-f9ccfa72a9e8
+        server-addr: ENC(LCipoRrnPcrx7K0n5y9q6iwjl31PBvpbIkyJwOejLNTJTtzMIcqymQ==)
+        namespace: ENC(byBvf6PJ2AwWsKkT8p5nTg3l2ukRutnvJ+zq/N16ObQht475DW6dqpTpskuSSwbxPwsVHipJBMU=)
+jasypt:
+  encryptor:
+    bootstrap: false

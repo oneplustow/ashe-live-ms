@@ -6,6 +6,6 @@ spring:
     host: oneplustow.cn
     # 端口，默认为6379
     port: 6379
-    password: ENC(7K1y4Ge7sZOGqYt4Jt0mf09HjTdrsdOEc48cTsw8jLQ=)
+    password: ENC(e80lw/tzDxbAOa7FBLEiGOfpBxqHqfrP0LnX/gZAvXk=)
     # 连接超时时间
     timeout: 10s
