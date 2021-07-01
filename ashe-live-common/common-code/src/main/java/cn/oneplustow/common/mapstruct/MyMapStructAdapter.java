@@ -32,7 +32,7 @@ public class MyMapStructAdapter implements IMapStructAdapter<IMapStruct> {
 
     @Override
     public List converFrom(IMapStruct iMapStruct, List list) {
-        return iMapStruct.convert(list);
+        return iMapStruct.convers(list);
 
     }
 }

@@ -9,7 +9,7 @@ import cn.oneplustow.common.web.controller.BaseController;
 import cn.oneplustow.config.db.util.PageUtil;
 import cn.oneplustow.lc.service.IPlayRoomService;
 import cn.oneplustow.lc.vo.PlayRoomPageVo;
-import cn.oneplustow.lc.vo.QueryPlayRoomDto;
+import cn.oneplustow.lc.vo.PlayRoomQueryCriteria;
 import cn.oneplustow.lc.vo.SavePlayRoomDto;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +46,7 @@ public class PlayRoomController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('lc:playRoom:list')" )
     @GetMapping("/list" )
-    public AjaxResult list(QueryPlayRoomDto playRoom) {
+    public AjaxResult list(PlayRoomQueryCriteria playRoom) {
         List<PlayRoomPageVo> list = playRoomService.selectPage(playRoom);
         return AjaxResult.success(PageUtil.getDataTable(list));
     }
