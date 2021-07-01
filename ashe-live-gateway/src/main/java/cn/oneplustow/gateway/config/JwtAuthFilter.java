@@ -2,16 +2,15 @@ package cn.oneplustow.gateway.config;
 
 import cn.hutool.core.codec.Base64;
 import cn.hutool.core.util.StrUtil;
-import cn.oneplustow.api.auth.model.LoginUser;
-import cn.oneplustow.api.auth.service.AuthService;
-import cn.oneplustow.api.user.service.MenuService;
-import cn.oneplustow.common.web.domain.AjaxResult;
+import cn.oneplustow.api.ac.model.LoginUser;
+import cn.oneplustow.api.ac.service.AuthService;
+import cn.oneplustow.api.sc.service.MenuService;
+import cn.oneplustow.common.domain.AjaxResult;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
-import org.springframework.cloud.gateway.support.ServerWebExchangeUtils;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -19,14 +18,11 @@ import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.server.ServerWebExchange;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * @author cc

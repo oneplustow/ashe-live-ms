@@ -1,5 +1,8 @@
 package cn.oneplustow.common.exception;
 
+/**
+ * @author cc
+ */
 public class OrderException extends CustomException {
     public OrderException(String message) {
         super(message);

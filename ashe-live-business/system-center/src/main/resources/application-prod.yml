@@ -1,0 +1,14 @@
+server:
+  port: 7001
+  servlet:
+    context-path: /system-center
+# 数据源配置
+spring:
+  messages:
+    basename: i18n/messages
+  profiles:
+    include: db-prod,redis-prod
+debug: true
+gen:
+  author: cc
+  packageName: cn.oneplustow.xx

@@ -1,0 +1,38 @@
+#server:
+#  port: 7000
+#spring:
+#  cloud:
+#    gateway:
+#      discovery:
+#        locator:
+#          lowerCaseServiceId: true
+#          enabled: true
+##      routes:
+##        - id: order-center
+##          uri: lb://order-center
+##          predicates:
+##            - Path= /order/**
+##        - id: system-center
+##          uri: lb://system-center
+##          predicates:
+##            - Path= /user/**
+##      default-filters:
+##            - PrefixPath=/api/freshOrder
+#    sentinel:
+#      transport:
+#        dashboard: localhost:8845
+#fog:
+#  gateway:
+#    dynamicRoute:
+#      enable: true
+#      type: nacos
+spring:
+  main:
+    allow-bean-definition-overriding: true
+feign:
+  sentinel:
+    enabled: true
+fo:
+  auth:
+    excludeUrls: /**/public/**,/**/auth-center/**,swagger-resources/**,/**/v3/api-docs
+debug: true

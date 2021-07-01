@@ -15,8 +15,9 @@
     <modules>
         <module>system-center</module>
         <module>auth-center</module>
-        <module>live-centere</module>
+        <module>live-center</module>
         <module>message-center</module>
+        <module>user-center</module>
     </modules>
 
     <dependencies>
@@ -25,12 +26,20 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
+            <groupId>cn.oneplustow</groupId>
+            <artifactId>common-web</artifactId>
         </dependency>
         <dependency>
             <groupId>cn.oneplustow</groupId>
-            <artifactId>common-web</artifactId>
+            <artifactId>log-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-jdk8</artifactId>
         </dependency>
         <!-- SpringBoot 测试 -->
         <dependency>

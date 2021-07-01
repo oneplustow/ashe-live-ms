@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: message-center
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ENC(LCipoRrnPcrx7K0n5y9q6iwjl31PBvpbIkyJwOejLNTJTtzMIcqymQ==)
+        namespace: ENC(byBvf6PJ2AwWsKkT8p5nTg3l2ukRutnvJ+zq/N16ObQht475DW6dqpTpskuSSwbxPwsVHipJBMU=)
+jasypt:
+  encryptor:
+    bootstrap: false

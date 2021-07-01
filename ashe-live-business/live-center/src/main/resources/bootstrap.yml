@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: live-center
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ENC(LCipoRrnPcrx7K0n5y9q6iwjl31PBvpbIkyJwOejLNTJTtzMIcqymQ==)
+        namespace: ENC(HYUzFSY9G3f2x/ejfJvCl75VtDuRgAP/B1WjtkusELn/UBwPu2ibCJT0nQXvW0TnWBRvjQl77JA=)
+jasypt:
+  encryptor:
+    bootstrap: false

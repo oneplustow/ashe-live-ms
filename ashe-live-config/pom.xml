@@ -12,6 +12,7 @@
     <modules>
         <module>db-config</module>
         <module>redis-config</module>
+        <module>log-config</module>
     </modules>
     <artifactId>ashe-live-config</artifactId>
 

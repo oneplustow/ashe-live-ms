@@ -15,6 +15,7 @@
         <module>common-code</module>
         <module>system-center-api</module>
         <module>auth-center-api</module>
+        <module>user-center-api</module>
         <module>common-web</module>
     </modules>
 

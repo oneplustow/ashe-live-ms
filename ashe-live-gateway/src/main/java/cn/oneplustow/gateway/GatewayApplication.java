@@ -6,17 +6,13 @@ import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.openfeign.support.ResponseEntityDecoder;
 import org.springframework.cloud.openfeign.support.SpringDecoder;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.context.annotation.FilterType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import springfox.boot.starter.autoconfigure.OpenApiAutoConfiguration;
-import springfox.documentation.swagger.web.InMemorySwaggerResourcesProvider;
 
 /**
  * @author cc
@@ -25,7 +21,7 @@ import springfox.documentation.swagger.web.InMemorySwaggerResourcesProvider;
  */
 @EnableFeignClients("cn.oneplustow.api")
 @EnableDiscoveryClient
-@SpringBootApplication(scanBasePackages = "cn.oneplustow.*"/*,exclude = OpenApiAutoConfiguration.class*/)
+@SpringBootApplication(scanBasePackages = "cn.oneplustow.*",exclude = SecurityAutoConfiguration.class)
 public class GatewayApplication {
     public static void main(String[] args) {
         SpringApplication.run(GatewayApplication.class,args);

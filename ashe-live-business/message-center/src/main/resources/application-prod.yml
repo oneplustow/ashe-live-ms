@@ -1,0 +1,18 @@
+
+server:
+  port: 7005
+  servlet:
+    context-path: /message-center
+# 数据源配置
+spring:
+  messages:
+    basename: i18n/messages
+  profiles:
+    include: db-prod
+  main:
+    allow-bean-definition-overriding: true
+feign:
+  sentinel:
+    enabled: true
+ribbon:
+  ReadTimeout: 5000

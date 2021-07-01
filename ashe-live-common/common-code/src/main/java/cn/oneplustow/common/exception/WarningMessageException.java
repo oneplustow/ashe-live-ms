@@ -3,27 +3,20 @@ package cn.oneplustow.common.exception;
 /**
  * @author cc
  */
-public class WarningMessageException extends RuntimeException{
+public class WarningMessageException extends CustomException{
 
     private static final long serialVersionUID = 5587059023340853554L;
 
-    public WarningMessageException() {
-        super();
-    }
 
     public WarningMessageException(String message) {
         super(message);
     }
 
-    public WarningMessageException(String message, Throwable cause) {
-        super(message, cause);
+    public WarningMessageException(String message, Integer code) {
+        super(message, code);
     }
 
-    public WarningMessageException(Throwable cause) {
-        super(cause);
-    }
-
-    protected WarningMessageException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
+    public WarningMessageException(String message, Throwable e) {
+        super(message, e);
     }
 }

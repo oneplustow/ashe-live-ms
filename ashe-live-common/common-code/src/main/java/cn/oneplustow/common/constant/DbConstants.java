@@ -5,8 +5,11 @@ package cn.oneplustow.common.constant;
  */
 public class DbConstants {
     public interface SteamServerStatus{
+        /**等待连接*/
         String WAIT_CONNECTION = "0";
+         /**连接成功*/
         String CONNECTION_SUCCESS = "1";
+        /**连接失败*/
         String CONNECTION_FAILURE = "2";
     }
     public interface PalyRoomStatus{
@@ -16,5 +19,11 @@ public class DbConstants {
         String WAIT_PUSH = "1";
         /**开始直播*/
         String START = "2";
+    }
+    public interface SteamServerAllotRecordStatus{
+        /**正常*/
+        String NORMAL = "0";
+        /**失效*/
+        String INVALID = "1";
     }
 }

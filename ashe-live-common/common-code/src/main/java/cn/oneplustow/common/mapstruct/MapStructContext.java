@@ -1,5 +1,6 @@
 package cn.oneplustow.common.mapstruct;
 
+import cn.hutool.core.lang.Assert;
 import lombok.Data;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import sun.reflect.generics.reflectiveObjects.ParameterizedTypeImpl;
 
 import javax.annotation.PostConstruct;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -18,12 +20,12 @@ import java.util.concurrent.ConcurrentHashMap;
  * 对外提供统一方法进行调用
  * @author cc
  */
-@Component
+//@Component
 public class MapStructContext {
 
     private List<IMapStruct> iMapStructs;
 
-    @Autowired
+    @Autowired(required = false)
     public void setiMapStructs(List<IMapStruct> iMapStructs) {
         this.iMapStructs = iMapStructs;
     }
@@ -36,7 +38,7 @@ public class MapStructContext {
     private ConcurrentHashMap<String, MapStructParse> map = new ConcurrentHashMap<>(48);
 
     public <T> List<T>conver(List<?> from,Class<T> to){
-        if(CollectionUtils.isEmpty(from)){return null;}
+        if(CollectionUtils.isEmpty(from)){return new ArrayList<T>();}
         Boolean forward = isForward(from.get(0).getClass(), to);
         if(forward == null){return null;}
         IMapStruct iMapStruct = getIMapStruct(from.get(0).getClass(), to);
@@ -47,9 +49,9 @@ public class MapStructContext {
     public <T> T conver(Object from,Class<T> to){
         if(from == null){return null;}
         Boolean forward = isForward(from.getClass(), to);
-        if(forward == null){return null;}
+        Assert.notNull(forward,"无法找到具体的转换规则");
         IMapStruct iMapStruct = getIMapStruct(from.getClass(), to);
-        if (iMapStruct == null) {return null;}
+        Assert.notNull(iMapStruct,"无法找到具体的转换规则");
         return forward ? (T)iMapStruct.convers(from) : (T)iMapStruct.convert(from);
     }
 
