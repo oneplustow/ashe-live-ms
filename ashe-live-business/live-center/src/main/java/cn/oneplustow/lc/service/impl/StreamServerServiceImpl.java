@@ -1,5 +1,6 @@
 package cn.oneplustow.lc.service.impl;
 
+import cn.opl.generate.QueryUtil;
 import cn.opl.mapstruct.MapStructContext;
 import cn.oneplustow.common.verify.ValidatorContext;
 import cn.oneplustow.config.db.util.PageUtil;
@@ -7,7 +8,7 @@ import cn.oneplustow.lc.entity.StreamServer;
 import cn.oneplustow.lc.mapper.StreamServerMapper;
 import cn.oneplustow.lc.service.IOssrsService;
 import cn.oneplustow.lc.service.IStreamServerService;
-import cn.oneplustow.lc.vo.QueryStreamServerDto;
+import cn.oneplustow.lc.vo.QueryStreamServerQueryCriteria;
 import cn.oneplustow.lc.vo.SaveStreamServerDto;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -32,7 +33,6 @@ import static cn.oneplustow.common.constant.DbConstants.SteamServerStatus.CONNEC
 @Service
 public class StreamServerServiceImpl extends ServiceImpl<StreamServerMapper, StreamServer> implements IStreamServerService {
 
-    private static final String URL_TEMPLATE = "http://{}:{}/api/v1/";
     @Autowired
     private MapStructContext mapStructContext;
 
@@ -68,21 +68,9 @@ public class StreamServerServiceImpl extends ServiceImpl<StreamServerMapper, Str
     }
 
     @Override
-    public List<StreamServer> page(QueryStreamServerDto streamServer){
+    public List<StreamServer> page(QueryStreamServerQueryCriteria streamServer){
         PageUtil.startPage();
-        QueryWrapper<StreamServer> queryWrapper = new QueryWrapper<StreamServer>();
-        if (StringUtils.isNotBlank(streamServer.getServerName())){
-            queryWrapper.like("server_name" ,streamServer.getServerName());
-        }
-        if(StringUtils.isNotBlank(streamServer.getIp())){
-            queryWrapper.like("ip" ,streamServer.getIp());
-        }
-        if(streamServer.getPort() != null){
-            queryWrapper.eq("port" ,streamServer.getPort());
-        }
-        if(StringUtils.isNotBlank(streamServer.getStatus())){
-            queryWrapper.eq("status" ,streamServer.getStatus());
-        }
+        QueryWrapper<StreamServer> queryWrapper = QueryUtil.generate(streamServer);
         List<StreamServer> list = this.list(queryWrapper);
         return list;
     }

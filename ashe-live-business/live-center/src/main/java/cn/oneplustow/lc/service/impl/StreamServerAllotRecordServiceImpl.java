@@ -23,7 +23,7 @@ import static cn.oneplustow.common.constant.DbConstants.SteamServerAllotRecordSt
 import static cn.oneplustow.common.constant.DbConstants.SteamServerAllotRecordStatus.NORMAL;
 
 /**
- * 直播间管理Service业务层处理
+ * 流服务器分配记录服务层
  * 
  * @author cc
  * @date 2021-04-14

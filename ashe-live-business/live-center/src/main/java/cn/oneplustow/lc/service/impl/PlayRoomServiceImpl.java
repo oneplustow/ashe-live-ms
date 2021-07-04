@@ -14,8 +14,10 @@ import cn.oneplustow.lc.service.IOssrsService;
 import cn.oneplustow.lc.service.IPlayRoomService;
 import cn.oneplustow.lc.service.IStreamServerAllotRecordService;
 import cn.oneplustow.lc.vo.*;
+import cn.opl.generate.QueryUtil;
 import cn.opl.mapstruct.MapStructContext;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -49,26 +51,17 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
 
     @Override
     public List<PlayRoomPageVo> selectStartStatusPage(String roomNumbe, String roomName) {
-        QueryPlayRoomDto queryPlayRoomDto = new QueryPlayRoomDto();
-        queryPlayRoomDto.setStatus(START);
-        queryPlayRoomDto.setRoomNumbe(roomNumbe);
-        queryPlayRoomDto.setName(roomName);
-        return selectPage(queryPlayRoomDto);
+        PlayRoomQueryCriteria playRoomQueryCriteria = new PlayRoomQueryCriteria();
+        playRoomQueryCriteria.setStatus(START);
+        playRoomQueryCriteria.setRoomNumbe(roomNumbe);
+        playRoomQueryCriteria.setName(roomName);
+        return selectPage(playRoomQueryCriteria);
     }
 
     @Override
-    public List<PlayRoomPageVo> selectPage(QueryPlayRoomDto playRoom) {
+    public List<PlayRoomPageVo> selectPage(PlayRoomQueryCriteria playRoom) {
         PageUtil.startPage();
-        LambdaQueryWrapper<PlayRoom> queryWrapper = new LambdaQueryWrapper<>();
-        if (StrUtil.isNotBlank(playRoom.getName())) {
-            queryWrapper.like(PlayRoom::getName, playRoom.getName());
-        }
-        if (playRoom.getUserId() != null) {
-            queryWrapper.eq(PlayRoom::getUserId, playRoom.getUserId());
-        }
-        if (StrUtil.isNotBlank(playRoom.getStatus())) {
-            queryWrapper.eq(PlayRoom::getStatus, playRoom.getStatus());
-        }
+        QueryWrapper<PlayRoom> queryWrapper = QueryUtil.generate(playRoom);
         List<PlayRoom> playRoomList = this.list(queryWrapper);
         List<PlayRoomPageVo> playRoomPageVoList = mapStructContext.conver(playRoomList, PlayRoomPageVo.class);
         return playRoomPageVoList;

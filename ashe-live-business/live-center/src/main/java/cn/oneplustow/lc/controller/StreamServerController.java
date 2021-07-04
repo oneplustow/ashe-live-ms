@@ -7,7 +7,7 @@ import cn.oneplustow.common.web.controller.BaseController;
 import cn.oneplustow.config.db.util.PageUtil;
 import cn.oneplustow.lc.entity.StreamServer;
 import cn.oneplustow.lc.service.IStreamServerService;
-import cn.oneplustow.lc.vo.QueryStreamServerDto;
+import cn.oneplustow.lc.vo.QueryStreamServerQueryCriteria;
 import cn.oneplustow.lc.vo.SaveStreamServerDto;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +35,8 @@ public class StreamServerController extends BaseController {
      */
     @PreAuthorize("@ss.hasPermi('lc:streamServer:list')" )
     @GetMapping("/list" )
-    public AjaxResult list(QueryStreamServerDto queryStreamServerDto) {
-        List<StreamServer> list = streamServerService.page(queryStreamServerDto);
+    public AjaxResult list(QueryStreamServerQueryCriteria queryStreamServerQueryCriteria) {
+        List<StreamServer> list = streamServerService.page(queryStreamServerQueryCriteria);
         return AjaxResult.success(PageUtil.getDataTable(list));
     }
 

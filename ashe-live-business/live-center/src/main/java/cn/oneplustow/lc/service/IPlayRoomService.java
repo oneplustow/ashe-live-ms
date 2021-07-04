@@ -24,7 +24,7 @@ public interface IPlayRoomService {
      * @param playRoom
      * @return
      */
-    List<PlayRoomPageVo> selectPage(QueryPlayRoomDto playRoom);
+    List<PlayRoomPageVo> selectPage(PlayRoomQueryCriteria playRoom);
 
     /**
      * 观看直播接口

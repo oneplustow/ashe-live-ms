@@ -1,7 +1,7 @@
 package cn.oneplustow.lc.service;
 
 import cn.oneplustow.lc.entity.StreamServer;
-import cn.oneplustow.lc.vo.QueryStreamServerDto;
+import cn.oneplustow.lc.vo.QueryStreamServerQueryCriteria;
 import cn.oneplustow.lc.vo.SaveStreamServerDto;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public interface IStreamServerService {
      * @param streamServer
      * @return
      */
-    List<StreamServer> page(QueryStreamServerDto streamServer);
+    List<StreamServer> page(QueryStreamServerQueryCriteria streamServer);
 
     /**
      *
