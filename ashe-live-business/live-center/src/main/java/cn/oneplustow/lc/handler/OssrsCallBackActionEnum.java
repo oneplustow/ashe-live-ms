@@ -2,7 +2,7 @@ package cn.oneplustow.lc.handler;
 
 /**
  * 事件说明
- * 推流: connect->publish->close
+ * 推流: connect->publish->unpublish->close
  * 播放：play->stop
  *
  * @author CC

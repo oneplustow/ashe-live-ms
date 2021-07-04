@@ -65,8 +65,10 @@ public class JwtAuthFilter implements GlobalFilter {
         if(userInfo == null || userInfo.getUser() == null){
             return false;
         }
-        if (userInfo.getUser().isAdmin()) {return true;}
-        return menuService.accessPermissionByUrl(userInfo.getUser().getUserId(),uriPath);
+        //todo 先关闭权限验证，待完善了权限功能后再开启
+        return true;
+        //if (userInfo.getUser().isAdmin()) {return true;}
+        //return menuService.accessPermissionByUrl(userInfo.getUser().getUserId(),uriPath);
     }
 
     private boolean isIntercept(ServerWebExchange exchange){

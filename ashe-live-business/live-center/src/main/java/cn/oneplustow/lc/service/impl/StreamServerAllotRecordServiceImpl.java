@@ -32,8 +32,8 @@ import static cn.oneplustow.common.constant.DbConstants.SteamServerAllotRecordSt
 @Service
 public class StreamServerAllotRecordServiceImpl extends ServiceImpl<StreamServerAllotRecordMapper, StreamServerAllotRecord> implements IStreamServerAllotRecordService
 {
-    private final String PULL_STREAM_TEMPLATE = "rtmp:{}:{}/{}";
-    private final String PLAY_STREAM_TEMPLATE = "http://{}:{}/{}/{}.flv";
+    private final String PULL_STREAM_TEMPLATE = "rtmp://{}/{}";
+    private final String PLAY_STREAM_TEMPLATE = "http://{}:8080/{}/{}.flv";
     @Autowired
     private IStreamServerService streamServerService;
 
@@ -82,8 +82,7 @@ public class StreamServerAllotRecordServiceImpl extends ServiceImpl<StreamServer
 
     private String getPlayStreamUrl(StreamServer streamServer, PlayRoom playRoom,String password) {
         String ip = streamServer.getIp();
-        Integer port = streamServer.getPort();
-        return StrUtil.format(PLAY_STREAM_TEMPLATE,ip,port,playRoom.getRoomNumbe(),password);
+        return StrUtil.format(PLAY_STREAM_TEMPLATE,ip,playRoom.getRoomNumbe(),password);
     }
 
     /**
@@ -93,8 +92,7 @@ public class StreamServerAllotRecordServiceImpl extends ServiceImpl<StreamServer
      */
     private String getPullStreamUrl(StreamServer streamServer, PlayRoom playRoom) {
         String ip = streamServer.getIp();
-        Integer port = streamServer.getPort();
-        return StrUtil.format(PULL_STREAM_TEMPLATE,ip,port,playRoom.getRoomNumbe());
+        return StrUtil.format(PULL_STREAM_TEMPLATE,ip,playRoom.getRoomNumbe());
     }
 
 }
