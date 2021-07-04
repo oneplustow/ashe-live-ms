@@ -1,17 +1,18 @@
 package cn.oneplustow.sc.open;
 
-import cn.hutool.core.util.ObjectUtil;
 import cn.oneplustow.sc.entity.SysApiInfo;
-import cn.oneplustow.sc.entity.SysDictData;
 import cn.oneplustow.sc.service.ISysApiInfoService;
-import cn.oneplustow.sc.service.ISysDictDataService;
-import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author cc
+ */
 @RestController
 @RequestMapping("/fegin/system/apiInfo")
 public class SysApiInfoOpen {

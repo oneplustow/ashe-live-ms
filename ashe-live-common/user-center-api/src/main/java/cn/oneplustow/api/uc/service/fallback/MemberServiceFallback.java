@@ -1,8 +1,8 @@
 package cn.oneplustow.api.uc.service.fallback;
 
+import cn.oneplustow.api.fallback.BaseFallbackFactory;
+import cn.oneplustow.api.uc.model.MemberModel;
 import cn.oneplustow.api.uc.service.MemberService;
-import cn.oneplustow.api.uc.service.model.MemberModel;
-import feign.hystrix.FallbackFactory;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
  * @date 16/09/2020 11:16
  */
 @Component
-public class MemberServiceFallback implements FallbackFactory<MemberService> {
+public class MemberServiceFallback extends BaseFallbackFactory<MemberService> {
     @Override
-    public MemberService create(Throwable throwable) {
+    public MemberService doCreate(Throwable throwable) {
         return new MemberService(){
             @Override
             public MemberModel getMemberByName(String memberName) {

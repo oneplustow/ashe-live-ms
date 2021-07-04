@@ -17,6 +17,7 @@
         <module>auth-center-api</module>
         <module>user-center-api</module>
         <module>common-web</module>
+        <module>common-api</module>
     </modules>
 
 
