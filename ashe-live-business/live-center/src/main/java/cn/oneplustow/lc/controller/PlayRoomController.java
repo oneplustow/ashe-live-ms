@@ -62,6 +62,15 @@ public class PlayRoomController extends BaseController {
     }
 
     /**
+     * 获取直播间管理详细信息
+     */
+    @PreAuthorize("@ss.hasPermi('lc:playRoom:query')" )
+    @GetMapping(value = "/getPlayRoomDetail" )
+    public AjaxResult getInfo(String nameOrNum) {
+        return AjaxResult.success(playRoomService.getPlayRoomDetailVoByNameOrNum(nameOrNum));
+    }
+
+    /**
      * 获取当前登录用户直播间详细信息
      */
     @PreAuthorize("@ss.hasPermi('lc:playRoom:query')" )
