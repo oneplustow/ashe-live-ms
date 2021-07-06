@@ -250,12 +250,12 @@
         </pluginManagement>
     </build>
 
-<!--    <repositories>-->
-<!--        <repository>-->
-<!--            <id>sonatype</id>-->
-<!--            <name>Maven Central</name>-->
-<!--            <url>https://s01.oss.sonatype.org/content/groups/public/</url>-->
-<!--            <snapshots>true</snapshots>-->
-<!--        </repository>-->
-<!--    </repositories>-->
+    <repositories>
+        <repository>
+            <id>sonatype</id>
+            <name>Maven Central</name>
+            <url>https://s01.oss.sonatype.org/content/groups/public/</url>
+            <snapshots>true</snapshots>
+        </repository>
+    </repositories>
 </project>
