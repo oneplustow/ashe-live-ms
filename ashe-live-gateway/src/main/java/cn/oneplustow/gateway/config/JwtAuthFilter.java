@@ -47,9 +47,10 @@ public class JwtAuthFilter implements GlobalFilter {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         URI uri = request.getURI();
+        boolean intercept = isIntercept(exchange);
         String authorization = request.getHeaders().getFirst("authorization");
         LoginUser userInfo = authService.getUserInfo(authorization);
-        if(isIntercept(exchange)) {
+        if(intercept) {
             if (!isPermission(userInfo, uri.getPath())) {
                 String msg = StrUtil.format("请求访问：{}，认证失败，无法访问系统资源", uri.getPath());
                 String msgJson = JSONObject.toJSONString(AjaxResult.error(HttpStatus.UNAUTHORIZED.value(), msg));

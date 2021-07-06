@@ -8,7 +8,6 @@ import cn.hutool.http.useragent.UserAgent;
 import cn.hutool.http.useragent.UserAgentUtil;
 import cn.oneplustow.ac.entity.LoginUserDetails;
 import cn.oneplustow.common.constant.Constants;
-import cn.oneplustow.common.exception.WarningMessageException;
 import cn.oneplustow.common.web.util.AddressUtils;
 import cn.oneplustow.common.web.util.IpUtils;
 import cn.oneplustow.common.web.util.ServletUtils;
@@ -64,7 +63,7 @@ public class TokenService
         // 获取请求携带的令牌
         String token = getToken(request);
         if (StrUtil.isEmpty(token)){
-            throw new WarningMessageException("无法获取用户信息");
+            return null;
         }
         Claims claims = parseToken(token);
         // 解析对应的权限以及用户信息
