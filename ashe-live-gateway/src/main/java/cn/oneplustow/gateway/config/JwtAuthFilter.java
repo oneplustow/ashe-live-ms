@@ -47,17 +47,20 @@ public class JwtAuthFilter implements GlobalFilter {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         URI uri = request.getURI();
-        if(!isIntercept(exchange)){return chain.filter(exchange);}
         String authorization = request.getHeaders().getFirst("authorization");
         LoginUser userInfo = authService.getUserInfo(authorization);
-        if (!isPermission(userInfo,uri.getPath())) {
-            String msg = StrUtil.format("请求访问：{}，认证失败，无法访问系统资源", uri.getPath());
-            String msgJson = JSONObject.toJSONString(AjaxResult.error(HttpStatus.UNAUTHORIZED.value(), msg));
-            return authErro(exchange.getResponse(),HttpStatus.OK, msgJson);
+        if(isIntercept(exchange)) {
+            if (!isPermission(userInfo, uri.getPath())) {
+                String msg = StrUtil.format("请求访问：{}，认证失败，无法访问系统资源", uri.getPath());
+                String msgJson = JSONObject.toJSONString(AjaxResult.error(HttpStatus.UNAUTHORIZED.value(), msg));
+                return authErro(exchange.getResponse(), HttpStatus.OK, msgJson);
+            }
         }
-        String loginUserString = JSONObject.toJSONString(userInfo);
-        request = request.mutate()
+        if(userInfo != null) {
+            String loginUserString = JSONObject.toJSONString(userInfo);
+            request = request.mutate()
                 .header("login_user", Base64.encode(loginUserString)).build();
+        }
         return chain.filter(exchange.mutate().request(request).build());
     }
 
