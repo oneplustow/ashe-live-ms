@@ -11,3 +11,4 @@ spring:
 jasypt:
   encryptor:
     bootstrap: false
+    algorithm: PBEWithMD5AndDES

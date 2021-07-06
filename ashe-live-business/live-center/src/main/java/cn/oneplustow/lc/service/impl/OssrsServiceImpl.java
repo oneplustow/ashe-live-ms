@@ -49,8 +49,9 @@ public class OssrsServiceImpl implements IOssrsService {
 
     @Override
     public boolean eliminateStream(String ip, Integer port, String clientId){
-        String url = StrUtil.format(URL_TEMPLATE,ip,port) + CLIENTS;
-        HttpResponse execute = HttpUtil.createRequest(Method.DELETE, url).execute();
+        StringBuilder url = new StringBuilder(StrUtil.format(URL_TEMPLATE,ip,port));
+        url.append(CLIENTS).append("/").append(clientId);
+        HttpResponse execute = HttpUtil.createRequest(Method.DELETE, url.toString()).execute();
         return true;
     }
 

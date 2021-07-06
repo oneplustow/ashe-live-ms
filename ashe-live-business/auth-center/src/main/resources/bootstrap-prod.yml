@@ -8,10 +8,11 @@ spring:
       discovery:
         server-addr: ENC(LCipoRrnPcrx7K0n5y9q6iwjl31PBvpbIkyJwOejLNTJTtzMIcqymQ==)
         namespace: ENC(byBvf6PJ2AwWsKkT8p5nTg3l2ukRutnvJ+zq/N16ObQht475DW6dqpTpskuSSwbxPwsVHipJBMU=)
-      config:
-        server-addr: ENC(LCipoRrnPcrx7K0n5y9q6iwjl31PBvpbIkyJwOejLNTJTtzMIcqymQ==)
-        namespace: ENC(byBvf6PJ2AwWsKkT8p5nTg3l2ukRutnvJ+zq/N16ObQht475DW6dqpTpskuSSwbxPwsVHipJBMU=)
-        file-extension: yaml
+#      config:
+#        server-addr: ENC(LCipoRrnPcrx7K0n5y9q6iwjl31PBvpbIkyJwOejLNTJTtzMIcqymQ==)
+#        namespace: ENC(byBvf6PJ2AwWsKkT8p5nTg3l2ukRutnvJ+zq/N16ObQht475DW6dqpTpskuSSwbxPwsVHipJBMU=)
+#        file-extension: yaml
 jasypt:
   encryptor:
     bootstrap: false
+    algorithm: PBEWithMD5AndDES

@@ -3,7 +3,7 @@
 #APP_NAME=ashe-live-gateway-1.0-SNAPSHOT.jar
 # 动态改变
 APP_NAME=$2'.jar'
-
+PASSWORD=$3
 #使用说明，用来提示输入参数
 usage() {
     echo "Usage: sh 执行脚本.sh [start|stop|restart|status]"
@@ -27,7 +27,7 @@ start(){
   if [ $? -eq "0" ]; then
     echo "${APP_NAME} is already running. pid=${pid} ."
   else
-    nohup java -jar -Dspring.profiles.active=prod $APP_NAME > /dev/null 2>&1 &
+    nohup java -jar  -Djasypt.encryptor.password=$PASSWORD -Dspring.profiles.active=prod $APP_NAME > /dev/null 2>&1 &
   fi
 }
 
