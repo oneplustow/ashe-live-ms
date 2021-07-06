@@ -2,6 +2,7 @@ package cn.oneplustow.lc.service;
 
 
 import cn.oneplustow.lc.entity.PlayRoom;
+import cn.oneplustow.lc.entity.StreamServer;
 import cn.oneplustow.lc.entity.StreamServerAllotRecord;
 
 /**
@@ -25,6 +26,8 @@ public interface IStreamServerAllotRecordService {
      * @return
      */
     StreamServerAllotRecord getAllotRecordByPlayRoomId(Long playRoomId);
+
+    StreamServer getAllotStreamServer(Long playRoomId);
 
     /**
      * 进行流服务器的分配 并保存分配记录

@@ -59,6 +59,13 @@ public class StreamServerAllotRecordServiceImpl extends ServiceImpl<StreamServer
     }
 
     @Override
+    public StreamServer getAllotStreamServer(Long playRoomId){
+        StreamServerAllotRecord streamServerAllotRecord = getAllotRecordByPlayRoomId(playRoomId);
+        Long streamServerId = streamServerAllotRecord.getStreamServerId();
+        return streamServerService.getStreamServerById(streamServerId);
+    }
+
+    @Override
     public StreamServerAllotRecord allotStreamServer(PlayRoom playRoom){
         StreamServerAllotRecord allotRecord = getAllotRecordByPlayRoomId(playRoom.getId());
         if(allotRecord != null){return allotRecord;}

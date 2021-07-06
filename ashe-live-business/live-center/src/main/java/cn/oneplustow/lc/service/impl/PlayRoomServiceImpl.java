@@ -7,6 +7,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.oneplustow.common.exception.WarningMessageException;
 import cn.oneplustow.config.db.util.PageUtil;
 import cn.oneplustow.lc.entity.PlayRoom;
+import cn.oneplustow.lc.entity.StreamServer;
 import cn.oneplustow.lc.entity.StreamServerAllotRecord;
 import cn.oneplustow.lc.mapper.PlayRoomMapper;
 import cn.oneplustow.lc.mapstruct.PlayRoom2PlayRoomDetailVo;
@@ -22,6 +23,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -159,10 +161,13 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
         return playRoomDetailVo;
     }
 
+    @Async
     @Override
     public Boolean viewPlay(String roomNumber){
         return updateViewNumber(roomNumber,1);
     }
+
+    @Async
     @Override
     public Boolean unViewPlay(String id) {
         return updateViewNumber(id,-1);
@@ -210,8 +215,9 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
             log.info("用户已经推流了，但是再次推流");
             // 加入踢流的逻辑
             String odlClientId = playRoom.getClientId();
+            StreamServer streamServer = allotRecordService.getAllotStreamServer(playRoom.getId());
             //踢流
-            //ossrsService.eliminateStream(streamServer.getIp(),streamServer.getPort(),clientId);
+            ossrsService.eliminateStream(streamServer.getIp(),streamServer.getPort(),clientId);
         }
         playRoom.setStatus(START);
         playRoom.setClientId(clientId);
