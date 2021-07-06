@@ -2,7 +2,7 @@ package cn.oneplustow.api.ac.service.fallback;
 
 import cn.oneplustow.api.ac.model.LoginUser;
 import cn.oneplustow.api.ac.service.AuthService;
-import feign.hystrix.FallbackFactory;
+import cn.oneplustow.api.fallback.BaseFallbackFactory;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
  * @date 16/09/2020 11:16
  */
 @Component
-public class AuthServiceFallback implements FallbackFactory<AuthService> {
+public class AuthServiceFallback extends BaseFallbackFactory<AuthService> {
     @Override
-    public AuthService create(Throwable throwable) {
+    public AuthService doCreate(Throwable throwable) {
         return new AuthService(){
             @Override
             public LoginUser getUserInfo(String authorization) {

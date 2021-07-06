@@ -9,21 +9,17 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>user-center-api</artifactId>
+    <artifactId>common-api</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>cn.oneplustow</groupId>
-            <artifactId>common-api</artifactId>
+            <artifactId>common-code</artifactId>
         </dependency>
         <dependency>
-            <groupId>cn.oneplustow</groupId>
-            <artifactId>common-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <optional>true</optional>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
     </dependencies>
+
 </project>

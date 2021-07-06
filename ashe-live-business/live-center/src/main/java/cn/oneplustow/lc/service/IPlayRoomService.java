@@ -120,4 +120,7 @@ public interface IPlayRoomService {
      * @return
      */
     Boolean isOpenPlayRoom(Long userId);
+
+    PlayRoomDetailVo getPlayRoomDetailVoByNameOrNum(String nameOrNum);
+
 }

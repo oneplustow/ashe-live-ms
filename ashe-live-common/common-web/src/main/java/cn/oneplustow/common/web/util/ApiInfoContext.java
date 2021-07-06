@@ -35,7 +35,7 @@ public class ApiInfoContext {
     @Autowired
     private ApplicationContext applicationContext;
 
-    @Autowired
+    //@Autowired
     private ApiInfoService apiInfoService;
 
 
@@ -81,8 +81,6 @@ public class ApiInfoContext {
             if(annotation != null) {
                 String[] permissions = annotation.permission();
                 String permissionString = StrUtil.join(",", permissions);
-//                permissionString = StrUtil.subAfter(permissionString, "('", false);
-//                permissionString = StrUtil.subBefore(permissionString, "')", false);
                 apiInfo.setPermission(permissionString);
             }
             //StrUtil.isWrap()

@@ -1,7 +1,7 @@
 package cn.oneplustow.api.uc.service;
 
 import cn.oneplustow.api.uc.service.fallback.MemberServiceFallback;
-import cn.oneplustow.api.uc.service.model.MemberModel;
+import cn.oneplustow.api.uc.model.MemberModel;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

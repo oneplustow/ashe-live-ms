@@ -54,7 +54,7 @@ public class MemberController extends BaseController
     /**
      * 注册用户
      */
-    @Log(title = "用户管理", businessType = BusinessType.INSERT)
+    @Log(title = "注册用户", businessType = BusinessType.INSERT)
     @PostMapping("public/register")
     public AjaxResult register(@RequestBody SaveMemberDto saveMemberDto)
     {

@@ -14,15 +14,12 @@
     <dependencies>
         <dependency>
             <groupId>cn.oneplustow</groupId>
-            <artifactId>common-code</artifactId>
+            <artifactId>common-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
+
     </dependencies>
 </project>

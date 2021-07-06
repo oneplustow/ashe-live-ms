@@ -67,6 +67,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService
      * @param dictType 字典类型
      * @return 字典类型
      */
+    @Override
     public SysDictType selectDictTypeByType(String dictType)
     {
         return dictTypeMapper.selectDictTypeByType(dictType);
@@ -90,6 +91,7 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService
      * @param dictIds 需要删除的字典ID
      * @return 结果
      */
+    @Override
     public int deleteDictTypeByIds(Long[] dictIds)
     {
         return dictTypeMapper.deleteDictTypeByIds(dictIds);

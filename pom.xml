@@ -176,6 +176,11 @@
             </dependency>
             <dependency>
                 <groupId>cn.oneplustow</groupId>
+                <artifactId>common-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.oneplustow</groupId>
                 <artifactId>user-center-api</artifactId>
                 <version>${project.version}</version>
             </dependency>

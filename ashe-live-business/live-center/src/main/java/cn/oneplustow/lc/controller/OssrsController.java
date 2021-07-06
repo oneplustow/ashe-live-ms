@@ -26,7 +26,7 @@ public class OssrsController extends BaseController {
     /**
      * ossrs回调接口
      */
-    @PostMapping("/callBack" )
+    @PostMapping("/public/callBack" )
     public int list(@RequestBody OssrsCallBackDto ossrsCallBackDto) {
         return ossrsService.callBack(ossrsCallBackDto);
     }

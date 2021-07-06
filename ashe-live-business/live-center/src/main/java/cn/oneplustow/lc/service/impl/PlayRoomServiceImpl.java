@@ -226,6 +226,7 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
     private PlayRoom getPlayRoomByAppAndPassword(String roomNumbe,String password){
         PlayRoom playRoom = this.getOne(new LambdaQueryWrapper<PlayRoom>()
                 .eq(PlayRoom::getRoomNumbe, roomNumbe));
+        if(playRoom == null ){return null;}
         StreamServerAllotRecord recordByPlayRoomId = allotRecordService.getAllotRecordByPlayRoomId(playRoom.getId());
         if (StrUtil.equals(password,recordByPlayRoomId.getPushStreamPassword())) {
             return playRoom;
@@ -250,4 +251,14 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
         return this.update(lambdaUpdateWrapper);
     }
 
+    @Override
+    public PlayRoomDetailVo getPlayRoomDetailVoByNameOrNum(String nameOrNum) {
+        if(StrUtil.isNotBlank(nameOrNum)){
+            PlayRoom playRoom = this.getOne(new LambdaQueryWrapper<PlayRoom>()
+                    .eq(PlayRoom::getName, nameOrNum).or()
+                    .eq(PlayRoom::getRoomNumbe, nameOrNum));
+            return mapStructContext.conver(playRoom,PlayRoomDetailVo.class);
+        }
+        return null;
+    }
 }
