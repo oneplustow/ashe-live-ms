@@ -1,11 +1,11 @@
 package cn.oneplustow.ac.controller;
 
 
-import cn.oneplustow.ac.entity.LoginUserDetails;
 import cn.oneplustow.ac.security.service.SysLoginService;
 import cn.oneplustow.ac.security.service.SysPermissionService;
 import cn.oneplustow.ac.security.service.TokenService;
-import cn.oneplustow.ac.util.SecurityUtils;
+import cn.oneplustow.api.ac.model.LoginUser;
+import cn.oneplustow.api.ac.util.SecurityUtils;
 import cn.oneplustow.api.sc.model.SysUserModel;
 import cn.oneplustow.api.sc.service.MenuService;
 import cn.oneplustow.api.sc.service.UserService;
@@ -73,7 +73,7 @@ public class SysLoginController extends GlobalExceptionHandler
     @GetMapping("getInfo")
     public AjaxResult getInfo(String userName)
     {
-        LoginUserDetails loginUser = SecurityUtils.getLoginUser();
+        LoginUser loginUser = SecurityUtils.getLoginUser();
         SysUserModel user = loginUser.getUser();
         // 角色集合
         Set<String> roles = permissionService.getRolePermission(user);
