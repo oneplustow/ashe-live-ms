@@ -71,6 +71,16 @@ public class StreamServerController extends BaseController {
     }
 
     /**
+     * 禁用、启用流服务器
+     */
+    @PreAuthorize("@ss.hasPermi('lc:streamServer:edit')" )
+    @Log(title = "禁用、启用流服务器" , businessType = BusinessType.UPDATE)
+    @PostMapping("disableOrEnable")
+    public AjaxResult disableOrEnable(@RequestParam Integer id,@RequestParam boolean enable) {
+        return toAjax(streamServerService.disableOrEnableStreamServer(id,enable));
+    }
+
+    /**
      * 删除流服务器信息
      */
     @PreAuthorize("@ss.hasPermi('lc:streamServer:remove')" )

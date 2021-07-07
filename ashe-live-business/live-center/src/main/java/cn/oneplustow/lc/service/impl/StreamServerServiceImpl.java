@@ -1,5 +1,7 @@
 package cn.oneplustow.lc.service.impl;
 
+import cn.hutool.core.util.StrUtil;
+import cn.oneplustow.common.exception.WarningMessageException;
 import cn.opl.generate.QueryUtil;
 import cn.opl.mapstruct.MapStructContext;
 import cn.oneplustow.common.verify.ValidatorContext;
@@ -12,16 +14,15 @@ import cn.oneplustow.lc.vo.QueryStreamServerQueryCriteria;
 import cn.oneplustow.lc.vo.SaveStreamServerDto;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static cn.oneplustow.common.constant.DbConstants.SteamServerStatus.CONNECTION_FAILURE;
-import static cn.oneplustow.common.constant.DbConstants.SteamServerStatus.CONNECTION_SUCCESS;
+import static cn.oneplustow.common.constant.DbConstants.SteamServerStatus.*;
 
 /**
  * 流服务器信息Service业务层处理
@@ -40,7 +41,7 @@ public class StreamServerServiceImpl extends ServiceImpl<StreamServerMapper, Str
     private ValidatorContext validatorContext;
 
     @Autowired
-    private IOssrsService iOssrsService;
+    private IOssrsService ossrsService;
 
     @Override
     public boolean delById(List<Integer> idList) {
@@ -86,7 +87,8 @@ public class StreamServerServiceImpl extends ServiceImpl<StreamServerMapper, Str
 
     @Override
     public void heartBeatDetection() {
-        List<StreamServer> streamServerList = this.list();
+        List<StreamServer> streamServerList = this.list(new LambdaQueryWrapper<StreamServer>()
+                .ne(StreamServer::getStatus,DISABLE));
         for (StreamServer streamServer : streamServerList) {
             if(heartBeatDetection(streamServer.getIp(),streamServer.getPort())){
                 streamServer.setStatus(CONNECTION_SUCCESS);
@@ -100,6 +102,9 @@ public class StreamServerServiceImpl extends ServiceImpl<StreamServerMapper, Str
     @Override
     public boolean heartBeatDetectionById(Long id) {
         StreamServer streamServer = this.getById(id);
+        if (StrUtil.equals(streamServer.getStatus(),DISABLE)) {
+            throw new WarningMessageException("当前服务器为禁用状态，不允许进行连接操作");
+        }
         boolean success = false;
         //这里如果解析错误，则说明返回的不是json
         if (heartBeatDetection(streamServer.getIp(),streamServer.getPort())) {
@@ -111,7 +116,22 @@ public class StreamServerServiceImpl extends ServiceImpl<StreamServerMapper, Str
     }
 
     @Override
+    public boolean disableOrEnableStreamServer(Integer id,boolean enable) {
+        String status = DISABLE;
+        if(enable){
+            StreamServer server = this.getById(id);
+            if(server == null){throw new WarningMessageException("服务器信息不存在");}
+            boolean connectionSuccess = heartBeatDetection(server.getIp(), server.getPort());
+            status = connectionSuccess ? CONNECTION_SUCCESS : CONNECTION_FAILURE;
+        }
+        this.update(new LambdaUpdateWrapper<StreamServer>()
+                .set(StreamServer::getStatus,status)
+                .eq(StreamServer::getId,id));
+        return true;
+    }
+
+    @Override
     public boolean heartBeatDetection(String ip,Integer port) {
-        return iOssrsService.connectinoOssrsServer(ip, port);
+        return ossrsService.connectinoOssrsServer(ip, port);
     }
 }

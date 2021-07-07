@@ -5,6 +5,8 @@ package cn.oneplustow.common.constant;
  */
 public class DbConstants {
     public interface SteamServerStatus{
+        /**禁用*/
+        String DISABLE = "-1";
         /**等待连接*/
         String WAIT_CONNECTION = "0";
          /**连接成功*/
