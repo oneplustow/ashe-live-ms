@@ -20,7 +20,7 @@ import java.util.Map;
  * 
  * <p>异常时用JSON代替HTML异常信息<p>
  * 
- * @author yinjihuan
+ * @author cc
  *
  */
 public class GlobalExceptionHandler extends DefaultErrorWebExceptionHandler {

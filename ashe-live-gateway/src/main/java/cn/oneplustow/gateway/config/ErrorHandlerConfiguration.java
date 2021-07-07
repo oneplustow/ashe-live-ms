@@ -17,6 +17,9 @@ import org.springframework.web.reactive.result.view.ViewResolver;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * @author CC
+ */
 @Configuration
 @EnableConfigurationProperties({ServerProperties.class, ResourceProperties.class})
 public class ErrorHandlerConfiguration {
