@@ -90,7 +90,7 @@ public interface IPlayRoomService {
      * @param userId
      * @return
      */
-    PlayRoomPlayDetailVo getPlayRoomPlayDetailVoById(Long id);
+    PlayRoomPlayDetailVo getPlayRoomPlayDetailVo(Long id,String nameOrNum);
 
     /**
      * 开通直播间
@@ -121,6 +121,5 @@ public interface IPlayRoomService {
      */
     Boolean isOpenPlayRoom(Long userId);
 
-    PlayRoomDetailVo getPlayRoomDetailVoByNameOrNum(String nameOrNum);
 
 }

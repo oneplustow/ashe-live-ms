@@ -33,7 +33,7 @@ public class PlayRoomController extends BaseController {
     private IPlayRoomService playRoomService;
 
     /**
-     * 查询直播间管理列表
+     * 查询直播间播放列表
      */
     @GetMapping("/startStatusList" )
     public AjaxResult selectStartStatusPage(String roomNumbe,String roomName) {
@@ -62,15 +62,6 @@ public class PlayRoomController extends BaseController {
     }
 
     /**
-     * 获取直播间管理详细信息
-     */
-    @PreAuthorize("@ss.hasPermi('lc:playRoom:query')" )
-    @GetMapping(value = "/getPlayRoomDetail" )
-    public AjaxResult getInfo(String nameOrNum) {
-        return AjaxResult.success(playRoomService.getPlayRoomDetailVoByNameOrNum(nameOrNum));
-    }
-
-    /**
      * 获取当前登录用户直播间详细信息
      */
     @PreAuthorize("@ss.hasPermi('lc:playRoom:query')" )
@@ -92,8 +83,8 @@ public class PlayRoomController extends BaseController {
      * 获取直播间信息用于播放
      */
     @GetMapping(value = "/getPlayRoomByPlay" )
-    public AjaxResult getInfoByPlay(@RequestParam Long id) {
-        return AjaxResult.success(playRoomService.getPlayRoomPlayDetailVoById(id));
+    public AjaxResult getInfoByPlay(Long id,String nameOrNum) {
+        return AjaxResult.success(playRoomService.getPlayRoomPlayDetailVo(id,nameOrNum));
     }
 
     /**

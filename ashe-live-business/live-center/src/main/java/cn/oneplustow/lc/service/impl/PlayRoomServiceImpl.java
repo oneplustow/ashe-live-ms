@@ -4,6 +4,7 @@ package cn.oneplustow.lc.service.impl;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.oneplustow.common.constant.DbConstants;
 import cn.oneplustow.common.exception.WarningMessageException;
 import cn.oneplustow.config.db.util.PageUtil;
 import cn.oneplustow.lc.entity.PlayRoom;
@@ -104,11 +105,25 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
     }
 
     @Override
-    public PlayRoomPlayDetailVo getPlayRoomPlayDetailVoById(Long id) {
-        PlayRoomDetailVo playRoomDetailVo = getPlayRoomDetailVoByIdOrUserId(id, null);
-        Assert.isTrue(StrUtil.equals(playRoomDetailVo.getStatus(),START),"当前直播间还未开播，请选择其他直播间");
-        PlayRoomPlayDetailVo roomPlayDetailVo = mapStructContext.conver(playRoomDetailVo, PlayRoomPlayDetailVo.class);
-        return roomPlayDetailVo;
+    public PlayRoomPlayDetailVo getPlayRoomPlayDetailVo(Long id,String nameOrNum) {
+        if(StrUtil.isBlank(nameOrNum) && id == null){
+            throw new WarningMessageException("请输入查询条件");
+        }
+        LambdaQueryWrapper<PlayRoom> wrapper = new LambdaQueryWrapper<PlayRoom>();
+        if(id != null){
+            wrapper.eq(PlayRoom::getId,id);
+        }
+        if(StrUtil.isNotBlank(nameOrNum)){
+            wrapper.eq(PlayRoom::getName, nameOrNum).or().eq(PlayRoom::getRoomNumbe, nameOrNum);
+        }
+        PlayRoom playRoom = this.getOne(wrapper);
+        if(playRoom == null){
+            throw new WarningMessageException("直播间不存在");
+        }
+        if(!StrUtil.equals(playRoom.getStatus(), START)){
+            throw new WarningMessageException("直播间还未开播");
+        }
+        return mapStructContext.conver(playRoom,PlayRoomPlayDetailVo.class);
     }
 
     private PlayRoom getPlayRoomByIdOrUserId(Long id, Long userId) {
@@ -255,16 +270,5 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
             lambdaUpdateWrapper.eq(PlayRoom::getStatus, oldStatus);
         }
         return this.update(lambdaUpdateWrapper);
-    }
-
-    @Override
-    public PlayRoomDetailVo getPlayRoomDetailVoByNameOrNum(String nameOrNum) {
-        if(StrUtil.isNotBlank(nameOrNum)){
-            PlayRoom playRoom = this.getOne(new LambdaQueryWrapper<PlayRoom>()
-                    .eq(PlayRoom::getName, nameOrNum).or()
-                    .eq(PlayRoom::getRoomNumbe, nameOrNum));
-            return mapStructContext.conver(playRoom,PlayRoomDetailVo.class);
-        }
-        return null;
     }
 }
