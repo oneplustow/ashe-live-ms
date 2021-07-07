@@ -88,6 +88,9 @@ src
 
 #### 使用说明
 
+#### 问题及解决记录
+*  [Feign整合Sentinel后进行下游系统的错误处理](https://b95ed8.baklib-free.com/6296/536a)
+*  [基于jasypt原理开发符合项目的配置加密框架]()
 #### 参与贡献
 
 1.  Fork 本仓库
