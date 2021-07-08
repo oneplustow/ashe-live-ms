@@ -3,6 +3,7 @@ package cn.oneplustow.uc.vo;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 /**
@@ -12,6 +13,7 @@ import java.io.Serializable;
 public class SaveMemberDto implements Serializable {
 
     /** 用户账号 */
+    @NotBlank(message = "用户名不能为空")
     private String userName;
 
     /** 用户昵称 */
@@ -30,6 +32,7 @@ public class SaveMemberDto implements Serializable {
     private String avatar;
 
     /** 密码 */
+    @NotBlank(message = "密码不能为空")
     private String password;
 
 }
