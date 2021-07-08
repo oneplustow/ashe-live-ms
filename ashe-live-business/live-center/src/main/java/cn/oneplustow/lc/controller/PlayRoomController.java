@@ -82,7 +82,7 @@ public class PlayRoomController extends BaseController {
     /**
      * 获取直播间信息用于播放
      */
-    @GetMapping(value = "/getPlayRoomByPlay" )
+    @GetMapping(value = "/public/getPlayRoomByPlay" )
     public AjaxResult getInfoByPlay(Long id,String nameOrNum) {
         return AjaxResult.success(playRoomService.getPlayRoomPlayDetailVo(id,nameOrNum));
     }
