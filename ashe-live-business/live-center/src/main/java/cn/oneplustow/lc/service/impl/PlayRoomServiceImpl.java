@@ -95,13 +95,20 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
         }
     }
 
-    @Override
-    public PlayRoomDetailVo getPlayRoomDetailVoByIdOrUserId(Long id, Long userId) {
-        PlayRoom playRoom = getPlayRoomByIdOrUserId(id,userId);
+    private PlayRoomDetailVo getPlayRoomDetailVo(PlayRoom playRoom){
+        if(playRoom == null){
+            throw new WarningMessageException("直播间不存在");
+        }
         StreamServerAllotRecord allotRecord = allotRecordService.getAllotRecordByPlayRoomId(playRoom.getId());
         PlayRoom2PlayRoomDetailVo iMapStruct = (PlayRoom2PlayRoomDetailVo)mapStructContext.getIMapStruct(playRoom.getClass(), PlayRoomDetailVo.class);
         PlayRoomDetailVo playRoomDetailVo = iMapStruct.convers(playRoom, allotRecord);
         return playRoomDetailVo;
+    }
+
+    @Override
+    public PlayRoomDetailVo getPlayRoomDetailVoByIdOrUserId(Long id, Long userId) {
+        PlayRoom playRoom = getPlayRoomByIdOrUserId(id,userId);
+        return getPlayRoomDetailVo(playRoom);
     }
 
     @Override
@@ -123,7 +130,7 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
         if(!StrUtil.equals(playRoom.getStatus(), START)){
             throw new WarningMessageException("直播间还未开播");
         }
-        return mapStructContext.conver(playRoom,PlayRoomPlayDetailVo.class);
+        return mapStructContext.conver(getPlayRoomDetailVo(playRoom),PlayRoomPlayDetailVo.class);
     }
 
     private PlayRoom getPlayRoomByIdOrUserId(Long id, Long userId) {
