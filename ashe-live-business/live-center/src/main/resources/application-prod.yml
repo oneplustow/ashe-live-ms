@@ -16,3 +16,4 @@ feign:
     enabled: true
 ribbon:
   ReadTimeout: 5000
+protocol: https
