@@ -90,7 +90,7 @@ public interface IPlayRoomService {
      * @param userId
      * @return
      */
-    PlayRoomPlayDetailVo getPlayRoomPlayDetailVo(Long id,String nameOrNum);
+    PlayRoomPlayDetailVo getPlayRoomPlayDetailVo(Long id,String nameOrNum,String protocol);
 
     /**
      * 开通直播间

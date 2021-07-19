@@ -34,10 +34,8 @@ import static cn.oneplustow.common.constant.DbConstants.SteamServerAllotRecordSt
 public class StreamServerAllotRecordServiceImpl extends ServiceImpl<StreamServerAllotRecordMapper, StreamServerAllotRecord> implements IStreamServerAllotRecordService
 {
     private final String PULL_STREAM_TEMPLATE = "rtmp://{}/{}";
-    private final String PLAY_STREAM_TEMPLATE = "{}://{}:8080/{}/{}.flv";
+    private final String PLAY_STREAM_TEMPLATE = "://{}:8080/{}/{}.flv";
 
-    @Value("${protocol:'http'}")
-    private String protocol;
 
     @Autowired
     private IStreamServerService streamServerService;
@@ -94,7 +92,7 @@ public class StreamServerAllotRecordServiceImpl extends ServiceImpl<StreamServer
 
     private String getPlayStreamUrl(StreamServer streamServer, PlayRoom playRoom,String password) {
         String ip = streamServer.getIp();
-        return StrUtil.format(PLAY_STREAM_TEMPLATE,protocol,ip,playRoom.getRoomNumbe(),password);
+        return StrUtil.format(PLAY_STREAM_TEMPLATE,ip,playRoom.getRoomNumbe(),password);
     }
 
     /**

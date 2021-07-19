@@ -112,7 +112,7 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
     }
 
     @Override
-    public PlayRoomPlayDetailVo getPlayRoomPlayDetailVo(Long id,String nameOrNum) {
+    public PlayRoomPlayDetailVo getPlayRoomPlayDetailVo(Long id,String nameOrNum,String protocol) {
         if(StrUtil.isBlank(nameOrNum) && id == null){
             throw new WarningMessageException("请输入查询条件");
         }
@@ -130,7 +130,10 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
         if(!StrUtil.equals(playRoom.getStatus(), START)){
             throw new WarningMessageException("直播间还未开播");
         }
-        return mapStructContext.conver(getPlayRoomDetailVo(playRoom),PlayRoomPlayDetailVo.class);
+        PlayRoomPlayDetailVo detailVo = mapStructContext.conver(getPlayRoomDetailVo(playRoom), PlayRoomPlayDetailVo.class);
+        //拼接具体协议
+        detailVo.setPlayStreamUrl(protocol + detailVo.getPlayStreamUrl());
+        return detailVo;
     }
 
     private PlayRoom getPlayRoomByIdOrUserId(Long id, Long userId) {

@@ -1,6 +1,8 @@
 package cn.oneplustow.lc.controller;
 
 
+import cn.hutool.core.util.URLUtil;
+import cn.hutool.http.HttpUtil;
 import cn.oneplustow.api.ac.util.SecurityUtils;
 import cn.oneplustow.common.annoatation.Log;
 import cn.oneplustow.common.domain.AjaxResult;
@@ -16,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
 
@@ -83,8 +86,9 @@ public class PlayRoomController extends BaseController {
      * 获取直播间信息用于播放
      */
     @GetMapping(value = "/public/getPlayRoomByPlay" )
-    public AjaxResult getInfoByPlay(Long id,String nameOrNum) {
-        return AjaxResult.success(playRoomService.getPlayRoomPlayDetailVo(id,nameOrNum));
+    public AjaxResult getInfoByPlay(Long id, String nameOrNum, HttpServletRequest request) {
+
+        return AjaxResult.success(playRoomService.getPlayRoomPlayDetailVo(id,nameOrNum,request.getProtocol()));
     }
 
     /**
