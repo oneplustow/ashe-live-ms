@@ -87,8 +87,7 @@ public class PlayRoomController extends BaseController {
      */
     @GetMapping(value = "/public/getPlayRoomByPlay" )
     public AjaxResult getInfoByPlay(Long id, String nameOrNum, HttpServletRequest request) {
-
-        return AjaxResult.success(playRoomService.getPlayRoomPlayDetailVo(id,nameOrNum,request.getProtocol()));
+        return AjaxResult.success(playRoomService.getPlayRoomPlayDetailVo(id,nameOrNum,request.getScheme()));
     }
 
     /**
