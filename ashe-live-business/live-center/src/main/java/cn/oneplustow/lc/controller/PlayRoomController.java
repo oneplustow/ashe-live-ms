@@ -1,6 +1,7 @@
 package cn.oneplustow.lc.controller;
 
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.http.HttpUtil;
 import cn.oneplustow.api.ac.util.SecurityUtils;
@@ -8,6 +9,7 @@ import cn.oneplustow.common.annoatation.Log;
 import cn.oneplustow.common.domain.AjaxResult;
 import cn.oneplustow.common.enume.BusinessType;
 import cn.oneplustow.common.web.controller.BaseController;
+import cn.oneplustow.common.web.util.IpUtils;
 import cn.oneplustow.config.db.util.PageUtil;
 import cn.oneplustow.lc.service.IPlayRoomService;
 import cn.oneplustow.lc.vo.PlayRoomPageVo;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Handler;
 
 /**
  * 直播间管理Controller
@@ -87,7 +90,9 @@ public class PlayRoomController extends BaseController {
      */
     @GetMapping(value = "/public/getPlayRoomByPlay" )
     public AjaxResult getInfoByPlay(Long id, String nameOrNum, HttpServletRequest request) {
-        return AjaxResult.success(playRoomService.getPlayRoomPlayDetailVo(id,nameOrNum,request.getScheme()));
+        String scheme = request.getHeader("X-Scheme");
+        scheme = StrUtil.isBlank(scheme) ? request.getScheme() : scheme;
+        return AjaxResult.success(playRoomService.getPlayRoomPlayDetailVo(id,nameOrNum,scheme));
     }
 
     /**
