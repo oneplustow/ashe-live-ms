@@ -14,7 +14,7 @@ usage() {
 
 #检查程序是否在运行
 is_exist(){
-  pid=`ps -ef|grep $APP_NAME|grep -v grep|awk '{print $2}' `
+  pid=`ps -ef|grep $APP_NAME_JAR|grep -v grep|awk '{print $2}' `
   #如果不存在返回1，存在返回0
   if [ -z "${pid}" ]; then
    return 1
