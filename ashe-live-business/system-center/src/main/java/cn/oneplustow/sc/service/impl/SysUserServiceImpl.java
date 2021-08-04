@@ -214,9 +214,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      */
     @Override
     public void checkUserAllowed(SysUser user) {
-        if (ObjectUtil.isNotNull(user.getUserId()) && user.isAdmin()) {
-            throw new CustomException("不允许操作超级管理员用户");
-        }
+//        if (ObjectUtil.isNotNull(user.getUserId()) && user.isAdmin()) {
+//            throw new CustomException("不允许操作超级管理员用户");
+//        }
     }
 
     /**
