@@ -3,6 +3,7 @@
   <img src="https://img.shields.io/badge/Spring%20Boot-2.2.2.RELEASE-blue" alt="Downloads"/>
   <img src="https://img.shields.io/badge/Spring%20Cloud-Hoxton.RELEASE-blue" alt="Downloads"/>
   <img src="https://img.shields.io/badge/Spring%20Cloud%20Alibaba-2.2.0.RELEASE-blue" alt="Downloads"/>
+  <img src="https://img.shields.io/badge/OSSRS-5.0.1-blue" alt="Downloads"/>
   <img src="https://img.shields.io/badge/license-MIT-green" alt="Downloads"/>
 </p>
 
@@ -13,9 +14,9 @@
 [ashe-live-ui（寒冰直播后台管理项目）](https://gitee.com/oneplustow/ashe-live-ui)
 
 体验地址：
-1. 寒冰直播：https://ashelive.oneplustow.cn -- 用户名/密码：test/test 默认房间号：123
+1. 寒冰直播：https://ashelive.oneplustow.cn --测试直播间：123 | 测试账号/密码：test/test 
 2. 寒冰直播后台：https://ashelive.oneplustow.cn/ashe-live-ui -- 待开放
-3. APM-skywalking：http://monitor.oneplustow.cn:9999 -- 用户名/密码：test/test
+3. APM-skywalking：http://monitor.oneplustow.cn:9999
 4. grafana：http://monitor.oneplustow.cn:3000 -- 用户名/密码：test/test
 #### 2.系统模块规划
 寒冰直播将整体划分为七个模块中心，现阶段各模块中心规划图和进度如下  
@@ -131,7 +132,7 @@ src
 观看直播：
 1. 进入到寒冰直播页面 
 2. 点击观看直播
-3. 输入直播间房间号即可观看直播
+3. 输入直播间房间号即可观看直播（测试房间号：123）
 
 推流直播：
 1. 推流需要先注册用户
