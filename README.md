@@ -10,8 +10,8 @@
 #### 1.介绍
 ***寒冰直播是一款基于OSSRS流服务器的直播平台。***
 在此基础上开发了授权鉴权、直播间管理、直播管理等相关功能。项目整体采用微服务 和 前端后分离架构，为了方便操作将多个微服务放在了一个git项目下面，除此之外还包括两个前端项目分别是：  
-[ashe-live（寒冰直播客户端项目）](https://gitee.com/oneplustow/ashe-live)
-[ashe-live-ui（寒冰直播后台管理项目）](https://gitee.com/oneplustow/ashe-live-ui)
+[ashe-live（寒冰直播客户端前端项目）](https://gitee.com/oneplustow/ashe-live)
+[ashe-live-ui（寒冰直播后台管理前端项目）](https://gitee.com/oneplustow/ashe-live-ui)
 
 体验地址：
 1. 寒冰直播：https://ashelive.oneplustow.cn --测试直播间：123 | 测试账号/密码：test/test 
@@ -45,50 +45,50 @@
 ##### 3.2目录结构
 ```markdown
 ashe-live-ms  
-├─ashe-live-business //业务中心
-│    ├─auth-center  //认证中心
-│    ├─live-center  //直播中心
-│    ├─message-center  //消息中心
-│    ├─system-center  //系统中心
-│    └─user-center  //用户中心
-├─ashe-live-common  //公共模块
-│    ├─auth-center-api  //认证中心Fegin API
-│    ├─common-code  //公共code
-│    ├─common-web  //web公共代码
+├─ashe-live-business      //业务中心
+│    ├─auth-center        //认证中心
+│    ├─live-center        //直播中心
+│    ├─message-center     //消息中心
+│    ├─system-center      //系统中心
+│    └─user-center        //用户中心
+├─ashe-live-common        //公共模块
+│    ├─auth-center-api    //认证中心Fegin API
+│    ├─common-code        //公共code
+│    ├─common-web         //web公共代码
 │    ├─system-center-api  //系统中心Fegin API
-│    └─user-center-api  //用户中心Fegin API
-├─ashe-live-config  //配置模块
-│    ├─db-config  //数据库配置模块
-│    ├─log-config  //日志配置模块
-│    └─redis-config  //redis配置模块
-├─ashe-live-gateway  //网关中心
-├─deploy  //部署脚本
-└─sql  //SQl脚本
+│    └─user-center-api    //用户中心Fegin API
+├─ashe-live-config        //配置模块
+│    ├─db-config          //数据库配置模块
+│    ├─log-config         //日志配置模块
+│    └─redis-config       //redis配置模块
+├─ashe-live-gateway       //网关中心
+├─deploy                  //部署脚本
+└─sql                     //SQl脚本
 ```
 ##### 3.3业务中心结构
 ```markdown
 src
  ├─main
- │    ├─java
- │    │  └─cn
- │    │    └─oneplustow
- │    │      └─xx
- │    │        ├─aspectj  //AOP切面代码
- │    │        ├─config  //配置代码
- │    │        ├─controller  //前端接口代码
- │    │        ├─entity  //数据库实体对象
- │    │        │  ├─criteria  //接口封装查询对象
- │    │        │  ├─dto  //接口封装保存对象
- │    │        │  └─vo  //接口返回对象
- │    │        ├─exception //各模块的异常类
- │    │        ├─mapper  //Mybatis Mapper接口
- │    │        │  └─xml  //Mbatis Mapper.xml 文件
- │    │        ├─open  //开放接口 提供给各模块之间 Feign调用
- │    │        ├─service  //服务接口类
- │    │        │  └─impl  //服务实现类
- │    │        └─util    //工具类
- │    └─resources
- │        ├─i18n   //国际化消息
+ │   ├─java
+ │   │ └─cn
+ │   │  └─oneplustow
+ │   │   └─xx
+ │   │    ├─aspectj          //AOP切面代码
+ │   │    ├─config           //配置代码
+ │   │    ├─controller       //前端接口代码
+ │   │    ├─entity           //数据库实体对象
+ │   │    │  ├─criteria      //接口封装查询对象
+ │   │    │  ├─dto           //接口封装保存对象
+ │   │    │  └─vo            //接口返回对象
+ │   │    ├─exception        //各模块的异常类
+ │   │    ├─mapper           //Mybatis Mapper接口
+ │   │    │  └─xml           //Mbatis Mapper.xml 文件
+ │   │    ├─open             //开放接口 提供给各模块之间 Feign调用
+ │   │    ├─service          //服务接口类
+ │   │    │  └─impl          //服务实现类
+ │   │    └─util             //工具类
+ │   └─resources
+ │       ├─i18n   //国际化消息
 ```
 #### 4.系统功能界面图
 <center>(寒冰直播客户端登录界面)&nbsp;&nbsp;↓</center>
