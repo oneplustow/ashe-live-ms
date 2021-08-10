@@ -21,6 +21,11 @@ public class RuoYiConfig
     /** 版权年份 */
     private String copyrightYear;
 
+    /**
+     * 聚合api 获取ip地址 key
+     */
+    private String juheApiIpKey;
+
     /** 实例演示开关 */
     private boolean demoEnabled;
 
@@ -29,6 +34,14 @@ public class RuoYiConfig
 
     /** 获取地址开关 */
     private static boolean addressEnabled;
+
+    public String getJuheApiIpKey() {
+        return juheApiIpKey;
+    }
+
+    public void setJuheApiIpKey(String juheApiIpKey) {
+        this.juheApiIpKey = juheApiIpKey;
+    }
 
     public String getName()
     {
