@@ -40,7 +40,7 @@ start(){
 stop(){
   is_exist
   if [ $? -eq "0" ]; then
-    kill -2 $pid
+    kill -15 $pid
   else
     echo "${APP_NAME} is not running"
   fi
