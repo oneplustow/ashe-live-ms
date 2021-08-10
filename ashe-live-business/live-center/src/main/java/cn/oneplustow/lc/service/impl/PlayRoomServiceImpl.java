@@ -4,7 +4,6 @@ package cn.oneplustow.lc.service.impl;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.oneplustow.common.constant.DbConstants;
 import cn.oneplustow.common.exception.WarningMessageException;
 import cn.oneplustow.config.db.util.PageUtil;
 import cn.oneplustow.lc.entity.PlayRoom;
@@ -88,8 +87,12 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
 
     private void initPlayRoom(PlayRoom playRoom){
         Long userId = playRoom.getUserId();
-        int count = this.count(new LambdaQueryWrapper<PlayRoom>().eq(PlayRoom::getUserId, userId));
-        Assert.isTrue(count == 0,"当前用户已经拥有直播间");
+        String name = playRoom.getName();
+        Assert.isTrue(StrUtil.isNotBlank(name),"直播间房间名不能为空");
+        int userCount = this.count(new LambdaQueryWrapper<PlayRoom>().eq(PlayRoom::getUserId, userId));
+        Assert.isTrue(userCount == 0,"当前用户已经拥有直播间");
+        int nameCount = this.count(new LambdaQueryWrapper<PlayRoom>().eq(PlayRoom::getName, playRoom.getName()));
+        Assert.isTrue(nameCount == 0,"直播间名称已被占用");
         if(StrUtil.isBlank(playRoom.getRoomNumbe())) {
             playRoom.setRoomNumbe(IdUtil.simpleUUID());
         }
