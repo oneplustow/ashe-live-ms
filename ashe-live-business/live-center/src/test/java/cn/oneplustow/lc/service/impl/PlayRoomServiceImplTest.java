@@ -27,7 +27,7 @@ class PlayRoomServiceImplTest {
 
     @Test
     void openUp() {
-        boolean b = playRoomService.openUp("CC的直播间", 1L);
+        boolean b = playRoomService.openUp("CC的直播间", 0L);
         System.out.println(b);
     }
 
