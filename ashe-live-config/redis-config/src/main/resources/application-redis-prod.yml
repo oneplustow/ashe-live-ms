@@ -3,7 +3,7 @@ spring:
   # redis 配置
   redis:
     # 地址
-    host: oneplustow.cn
+    host: data.oneplustow.cn
     # 端口，默认为6379
     port: 6379
     password: ENC(e80lw/tzDxbAOa7FBLEiGOfpBxqHqfrP0LnX/gZAvXk=)
