@@ -6,13 +6,10 @@ import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.boot.autoconfigure.web.reactive.error.DefaultErrorWebExceptionHandler;
 import org.springframework.boot.web.reactive.error.ErrorAttributes;
-import org.springframework.cloud.gateway.support.NotFoundException;
 import org.springframework.context.ApplicationContext;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.reactive.function.server.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**

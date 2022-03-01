@@ -7,7 +7,7 @@ spring:
         server-addr: ENC(FsLTeSP1oy8yhvg3pTtFfUH8wtfdUWECimOJ6r5SVCsx+PuB3k8p6Q==)
         namespace: ENC(byBvf6PJ2AwWsKkT8p5nTg3l2ukRutnvJ+zq/N16ObQht475DW6dqpTpskuSSwbxPwsVHipJBMU=)
       config:
-        server-addr: oneplustow.cn:8848
+        server-addr: data.oneplustow.cn:8848
         namespace: 0340360d-3c02-47ac-a729-f9ccfa72a9e8
         file-extension: yaml
   profiles:

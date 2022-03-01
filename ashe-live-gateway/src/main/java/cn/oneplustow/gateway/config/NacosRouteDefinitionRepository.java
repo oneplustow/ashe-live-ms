@@ -2,12 +2,8 @@ package cn.oneplustow.gateway.config;
 
 import cn.hutool.core.collection.CollUtil;
 import com.alibaba.cloud.nacos.NacosConfigManager;
-import com.alibaba.cloud.nacos.NacosConfigProperties;
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.nacos.api.config.annotation.NacosConfigurationProperties;
 import com.alibaba.nacos.api.config.listener.Listener;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.event.RefreshRoutesEvent;
 import org.springframework.cloud.gateway.route.RouteDefinition;
