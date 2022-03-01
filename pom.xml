@@ -12,6 +12,7 @@
         <module>ashe-live-business</module>
         <module>ashe-live-common</module>
         <module>ashe-live-gateway</module>
+        <module>ashe-live-admin</module>
         <module>ashe-live-config</module>
     </modules>
 
@@ -22,7 +23,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>8</java.version>
         <hutool.verstion>5.4.2</hutool.verstion>
-        <spring-boot-admin.version>2.1.6</spring-boot-admin.version>
+        <spring-boot-admin.version>2.2.0</spring-boot-admin.version>
         <spring-cloud-alibaba-dependencies.version>2.2.0.RELEASE</spring-cloud-alibaba-dependencies.version>
         <spring-boot-dependencies.version>2.2.2.RELEASE</spring-boot-dependencies.version>
         <spring-cloud-dependencies.version>Hoxton.RELEASE</spring-cloud-dependencies.version>
