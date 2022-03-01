@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: admin-center
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ENC(FsLTeSP1oy8yhvg3pTtFfUH8wtfdUWECimOJ6r5SVCsx+PuB3k8p6Q==)
+        namespace: ENC(byBvf6PJ2AwWsKkT8p5nTg3l2ukRutnvJ+zq/N16ObQht475DW6dqpTpskuSSwbxPwsVHipJBMU=)
+
+  profiles:
+    active: prod
+jasypt:
+  encryptor:
+    bootstrap: false
+    algorithm: PBEWithMD5AndDES

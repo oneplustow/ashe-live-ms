@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: admin-center
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ENC(FsLTeSP1oy8yhvg3pTtFfUH8wtfdUWECimOJ6r5SVCsx+PuB3k8p6Q==)
+        namespace: ENC(HYUzFSY9G3f2x/ejfJvCl75VtDuRgAP/B1WjtkusELn/UBwPu2ibCJT0nQXvW0TnWBRvjQl77JA=)
+        metadata:
+          management:
+            context-path: ${server.servlet.context-path}/actuator
+  profiles:
+    active: dev
+jasypt:
+  encryptor:
+    bootstrap: false
+    algorithm: PBEWithMD5AndDES
