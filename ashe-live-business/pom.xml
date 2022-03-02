@@ -18,6 +18,7 @@
         <module>live-center</module>
         <module>message-center</module>
         <module>user-center</module>
+        <module>task-center</module>
     </modules>
 
     <dependencies>
