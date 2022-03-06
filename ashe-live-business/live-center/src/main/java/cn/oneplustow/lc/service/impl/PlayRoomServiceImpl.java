@@ -94,6 +94,7 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
         int nameCount = this.count(new LambdaQueryWrapper<PlayRoom>().eq(PlayRoom::getName, playRoom.getName()));
         Assert.isTrue(nameCount == 0,"直播间名称已被占用");
         if(StrUtil.isBlank(playRoom.getRoomNumbe())) {
+            //todo 直播间名称可以有一定规律进行生产，后续加上序列号生产模块
             playRoom.setRoomNumbe(IdUtil.simpleUUID());
         }
     }
