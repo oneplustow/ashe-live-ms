@@ -3,7 +3,7 @@ package cn.oneplustow.common.enume;
 
 /**
  * 业务编码规则补齐方向类型
- * @author greatmap
+ * @author cc
  *
  */
 public enum PaddingType {

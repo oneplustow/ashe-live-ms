@@ -2,7 +2,7 @@ package cn.oneplustow.common.enume;
 
 /**
  * 业务编码回收类型
- * @author greatmap
+ * @author cc
  *
  */
 public enum RecycledType {
