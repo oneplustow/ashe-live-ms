@@ -7,6 +7,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.oneplustow.common.exception.WarningMessageException;
 import cn.oneplustow.config.db.util.PageUtil;
 import cn.oneplustow.lc.entity.PlayRoom;
+import cn.oneplustow.lc.entity.StreamServer;
 import cn.oneplustow.lc.entity.StreamServerAllotRecord;
 import cn.oneplustow.lc.mapper.PlayRoomMapper;
 import cn.oneplustow.lc.mapstruct.PlayRoom2PlayRoomDetailVo;
@@ -22,6 +23,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -85,16 +87,22 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
 
     private void initPlayRoom(PlayRoom playRoom){
         Long userId = playRoom.getUserId();
-        int count = this.count(new LambdaQueryWrapper<PlayRoom>().eq(PlayRoom::getUserId, userId));
-        Assert.isTrue(count == 0,"当前用户已经拥有直播间");
+        String name = playRoom.getName();
+        Assert.isTrue(StrUtil.isNotBlank(name),"直播间房间名不能为空");
+        int userCount = this.count(new LambdaQueryWrapper<PlayRoom>().eq(PlayRoom::getUserId, userId));
+        Assert.isTrue(userCount == 0,"当前用户已经拥有直播间");
+        int nameCount = this.count(new LambdaQueryWrapper<PlayRoom>().eq(PlayRoom::getName, playRoom.getName()));
+        Assert.isTrue(nameCount == 0,"直播间名称已被占用");
         if(StrUtil.isBlank(playRoom.getRoomNumbe())) {
+            //todo 直播间名称可以有一定规律进行生产，后续加上序列号生产模块
             playRoom.setRoomNumbe(IdUtil.simpleUUID());
         }
     }
 
-    @Override
-    public PlayRoomDetailVo getPlayRoomDetailVoByIdOrUserId(Long id, Long userId) {
-        PlayRoom playRoom = getPlayRoomByIdOrUserId(id,userId);
+    private PlayRoomDetailVo getPlayRoomDetailVo(PlayRoom playRoom){
+        if(playRoom == null){
+            throw new WarningMessageException("直播间不存在");
+        }
         StreamServerAllotRecord allotRecord = allotRecordService.getAllotRecordByPlayRoomId(playRoom.getId());
         PlayRoom2PlayRoomDetailVo iMapStruct = (PlayRoom2PlayRoomDetailVo)mapStructContext.getIMapStruct(playRoom.getClass(), PlayRoomDetailVo.class);
         PlayRoomDetailVo playRoomDetailVo = iMapStruct.convers(playRoom, allotRecord);
@@ -102,11 +110,34 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
     }
 
     @Override
-    public PlayRoomPlayDetailVo getPlayRoomPlayDetailVoById(Long id) {
-        PlayRoomDetailVo playRoomDetailVo = getPlayRoomDetailVoByIdOrUserId(id, null);
-        Assert.isTrue(StrUtil.equals(playRoomDetailVo.getStatus(),START),"当前直播间还未开播，请选择其他直播间");
-        PlayRoomPlayDetailVo roomPlayDetailVo = mapStructContext.conver(playRoomDetailVo, PlayRoomPlayDetailVo.class);
-        return roomPlayDetailVo;
+    public PlayRoomDetailVo getPlayRoomDetailVoByIdOrUserId(Long id, Long userId) {
+        PlayRoom playRoom = getPlayRoomByIdOrUserId(id,userId);
+        return getPlayRoomDetailVo(playRoom);
+    }
+
+    @Override
+    public PlayRoomPlayDetailVo getPlayRoomPlayDetailVo(Long id,String nameOrNum,String protocol) {
+        if(StrUtil.isBlank(nameOrNum) && id == null){
+            throw new WarningMessageException("请输入查询条件");
+        }
+        LambdaQueryWrapper<PlayRoom> wrapper = new LambdaQueryWrapper<PlayRoom>();
+        if(id != null){
+            wrapper.eq(PlayRoom::getId,id);
+        }
+        if(StrUtil.isNotBlank(nameOrNum)){
+            wrapper.eq(PlayRoom::getName, nameOrNum).or().eq(PlayRoom::getRoomNumbe, nameOrNum);
+        }
+        PlayRoom playRoom = this.getOne(wrapper);
+        if(playRoom == null){
+            throw new WarningMessageException("直播间不存在");
+        }
+        if(!StrUtil.equals(playRoom.getStatus(), START)){
+            throw new WarningMessageException("直播间还未开播");
+        }
+        PlayRoomPlayDetailVo detailVo = mapStructContext.conver(getPlayRoomDetailVo(playRoom), PlayRoomPlayDetailVo.class);
+        //拼接具体协议
+        detailVo.setPlayStreamUrl(protocol + detailVo.getPlayStreamUrl());
+        return detailVo;
     }
 
     private PlayRoom getPlayRoomByIdOrUserId(Long id, Long userId) {
@@ -159,10 +190,13 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
         return playRoomDetailVo;
     }
 
+    @Async
     @Override
     public Boolean viewPlay(String roomNumber){
         return updateViewNumber(roomNumber,1);
     }
+
+    @Async
     @Override
     public Boolean unViewPlay(String id) {
         return updateViewNumber(id,-1);
@@ -210,8 +244,9 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
             log.info("用户已经推流了，但是再次推流");
             // 加入踢流的逻辑
             String odlClientId = playRoom.getClientId();
+            StreamServer streamServer = allotRecordService.getAllotStreamServer(playRoom.getId());
             //踢流
-            //ossrsService.eliminateStream(streamServer.getIp(),streamServer.getPort(),clientId);
+            ossrsService.eliminateStream(streamServer.getIp(),streamServer.getPort(),clientId);
         }
         playRoom.setStatus(START);
         playRoom.setClientId(clientId);
@@ -249,16 +284,5 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
             lambdaUpdateWrapper.eq(PlayRoom::getStatus, oldStatus);
         }
         return this.update(lambdaUpdateWrapper);
-    }
-
-    @Override
-    public PlayRoomDetailVo getPlayRoomDetailVoByNameOrNum(String nameOrNum) {
-        if(StrUtil.isNotBlank(nameOrNum)){
-            PlayRoom playRoom = this.getOne(new LambdaQueryWrapper<PlayRoom>()
-                    .eq(PlayRoom::getName, nameOrNum).or()
-                    .eq(PlayRoom::getRoomNumbe, nameOrNum));
-            return mapStructContext.conver(playRoom,PlayRoomDetailVo.class);
-        }
-        return null;
     }
 }

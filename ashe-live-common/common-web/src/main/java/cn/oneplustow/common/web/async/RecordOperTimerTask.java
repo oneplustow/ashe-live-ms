@@ -3,7 +3,6 @@ package cn.oneplustow.common.web.async;
 import cn.hutool.extra.spring.SpringUtil;
 import cn.oneplustow.api.sc.model.SysOperLogModel;
 import cn.oneplustow.api.sc.service.OperLogService;
-import cn.oneplustow.common.web.util.AddressUtils;
 
 import java.util.TimerTask;
 
@@ -33,7 +32,7 @@ public class RecordOperTimerTask extends TimerTask {
     @Override
     public void run() {
         // 远程查询操作地点
-        operLog.setOperLocation(AddressUtils.getRealAddressByIP(operLog.getOperIp()));
+//        operLog.setOperLocation(AddressUtils.getRealAddressByIP(operLog.getOperIp()));
         SpringUtil.getBean(OperLogService.class).insertOperlog(operLog);
     }
 }

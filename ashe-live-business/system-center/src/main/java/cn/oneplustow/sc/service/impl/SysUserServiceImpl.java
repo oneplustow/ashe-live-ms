@@ -26,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -214,9 +215,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      */
     @Override
     public void checkUserAllowed(SysUser user) {
-        if (ObjectUtil.isNotNull(user.getUserId()) && user.isAdmin()) {
-            throw new CustomException("不允许操作超级管理员用户");
-        }
+//        if (ObjectUtil.isNotNull(user.getUserId()) && user.isAdmin()) {
+//            throw new CustomException("不允许操作超级管理员用户");
+//        }
     }
 
     /**
@@ -248,6 +249,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         if (UserConstants.NOT_UNIQUE.equals(this.checkEmailUnique(user))) {
             throw new ParameterMissingException(StrUtil.format("新增用户'{}'失败，邮箱账号已存在", user.getUserName()));
         }
+        user.setCreateTime(new Date());
         user.setPassword(SecurityUtils.encryptPassword(user.getPassword()));
     }
 

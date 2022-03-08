@@ -1,11 +1,10 @@
 package cn.oneplustow.lc.handler;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import cn.hutool.extra.spring.SpringUtil;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -18,14 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class OssrsCallBackHandlerFactory implements ApplicationRunner {
 
-    private List<OssrsCallBackHandler> ossrsCallBackHandlers;
-
     private ConcurrentHashMap<OssrsCallBackActionEnum,OssrsCallBackHandler> cacheMap = new ConcurrentHashMap<>(10);
-
-    @Autowired
-    public void setOssrsCallBackHandlers(List<OssrsCallBackHandler> ossrsCallBackHandlers) {
-        this.ossrsCallBackHandlers = ossrsCallBackHandlers;
-    }
 
     public OssrsCallBackHandler getOssrsCallBackHandler(OssrsCallBackActionEnum actionEnum){
         return cacheMap.get(actionEnum);
@@ -33,7 +25,9 @@ public class OssrsCallBackHandlerFactory implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        for (OssrsCallBackHandler ossrsCallBackHandler : ossrsCallBackHandlers) {
+        String[] beanNamesForType = SpringUtil.getBeanNamesForType(OssrsCallBackHandler.class);
+        for (String beanName : beanNamesForType) {
+            OssrsCallBackHandler ossrsCallBackHandler = SpringUtil.getBean(beanName, OssrsCallBackHandler.class);
             cacheMap.put(ossrsCallBackHandler.handlerAction(),ossrsCallBackHandler);
         }
     }

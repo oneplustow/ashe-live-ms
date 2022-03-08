@@ -12,6 +12,7 @@ import cn.oneplustow.uc.vo.SaveMemberDto;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -56,7 +57,7 @@ public class MemberController extends BaseController
      */
     @Log(title = "注册用户", businessType = BusinessType.INSERT)
     @PostMapping("public/register")
-    public AjaxResult register(@RequestBody SaveMemberDto saveMemberDto)
+    public AjaxResult register(@RequestBody @Validated SaveMemberDto saveMemberDto)
     {
         saveMemberDto.setNickName(saveMemberDto.getUserName());
         return toAjax(memberService.insertMember(saveMemberDto));

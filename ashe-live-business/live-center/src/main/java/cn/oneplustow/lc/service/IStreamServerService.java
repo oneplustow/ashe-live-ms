@@ -59,4 +59,6 @@ public interface IStreamServerService {
     boolean updateStreamServer(SaveStreamServerDto streamServer);
 
     boolean delById(List<Integer> asList);
+
+    boolean disableOrEnableStreamServer(Integer id,boolean status);
 }

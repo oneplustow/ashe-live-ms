@@ -1,0 +1,12 @@
+server:
+  port: 7007
+  servlet:
+    context-path: /admin-center
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always

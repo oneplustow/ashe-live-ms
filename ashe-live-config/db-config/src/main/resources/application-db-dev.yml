@@ -6,9 +6,9 @@ spring:
     druid:
       # 主库数据源
       master:
-        url: jdbc:mysql://oneplustow.cn:3306/ashe-live?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+        url: jdbc:mysql://data.oneplustow.cn:3306/ashe-live?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
         username: ENC(/vWKgL84PP8tR7bSyRbJA2tKAXSUCoFS9Jcm3Lzi2z0=)
-        password: ENC(/vWKgL84PP8tR7bSyRbJA2tKAXSUCoFS9Jcm3Lzi2z0=)
+        password: ENC(C/7/nV1K8B/L0KT+stgb4wHq44zDsBIiFDijllK15pg=
       # 从库数据源
       slave:
         # 从数据源开关/默认关闭

@@ -1,11 +1,15 @@
 package cn.oneplustow.lc.controller;
 
 
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.core.util.URLUtil;
+import cn.hutool.http.HttpUtil;
 import cn.oneplustow.api.ac.util.SecurityUtils;
 import cn.oneplustow.common.annoatation.Log;
 import cn.oneplustow.common.domain.AjaxResult;
 import cn.oneplustow.common.enume.BusinessType;
 import cn.oneplustow.common.web.controller.BaseController;
+import cn.oneplustow.common.web.util.IpUtils;
 import cn.oneplustow.config.db.util.PageUtil;
 import cn.oneplustow.lc.service.IPlayRoomService;
 import cn.oneplustow.lc.vo.PlayRoomPageVo;
@@ -16,8 +20,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Handler;
 
 /**
  * 直播间管理Controller
@@ -33,7 +39,7 @@ public class PlayRoomController extends BaseController {
     private IPlayRoomService playRoomService;
 
     /**
-     * 查询直播间管理列表
+     * 查询直播间播放列表
      */
     @GetMapping("/startStatusList" )
     public AjaxResult selectStartStatusPage(String roomNumbe,String roomName) {
@@ -62,15 +68,6 @@ public class PlayRoomController extends BaseController {
     }
 
     /**
-     * 获取直播间管理详细信息
-     */
-    @PreAuthorize("@ss.hasPermi('lc:playRoom:query')" )
-    @GetMapping(value = "/getPlayRoomDetail" )
-    public AjaxResult getInfo(String nameOrNum) {
-        return AjaxResult.success(playRoomService.getPlayRoomDetailVoByNameOrNum(nameOrNum));
-    }
-
-    /**
      * 获取当前登录用户直播间详细信息
      */
     @PreAuthorize("@ss.hasPermi('lc:playRoom:query')" )
@@ -91,9 +88,11 @@ public class PlayRoomController extends BaseController {
     /**
      * 获取直播间信息用于播放
      */
-    @GetMapping(value = "/getPlayRoomByPlay" )
-    public AjaxResult getInfoByPlay(@RequestParam Long id) {
-        return AjaxResult.success(playRoomService.getPlayRoomPlayDetailVoById(id));
+    @GetMapping(value = "/public/getPlayRoomByPlay" )
+    public AjaxResult getInfoByPlay(Long id, String nameOrNum, HttpServletRequest request) {
+        String scheme = request.getHeader("X-Scheme");
+        scheme = StrUtil.isBlank(scheme) ? request.getScheme() : scheme;
+        return AjaxResult.success(playRoomService.getPlayRoomPlayDetailVo(id,nameOrNum,scheme));
     }
 
     /**

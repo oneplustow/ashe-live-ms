@@ -2,8 +2,10 @@
 #这里可替换为你自己的执行程序，其他代码无需更改
 #APP_NAME=ashe-live-gateway-1.0-SNAPSHOT.jar
 # 动态改变
-APP_NAME=$2'.jar'
+APP_NAME=$2
+APP_NAME_JAR=$2'.jar'
 
+PASSWORD=$3
 #使用说明，用来提示输入参数
 usage() {
     echo "Usage: sh 执行脚本.sh [start|stop|restart|status]"
@@ -12,7 +14,7 @@ usage() {
 
 #检查程序是否在运行
 is_exist(){
-  pid=`ps -ef|grep $APP_NAME|grep -v grep|awk '{print $2}' `
+  pid=`ps -ef|grep $APP_NAME_JAR|grep -v grep|awk '{print $2}' `
   #如果不存在返回1，存在返回0
   if [ -z "${pid}" ]; then
    return 1
@@ -27,7 +29,10 @@ start(){
   if [ $? -eq "0" ]; then
     echo "${APP_NAME} is already running. pid=${pid} ."
   else
-    nohup java -jar -Dspring.profiles.active=prod $APP_NAME > /dev/null 2>&1 &
+    nohup java -javaagent:/usr/appe/skywalking-agent/skywalking-agent.jar \
+-Dskywalking.agent.service_name=$APP_NAME \
+-Dskywalking.collector.backend_service=monitor.oneplustow.cn:11800 \
+-jar  -Djasypt.encryptor.password=$PASSWORD -Dspring.profiles.active=prod $APP_NAME_JAR > /dev/null 2>&1 &
   fi
 }
 
@@ -35,7 +40,8 @@ start(){
 stop(){
   is_exist
   if [ $? -eq "0" ]; then
-    kill -9 $pid
+    kill -15 $pid
+    sleep 5
   else
     echo "${APP_NAME} is not running"
   fi

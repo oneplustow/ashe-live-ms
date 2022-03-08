@@ -20,3 +20,4 @@ ribbon:
 jasypt:
   encryptor:
     algorithm: PBEWithMD5AndDES
+    password: 123

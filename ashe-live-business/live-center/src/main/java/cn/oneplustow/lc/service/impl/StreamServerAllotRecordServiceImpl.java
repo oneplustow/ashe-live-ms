@@ -15,6 +15,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -32,8 +33,12 @@ import static cn.oneplustow.common.constant.DbConstants.SteamServerAllotRecordSt
 @Service
 public class StreamServerAllotRecordServiceImpl extends ServiceImpl<StreamServerAllotRecordMapper, StreamServerAllotRecord> implements IStreamServerAllotRecordService
 {
-    private final String PULL_STREAM_TEMPLATE = "rtmp://{}/{}";
-    private final String PLAY_STREAM_TEMPLATE = "http://{}:8080/{}/{}.flv";
+    private final String PULL_STREAM_TEMPLATE = "rtmp://{}/ashelive";
+    private final String PLAY_STREAM_TEMPLATE = "://{}:8080/ashelive/{}.flv";
+
+    @Value("${protocol:http}")
+    private String protocol;
+
     @Autowired
     private IStreamServerService streamServerService;
 
@@ -59,40 +64,36 @@ public class StreamServerAllotRecordServiceImpl extends ServiceImpl<StreamServer
     }
 
     @Override
+    public StreamServer getAllotStreamServer(Long playRoomId){
+        StreamServerAllotRecord streamServerAllotRecord = getAllotRecordByPlayRoomId(playRoomId);
+        Long streamServerId = streamServerAllotRecord.getStreamServerId();
+        return streamServerService.getStreamServerById(streamServerId);
+    }
+
+    @Override
     public StreamServerAllotRecord allotStreamServer(PlayRoom playRoom){
         StreamServerAllotRecord allotRecord = getAllotRecordByPlayRoomId(playRoom.getId());
         if(allotRecord != null){return allotRecord;}
+        //获取一个可用的推流服务器
         StreamServer available = streamServerService.getAvailable();
 
+        //随机生产6位数密码
         String password = RandomUtil.randomNumbers(6);
-        String pullStreamUrl = getPullStreamUrl(available, playRoom);
-        String playStreamUrl = getPlayStreamUrl(available, playRoom,password);
+
+        String steamServerIp = available.getIp();
+        String pullStreamUrl = StrUtil.format(PULL_STREAM_TEMPLATE, steamServerIp);
+        String playStreamUrl = StrUtil.format(PLAY_STREAM_TEMPLATE,steamServerIp,playRoom.getRoomNumbe());
         StreamServerAllotRecord serverAllotRecord = StreamServerAllotRecord.builder()
                 .playRoomId(playRoom.getId())
                 .streamServerId(available.getId())
                 .pushStreamUrl(pullStreamUrl)
                 .playStreamUrl(playStreamUrl)
-                .pushStreamPassword(password)
+                .pushStreamPassword(playRoom.getRoomNumbe()+"?"+password)
                 .createTime(new Date())
                 .status(NORMAL)
                 .build();
         this.save(serverAllotRecord);
         return serverAllotRecord;
-    }
-
-    private String getPlayStreamUrl(StreamServer streamServer, PlayRoom playRoom,String password) {
-        String ip = streamServer.getIp();
-        return StrUtil.format(PLAY_STREAM_TEMPLATE,ip,playRoom.getRoomNumbe(),password);
-    }
-
-    /**
-     * 选取一个可用的服务器用于进行构建推流连接
-     * @param playRoom
-     * @return
-     */
-    private String getPullStreamUrl(StreamServer streamServer, PlayRoom playRoom) {
-        String ip = streamServer.getIp();
-        return StrUtil.format(PULL_STREAM_TEMPLATE,ip,playRoom.getRoomNumbe());
     }
 
 }
