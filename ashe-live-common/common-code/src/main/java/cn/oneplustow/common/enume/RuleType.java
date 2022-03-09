@@ -3,7 +3,7 @@ package cn.oneplustow.common.enume;
 
 /**
  * 业务编码生成规则类型
- * @author greatmap
+ * @author cc
  *
  */
 public enum RuleType {

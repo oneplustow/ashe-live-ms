@@ -143,8 +143,14 @@ src
 6. 使用推流软件如OBS进行推流即可
 7. 观看直播参考上面的流程
 
+## 鸣谢
 
-
+- 感谢 JetBrains 提供的免费开源 License：
+<p align="left">
+    <a target="_blank" href="https://www.jetbrains.com/?from=ashe-livey">
+        <img src="image/jetbrains.png" height="100" alt="jetbrains">
+    </a>
+</p>
 
 
 #### 问题及解决记录
