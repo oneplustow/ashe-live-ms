@@ -2,7 +2,9 @@ package cn.oneplustow.mc.controller;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.oneplustow.common.domain.AjaxResult;
 import cn.oneplustow.common.web.controller.BaseController;
+import cn.oneplustow.mc.service.impl.MailService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,9 @@ public class Controller extends BaseController {
 
     @Autowired
     private WebApplicationContext webApplicationContext;
+
+    @Autowired
+    private MailService mailService;
     /**
      * 获取用户列表
      */
@@ -43,6 +48,9 @@ public class Controller extends BaseController {
     @GetMapping("/test1/{path}")
     public void test(@PathVariable String path){
 
-
+    }
+    public AjaxResult sendMail(){
+        mailService.sendMail();
+      return  AjaxResult.success();
     }
 }
