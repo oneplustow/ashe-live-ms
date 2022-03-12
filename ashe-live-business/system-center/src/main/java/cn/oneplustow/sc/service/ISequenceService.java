@@ -14,8 +14,8 @@ import java.util.List;
  * 业务编码  服务接口类
  * </p>
  *
- * @author greatmap
- * @since 2017-08-10
+ * @author cc
+ * @since 2022-03-10
  */
 public interface ISequenceService extends IService<Sequence> {
 

@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * Mapper接口
  * </p>
  *
- * @author greatmap
- * @since 2017-08-10
+ * @author cc
+ * @since 2022-03-10
  */
 public interface SeqRecycleMapper extends BaseMapper<SeqRecycle> {
 

@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * 编码规则  服务接口类
  * </p>
  *
- * @author greatmap
- * @since 2017-08-10
+ * @author cc
+ * @since 2022-03-10
  */
 public interface ISeqRuleLinkageService extends IService<SeqRuleLinkage> {
 

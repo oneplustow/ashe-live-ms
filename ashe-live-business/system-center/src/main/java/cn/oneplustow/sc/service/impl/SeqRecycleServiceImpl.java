@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
  * 序列表回收表 服务接口类
  * </p>
  *
- * @author greatmap
- * @since 2017-08-10
+ * @author cc
+ * @since 2022-03-10
  */
 @Service("seqRecycleService")
 public class SeqRecycleServiceImpl extends ServiceImpl<SeqRecycleMapper, SeqRecycle> implements ISeqRecycleService {

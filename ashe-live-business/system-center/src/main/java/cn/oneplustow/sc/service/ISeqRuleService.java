@@ -14,8 +14,8 @@ import java.util.List;
  * 编码规则  服务接口类
  * </p>
  *
- * @author greatmap
- * @since 2017-08-10
+ * @author cc
+ * @since 2022-03-10
  */
 public interface ISeqRuleService extends IService<SeqRule> {
 
