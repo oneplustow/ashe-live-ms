@@ -17,11 +17,11 @@ import java.util.List;
  * </p>
  *
  * @author cc
- * @since 2017-08-10
+ * @since 2022-03-10
  */
 @Data
 @TableName("seq_sequence")
-public class SeqSequence implements Serializable {
+public class Sequence implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -41,10 +41,10 @@ public class SeqSequence implements Serializable {
 	@TableField(exist = false)
 	private List<SeqRule> seqRules;
 
-	public SeqSequence(String seqName) {
+	public Sequence(String seqName) {
 		this.seqName = seqName;
 	}
 
-	public SeqSequence() {
+	public Sequence() {
 	}
 }
