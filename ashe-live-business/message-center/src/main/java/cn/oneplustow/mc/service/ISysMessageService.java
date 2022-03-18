@@ -10,6 +10,4 @@ import cn.oneplustow.mc.vo.SendMessageVo;
  **/
 public interface ISysMessageService {
     void sendMessage(SendMessageVo sendMessageVo);
-
-    String sendVerifyCode(String receive, String configKey);
 }
