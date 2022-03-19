@@ -1,14 +1,12 @@
 package cn.oneplustow.ac.controller;
 
 
+import cn.oneplustow.ac.dto.LoginBody;
 import cn.oneplustow.ac.security.service.SysLoginService;
 import cn.oneplustow.ac.security.service.SysPermissionService;
-import cn.oneplustow.ac.security.service.TokenService;
 import cn.oneplustow.api.ac.model.LoginUser;
 import cn.oneplustow.api.ac.util.SecurityUtils;
 import cn.oneplustow.api.sc.model.SysUserModel;
-import cn.oneplustow.api.sc.service.MenuService;
-import cn.oneplustow.api.sc.service.UserService;
 import cn.oneplustow.common.constant.Constants;
 import cn.oneplustow.common.domain.AjaxResult;
 import cn.oneplustow.common.web.controller.GlobalExceptionHandler;
@@ -17,6 +15,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Set;
@@ -34,16 +33,7 @@ public class SysLoginController extends GlobalExceptionHandler
     private SysLoginService loginService;
 
     @Autowired
-    private MenuService menuService;
-
-    @Autowired
     private SysPermissionService permissionService;
-
-    @Autowired
-    private TokenService tokenService;
-
-    @Autowired
-    private UserService userService;
 
     /**
      * 登录方法
@@ -56,11 +46,12 @@ public class SysLoginController extends GlobalExceptionHandler
      */
     @ApiOperation("登录接口")
     @PostMapping("/login")
-    public AjaxResult login(String username, String password, String code, String uuid,String clientType)
+    public AjaxResult login(@RequestBody LoginBody loginBody)
     {
         AjaxResult ajax = AjaxResult.success();
         // 生成令牌
-        String token = loginService.login(username, password, code, uuid, clientType);
+        String token =loginService.login(loginBody.getUsername(), loginBody.getPassword(), loginBody.getCode(),
+            loginBody.getUuid());
         ajax.put(Constants.TOKEN, token);
         return ajax;
     }
