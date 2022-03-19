@@ -1,166 +1,146 @@
 package cn.oneplustow.common.domain;
 
-
-import cn.hutool.core.util.ObjectUtil;
-import cn.oneplustow.common.constant.HttpStatus;
+import cn.hutool.http.HttpStatus;
+import lombok.Data;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 操作消息提醒
- * 
- * @author ruoyi
+ *
+ * @author Lion Li
  */
-public class AjaxResult extends HashMap<String, Object>
-{
-    private static final long serialVersionUID = 1L;
+@Data
+public class AjaxResult<T> {
 
-    /** 状态码 */
-    public static final String CODE_TAG = "code";
+	private static final long serialVersionUID = 1L;
 
-    /** 返回内容 */
-    public static final String MSG_TAG = "msg";
+	/**
+	 * 状态码
+	 */
+	private int code;
 
-    /** 数据对象 */
-    public static final String DATA_TAG = "data";
+	/**
+	 * 返回内容
+	 */
+	private String msg;
 
-    /**
-     * 初始化一个新创建的 AjaxResult 对象，使其表示一个空消息。
-     */
-    public AjaxResult()
-    {
-    }
+	/**
+	 * 数据对象
+	 */
+	private T data;
 
-    public String getMsg(){
-        Object msg = this.get(MSG_TAG);
-        if (msg != null) {
-            return msg.toString();
-        }
-        return null;
-    }
+	public AjaxResult() {
+	}
 
-    public Integer getCode(){
-        Object code = this.get(CODE_TAG);
-        if (code != null) {
-            return Integer.valueOf(code.toString());
-        }
-        return null;
-    }
+	public AjaxResult(int code, String msg, T data) {
+		this.code = code;
+		this.msg = msg;
+		this.data = data;
+	}
 
-    /**
-     * 初始化一个新创建的 AjaxResult 对象
-     * 
-     * @param code 状态码
-     * @param msg 返回内容
-     */
-    public AjaxResult(int code, String msg)
-    {
-        super.put(CODE_TAG, code);
-        super.put(MSG_TAG, msg);
-    }
+	/**
+	 * 初始化一个新创建的 AjaxResult 对象
+	 *
+	 * @param code 状态码
+	 * @param msg  返回内容
+	 */
+	public AjaxResult(int code, String msg) {
+		this.code = code;
+		this.msg = msg;
+	}
 
-    /**
-     * 初始化一个新创建的 AjaxResult 对象
-     * 
-     * @param code 状态码
-     * @param msg 返回内容
-     * @param data 数据对象
-     */
-    public AjaxResult(int code, String msg, Object data)
-    {
-        super.put(CODE_TAG, code);
-        super.put(MSG_TAG, msg);
-        if (ObjectUtil.isNotNull(data))
-        {
-            super.put(DATA_TAG, data);
-        }
-    }
+	/**
+	 * 返回成功消息
+	 *
+	 * @return 成功消息
+	 */
+	public static AjaxResult<Void> success() {
+		return AjaxResult.success("操作成功");
+	}
 
-    /**
-     * 返回成功消息
-     * 
-     * @return 成功消息
-     */
-    public static AjaxResult success()
-    {
-        return AjaxResult.success("操作成功");
-    }
+	public void put(String key,Object value) {
+		T data = getData();
+		if(data == null){
+			data = (T) new HashMap<String,Object>(8);
+			setData(data);
+		}
+		if(data instanceof Map){
+			((Map)data).put(key,value);
+		}
+	}
 
-    /**
-     * 返回成功数据
-     * 
-     * @return 成功消息
-     */
-    public static AjaxResult success(Object data)
-    {
-        return AjaxResult.success("操作成功", data);
-    }
 
-    /**
-     * 返回成功消息
-     * 
-     * @param msg 返回内容
-     * @return 成功消息
-     */
-    public static AjaxResult success(String msg)
-    {
-        return AjaxResult.success(msg, null);
-    }
+	/**
+	 * 返回成功数据
+	 *
+	 * @return 成功消息
+	 */
+	public static <T> AjaxResult<T> success(T data) {
+		return AjaxResult.success("操作成功", data);
+	}
 
-    /**
-     * 返回成功消息
-     * 
-     * @param msg 返回内容
-     * @param data 数据对象
-     * @return 成功消息
-     */
-    public static AjaxResult success(String msg, Object data)
-    {
-        return new AjaxResult(HttpStatus.SUCCESS, msg, data);
-    }
+	/**
+	 * 返回成功消息
+	 *
+	 * @param msg 返回内容
+	 * @return 成功消息
+	 */
+	public static AjaxResult<Void> success(String msg) {
+		return AjaxResult.success(msg, null);
+	}
 
-    /**
-     * 返回错误消息
-     * 
-     * @return
-     */
-    public static AjaxResult error()
-    {
-        return AjaxResult.error("操作失败");
-    }
+	/**
+	 * 返回成功消息
+	 *
+	 * @param msg  返回内容
+	 * @param data 数据对象
+	 * @return 成功消息
+	 */
+	public static <T> AjaxResult<T> success(String msg, T data) {
+		return new AjaxResult<>(HttpStatus.HTTP_OK, msg, data);
+	}
 
-    /**
-     * 返回错误消息
-     * 
-     * @param msg 返回内容
-     * @return 警告消息
-     */
-    public static AjaxResult error(String msg)
-    {
-        return AjaxResult.error(msg, null);
-    }
+	/**
+	 * 返回错误消息
+	 *
+	 * @return
+	 */
+	public static AjaxResult<Void> error() {
+		return AjaxResult.error("操作失败");
+	}
 
-    /**
-     * 返回错误消息
-     * 
-     * @param msg 返回内容
-     * @param data 数据对象
-     * @return 警告消息
-     */
-    public static AjaxResult error(String msg, Object data)
-    {
-        return new AjaxResult(HttpStatus.ERROR, msg, data);
-    }
+	/**
+	 * 返回错误消息
+	 *
+	 * @param msg 返回内容
+	 * @return 警告消息
+	 */
+	public static AjaxResult<Void> error(String msg) {
+		return AjaxResult.error(msg, null);
+	}
 
-    /**
-     * 返回错误消息
-     * 
-     * @param code 状态码
-     * @param msg 返回内容
-     * @return 警告消息
-     */
-    public static AjaxResult error(int code, String msg)
-    {
-        return new AjaxResult(code, msg, null);
-    }
+	/**
+	 * 返回错误消息
+	 *
+	 * @param msg  返回内容
+	 * @param data 数据对象
+	 * @return 警告消息
+	 */
+	public static <T> AjaxResult<T> error(String msg, T data) {
+		return new AjaxResult<>(HttpStatus.HTTP_INTERNAL_ERROR, msg, data);
+	}
+
+	/**
+	 * 返回错误消息
+	 *
+	 * @param code 状态码
+	 * @param msg  返回内容
+	 * @return 警告消息
+	 */
+	public static AjaxResult<Void> error(int code, String msg) {
+		return new AjaxResult<>(code, msg, null);
+	}
+
 }
