@@ -1,40 +1,55 @@
-# 数据源配置
+
+--- # 数据源配置
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    driverClassName: com.mysql.cj.jdbc.Driver
+    # 动态数据源文档 https://www.kancloud.cn/tracy5546/dynamic-datasource/content
+    dynamic:
+      # 设置默认的数据源或者数据源组,默认值即为 master
+      primary: master
+      datasource:
+        # 主库数据源
+        master:
+          driverClassName: com.mysql.cj.jdbc.Driver
+          # jdbc 所有参数配置参考 https://lionli.blog.csdn.net/article/details/122018562
+          # rewriteBatchedStatements=true 批处理优化 大幅提升批量插入更新删除性能(对数据库有性能损耗 使用批量操作应考虑性能问题)
+          url: jdbc:mysql://data.oneplustow.cn:3306/ashe-live?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+          username: ENC(PEVS1qLFBMrt/UVvdz3eNliWXRpqDlf9Ewk4tDUNsBI=)
+          password: ENC(PEVS1qLFBMrt/UVvdz3eNliWXRpqDlf9Ewk4tDUNsBI=)
+        # 从库数据源
+        slave:
+          lazy: true
+          driverClassName: com.mysql.cj.jdbc.Driver
+          url:
+          username:
+          password:
+      druid:
+        # 初始连接数
+        initialSize: 5
+        # 最小连接池数量
+        minIdle: 10
+        # 最大连接池数量
+        maxActive: 20
+        # 配置获取连接等待超时的时间
+        maxWait: 60000
+        # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+        timeBetweenEvictionRunsMillis: 60000
+        # 配置一个连接在池中最小生存的时间，单位是毫秒
+        minEvictableIdleTimeMillis: 300000
+        # 配置一个连接在池中最大生存的时间，单位是毫秒
+        maxEvictableIdleTimeMillis: 900000
+        # 配置检测连接是否有效
+        validationQuery: SELECT 1 FROM DUAL
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        # 注意这个值和druid原生不一致，默认启动了stat
+        filters: stat
+
+--- # druid 配置
+spring:
+  datasource:
     druid:
-      # 主库数据源
-      master:
-        url: jdbc:mysql://data.oneplustow.cn:3306/ashe-live?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-        username: ENC(/vWKgL84PP8tR7bSyRbJA2tKAXSUCoFS9Jcm3Lzi2z0=)
-        password: ENC(C/7/nV1K8B/L0KT+stgb4wHq44zDsBIiFDijllK15pg=
-      # 从库数据源
-      slave:
-        # 从数据源开关/默认关闭
-        enabled: false
-        url:
-        username:
-        password:
-      # 初始连接数
-      initialSize: 5
-      # 最小连接池数量
-      minIdle: 10
-      # 最大连接池数量
-      maxActive: 20
-      # 配置获取连接等待超时的时间
-      maxWait: 60000
-      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
-      timeBetweenEvictionRunsMillis: 60000
-      # 配置一个连接在池中最小生存的时间，单位是毫秒
-      minEvictableIdleTimeMillis: 300000
-      # 配置一个连接在池中最大生存的时间，单位是毫秒
-      maxEvictableIdleTimeMillis: 900000
-      # 配置检测连接是否有效
-      validationQuery: SELECT 1 FROM DUAL
-      testWhileIdle: true
-      testOnBorrow: false
-      testOnReturn: false
       webStatFilter:
         enabled: true
       statViewServlet:
@@ -43,8 +58,8 @@ spring:
         allow:
         url-pattern: /druid/*
         # 控制台管理用户名和密码
-        login-username:
-        login-password:
+        login-username: ruoyi
+        login-password: 123456
       filter:
         stat:
           enabled: true
@@ -55,6 +70,8 @@ spring:
         wall:
           config:
             multi-statement-allow: true
+
+
 mybatis-plus:
   mapperLocations: classpath:cn/oneplustow/**/mapper/xml/*Mapper.xml
   #实体扫描，多个package用逗号或者分号分隔
