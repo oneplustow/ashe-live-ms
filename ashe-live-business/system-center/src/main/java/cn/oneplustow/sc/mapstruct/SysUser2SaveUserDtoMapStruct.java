@@ -9,6 +9,6 @@ import org.mapstruct.Mapper;
  * @author cc
  */
 @Mapper(componentModel = "spring")
-public interface SysUser2SaveUserDto extends IMapStruct<SysUser, SaveUserDto> {
+public interface SysUser2SaveUserDtoMapStruct extends IMapStruct<SysUser, SaveUserDto> {
 
 }

@@ -4,6 +4,7 @@ package cn.oneplustow.sc.service;
 import cn.oneplustow.api.sc.vo.SaveUserDto;
 import cn.oneplustow.sc.entity.SysUser;
 import cn.oneplustow.api.sc.model.SimpleUser;
+import cn.oneplustow.sc.entity.vo.SysUserExportVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.Collection;
@@ -177,4 +178,5 @@ public interface ISysUserService extends IService<SysUser>
 
     Long saveMemberUser(SaveUserDto saveUserDto);
 
+    List<SysUserExportVo> selectExportUserList(SysUser user);
 }

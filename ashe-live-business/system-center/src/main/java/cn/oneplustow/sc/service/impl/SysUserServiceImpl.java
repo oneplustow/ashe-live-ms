@@ -10,6 +10,7 @@ import cn.oneplustow.api.sc.vo.SaveUserDto;
 import cn.oneplustow.common.constant.UserConstants;
 import cn.oneplustow.common.exception.CustomException;
 import cn.oneplustow.common.exception.ParameterMissingException;
+import cn.oneplustow.sc.entity.vo.SysUserExportVo;
 import cn.opl.mapstruct.MapStructContext;
 import cn.oneplustow.sc.aspectj.lang.annotation.DataScope;
 import cn.oneplustow.sc.entity.*;
@@ -259,6 +260,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         initUser(user);
         this.save(user);
         return user.getUserId();
+    }
+
+    @Override
+    public List<SysUserExportVo> selectExportUserList(SysUser user) {
+        List<SysUserExportVo> listVo = mapStructContext.conver(this.selectUserList(user), SysUserExportVo.class);
+        return listVo;
     }
 
     /**
