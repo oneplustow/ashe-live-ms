@@ -28,7 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	        left join sys_dept d on u.dept_id = d.dept_id
     </sql>
     
-    <select id="selectRoleList" parameterType="SysRole" resultMap="SysRoleResult">
+    <select id="selectRoleList" resultMap="SysRoleResult">
 		<include refid="selectRoleVo"/>
 		where r.del_flag = '0'
 		<if test="roleName != null and roleName != ''">
@@ -40,14 +40,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<if test="roleKey != null and roleKey != ''">
 			AND r.role_key like concat('%', #{roleKey}, '%')
 		</if>
-		<if test="beginTime != null and beginTime != ''"><!-- 开始时间检索 -->
-			and date_format(r.create_time,'%y%m%d') &gt;= date_format(#{beginTime},'%y%m%d')
+		<if test="createTimeBegin != null"><!-- 开始时间检索 -->
+			and date_format(r.create_time,'%y%m%d') &gt;= date_format(#{createTimeBegin},'%y%m%d')
 		</if>
-		<if test="endTime != null and endTime != ''"><!-- 结束时间检索 -->
-			and date_format(r.create_time,'%y%m%d') &lt;= date_format(#{endTime},'%y%m%d')
+		<if test="createTimeEnd != null"><!-- 结束时间检索 -->
+			and date_format(r.create_time,'%y%m%d') &lt;= date_format(#{createTimeEnd},'%y%m%d')
 		</if>
-		<!-- 数据范围过滤 -->
-		${dataScope}
 	</select>
     
 	<select id="selectRolePermissionByUserId" parameterType="Long" resultMap="SysRoleResult">

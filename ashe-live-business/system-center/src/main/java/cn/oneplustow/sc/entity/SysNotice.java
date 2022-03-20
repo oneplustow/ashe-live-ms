@@ -31,6 +31,17 @@ public class SysNotice extends SysBaseEntity
     /** 公告状态（0正常 1关闭） */
     private String status;
 
+    /** 备注 */
+    private String remark;
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
     public Long getNoticeId()
     {
         return noticeId;
@@ -95,7 +106,6 @@ public class SysNotice extends SysBaseEntity
             .append("createTime", getCreateTime())
             .append("updateBy", getUpdateBy())
             .append("updateTime", getUpdateTime())
-            .append("remark", getRemark())
             .toString();
     }
 }

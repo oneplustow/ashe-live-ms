@@ -1,9 +1,11 @@
 package cn.oneplustow.sc.service;
 
 
-import cn.oneplustow.api.sc.vo.SaveUserDto;
-import cn.oneplustow.sc.entity.SysUser;
 import cn.oneplustow.api.sc.model.SimpleUser;
+import cn.oneplustow.api.sc.vo.SaveUserDto;
+import cn.oneplustow.config.db.model.TableDataInfo;
+import cn.oneplustow.sc.entity.SysUser;
+import cn.oneplustow.sc.entity.criteria.SysUserListCriteria;
 import cn.oneplustow.sc.entity.vo.SysUserExportVo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -25,7 +27,7 @@ public interface ISysUserService extends IService<SysUser>
      * @param user 用户信息
      * @return 用户信息集合信息
      */
-    public List<SysUser> selectUserList(SysUser user);
+    public TableDataInfo<SysUser> selectUserList(SysUserListCriteria criteria);
 
     /**
      * 通过用户名查询用户
@@ -178,5 +180,5 @@ public interface ISysUserService extends IService<SysUser>
 
     Long saveMemberUser(SaveUserDto saveUserDto);
 
-    List<SysUserExportVo> selectExportUserList(SysUser user);
+    List<SysUserExportVo> selectExportUserList(SysUserListCriteria criteria);
 }

@@ -4,7 +4,6 @@ package cn.oneplustow.sc.service.impl;
 import cn.hutool.core.util.ObjectUtil;
 import cn.oneplustow.common.constant.UserConstants;
 import cn.oneplustow.common.exception.CustomException;
-import cn.oneplustow.sc.aspectj.lang.annotation.DataScope;
 import cn.oneplustow.sc.entity.SysDept;
 import cn.oneplustow.sc.entity.vo.TreeSelect;
 import cn.oneplustow.sc.mapper.SysDeptMapper;
@@ -35,7 +34,6 @@ public class SysDeptServiceImpl implements ISysDeptService
      * @return 部门信息集合
      */
     @Override
-    @DataScope(deptAlias = "d")
     public List<SysDept> selectDeptList(SysDept dept)
     {
         return deptMapper.selectDeptList(dept);

@@ -10,8 +10,9 @@ import cn.oneplustow.common.domain.AjaxResult;
 import cn.oneplustow.common.enume.BusinessType;
 import cn.oneplustow.common.web.controller.BaseController;
 import cn.oneplustow.common.web.util.ExcelUtil;
-import cn.oneplustow.config.db.util.PageUtil;
+import cn.oneplustow.config.db.model.TableDataInfo;
 import cn.oneplustow.sc.entity.SysUser;
+import cn.oneplustow.sc.entity.criteria.SysUserListCriteria;
 import cn.oneplustow.sc.entity.vo.SysUserExportVo;
 import cn.oneplustow.sc.service.ISysPostService;
 import cn.oneplustow.sc.service.ISysRoleService;
@@ -34,8 +35,7 @@ import java.util.List;
 @Api(tags = "用户信息控制器")
 @RestController
 @RequestMapping("/system/user")
-public class SysUserController extends BaseController
-{
+public class SysUserController extends BaseController {
     @Autowired
     private ISysUserService userService;
 
@@ -50,11 +50,9 @@ public class SysUserController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('system:user:list')")
     @GetMapping("/list")
-    public AjaxResult list(SysUser user)
-    {
-        PageUtil.startPage();
-        List<SysUser> list = userService.selectUserList(user);
-        return AjaxResult.success(PageUtil.getDataTable(list));
+    public AjaxResult list(SysUserListCriteria criteria) {
+        TableDataInfo<SysUser> data = userService.selectUserList(criteria);
+        return AjaxResult.success(data);
     }
 
     /**
@@ -62,8 +60,7 @@ public class SysUserController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('system:user:listByRole')")
     @GetMapping("/listByRole")
-    public AjaxResult listByRole(String roleKey)
-    {
+    public AjaxResult listByRole(String roleKey) {
         List<SimpleUser> list = userService.selectUserListByRole(roleKey);
         return AjaxResult.success(list);
     }
@@ -72,8 +69,8 @@ public class SysUserController extends BaseController
     @Log(title = "用户管理", businessType = BusinessType.EXPORT)
     @PreAuthorize("@ss.hasPermi('system:user:export')")
     @PostMapping("/export")
-    public void export(SysUser user, HttpServletResponse response) {
-        List<SysUserExportVo> list = userService.selectExportUserList(user);
+    public void export(SysUserListCriteria criteria, HttpServletResponse response) {
+        List<SysUserExportVo> list = userService.selectExportUserList(criteria);
         ExcelUtil.exportExcel(list, "用户数据", SysUserExportVo.class, response);
     }
 
@@ -82,15 +79,13 @@ public class SysUserController extends BaseController
      * 根据用户编号获取详细信息
      */
     @PreAuthorize("@ss.hasPermi('system:user:query')")
-    @GetMapping(value = { "/", "/{userId}" })
-    public AjaxResult getInfo(@PathVariable(value = "userId", required = false) Long userId)
-    {
+    @GetMapping(value = {"/", "/{userId}"})
+    public AjaxResult getInfo(@PathVariable(value = "userId", required = false) Long userId) {
         AjaxResult ajax = AjaxResult.success();
         ajax.put("roles", roleService.selectRoleAll());
         ajax.put("posts", postService.selectPostAll());
-        if (ObjectUtil.isNotNull(userId))
-        {
-            ajax.put("user",userService.selectUserById(userId));
+        if (ObjectUtil.isNotNull(userId)) {
+            ajax.put("user", userService.selectUserById(userId));
             ajax.put("postIds", postService.selectPostListByUserId(userId));
             ajax.put("roleIds", roleService.selectRoleListByUserId(userId));
         }
@@ -103,8 +98,7 @@ public class SysUserController extends BaseController
     @PreAuthorize("@ss.hasPermi('system:user:add')")
     @Log(title = "用户管理", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@Validated @RequestBody SysUser user)
-    {
+    public AjaxResult add(@Validated @RequestBody SysUser user) {
         user.setCreateBy(SecurityUtils.getUsername());
         return toAjax(userService.insertUser(user));
     }
@@ -115,15 +109,11 @@ public class SysUserController extends BaseController
     @PreAuthorize("@ss.hasPermi('system:user:edit')")
     @Log(title = "用户管理", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@Validated @RequestBody SysUser user)
-    {
+    public AjaxResult edit(@Validated @RequestBody SysUser user) {
         userService.checkUserAllowed(user);
-        if (UserConstants.NOT_UNIQUE.equals(userService.checkPhoneUnique(user)))
-        {
+        if (UserConstants.NOT_UNIQUE.equals(userService.checkPhoneUnique(user))) {
             return AjaxResult.error("修改用户'" + user.getUserName() + "'失败，手机号码已存在");
-        }
-        else if (UserConstants.NOT_UNIQUE.equals(userService.checkEmailUnique(user)))
-        {
+        } else if (UserConstants.NOT_UNIQUE.equals(userService.checkEmailUnique(user))) {
             return AjaxResult.error("修改用户'" + user.getUserName() + "'失败，邮箱账号已存在");
         }
         user.setUpdateBy(SecurityUtils.getUsername());
@@ -136,8 +126,7 @@ public class SysUserController extends BaseController
     @PreAuthorize("@ss.hasPermi('system:user:remove')")
     @Log(title = "用户管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{userIds}")
-    public AjaxResult remove(@PathVariable Long[] userIds)
-    {
+    public AjaxResult remove(@PathVariable Long[] userIds) {
         return toAjax(userService.deleteUserByIds(userIds));
     }
 
@@ -147,8 +136,7 @@ public class SysUserController extends BaseController
     @PreAuthorize("@ss.hasPermi('system:user:edit')")
     @Log(title = "用户管理", businessType = BusinessType.UPDATE)
     @PutMapping("/resetPwd")
-    public AjaxResult resetPwd(@RequestBody SysUser user)
-    {
+    public AjaxResult resetPwd(@RequestBody SysUser user) {
         userService.checkUserAllowed(user);
         user.setPassword(SecurityUtils.encryptPassword(user.getPassword()));
         user.setUpdateBy(SecurityUtils.getUsername());
@@ -161,8 +149,7 @@ public class SysUserController extends BaseController
     @PreAuthorize("@ss.hasPermi('system:user:edit')")
     @Log(title = "用户管理", businessType = BusinessType.UPDATE)
     @PutMapping("/changeStatus")
-    public AjaxResult changeStatus(@RequestBody SysUser user)
-    {
+    public AjaxResult changeStatus(@RequestBody SysUser user) {
         userService.checkUserAllowed(user);
         user.setUpdateBy(SecurityUtils.getUsername());
         return toAjax(userService.updateUserStatus(user));

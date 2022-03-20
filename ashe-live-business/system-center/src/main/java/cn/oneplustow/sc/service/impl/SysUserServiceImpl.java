@@ -10,15 +10,18 @@ import cn.oneplustow.api.sc.vo.SaveUserDto;
 import cn.oneplustow.common.constant.UserConstants;
 import cn.oneplustow.common.exception.CustomException;
 import cn.oneplustow.common.exception.ParameterMissingException;
-import cn.oneplustow.sc.entity.vo.SysUserExportVo;
-import cn.opl.mapstruct.MapStructContext;
-import cn.oneplustow.sc.aspectj.lang.annotation.DataScope;
+import cn.oneplustow.config.db.model.TableDataInfo;
+import cn.oneplustow.config.db.util.PageUtil;
 import cn.oneplustow.sc.entity.*;
+import cn.oneplustow.sc.entity.criteria.SysUserListCriteria;
+import cn.oneplustow.sc.entity.vo.SysUserExportVo;
 import cn.oneplustow.sc.mapper.*;
 import cn.oneplustow.sc.service.ISysConfigService;
 import cn.oneplustow.sc.service.ISysUserService;
+import cn.opl.mapstruct.MapStructContext;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,9 +91,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @return 用户信息集合信息
      */
     @Override
-    @DataScope(deptAlias = "d", userAlias = "u")
-    public List<SysUser> selectUserList(SysUser user) {
-        return userMapper.selectUserList(user);
+    public TableDataInfo<SysUser> selectUserList(SysUserListCriteria criteria) {
+        Page<SysUser> page = PageUtil.startPage(criteria).doSelectPage(() -> userMapper.selectUserList(criteria));
+        return TableDataInfo.build(page);
     }
 
     /**
@@ -263,8 +266,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
-    public List<SysUserExportVo> selectExportUserList(SysUser user) {
-        List<SysUserExportVo> listVo = mapStructContext.conver(this.selectUserList(user), SysUserExportVo.class);
+    public List<SysUserExportVo> selectExportUserList(SysUserListCriteria criteria) {
+        List<SysUserExportVo> listVo = mapStructContext.conver(userMapper.selectUserList(criteria), SysUserExportVo.class);
         return listVo;
     }
 
