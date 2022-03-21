@@ -11,11 +11,10 @@ import cn.oneplustow.common.constant.Constants;
 import cn.oneplustow.common.web.util.AddressUtils;
 import cn.oneplustow.common.web.util.IpUtils;
 import cn.oneplustow.common.web.util.ServletUtils;
-import cn.oneplustow.config.redis.util.RedisCache;
+import cn.oneplustow.config.redis.util.RedisUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -50,9 +49,6 @@ public class TokenService
 
     private static final Long MILLIS_MINUTE_TEN = 20 * 60 * 1000L;
 
-    @Autowired
-    private RedisCache redisCache;
-
     /**
      * 获取用户身份信息
      * 
@@ -69,7 +65,7 @@ public class TokenService
         // 解析对应的权限以及用户信息
         String uuid = (String) claims.get(Constants.LOGIN_USER_KEY);
         String userKey = getTokenKey(uuid);
-        LoginUserDetails user = redisCache.getCacheObject(userKey);
+        LoginUserDetails user = RedisUtils.getCacheObject(userKey);
         return user;
     }
 
@@ -81,7 +77,7 @@ public class TokenService
         if (ObjectUtil.isNotNull(loginUserDetails) && StrUtil.isNotEmpty(loginUserDetails.getToken()))
         {
             String userKey = getTokenKey(loginUserDetails.getToken());
-            redisCache.setCacheObject(userKey, loginUserDetails);
+            RedisUtils.setCacheObject(userKey, loginUserDetails);
         }
     }
 
@@ -93,7 +89,7 @@ public class TokenService
         if (StrUtil.isNotEmpty(token))
         {
             String userKey = getTokenKey(token);
-            redisCache.deleteObject(userKey);
+            RedisUtils.deleteObject(userKey);
         }
     }
 
@@ -142,7 +138,7 @@ public class TokenService
         loginUserDetails.setExpireTime(loginUserDetails.getLoginTime() + expireTime * MILLIS_MINUTE);
         // 根据uuid将loginUser缓存
         String userKey = getTokenKey(loginUserDetails.getToken());
-        redisCache.setCacheObject(userKey, loginUserDetails, expireTime, TimeUnit.MINUTES);
+        RedisUtils.setCacheObject(userKey, loginUserDetails, expireTime, TimeUnit.MINUTES);
     }
     
     /**

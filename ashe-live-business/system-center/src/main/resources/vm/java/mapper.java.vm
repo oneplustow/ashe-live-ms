@@ -1,14 +1,14 @@
 package ${packageName}.mapper;
 
 import ${packageName}.domain.${ClassName};
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.ruoyi.common.core.mybatisplus.core.BaseMapperPlus;
+
 /**
  * ${functionName}Mapper接口
- * 
+ *
  * @author ${author}
  * @date ${datetime}
  */
-public interface ${ClassName}Mapper extends BaseMapper<${ClassName}>
-{
+public interface ${ClassName}Mapper extends BaseMapperPlus<${ClassName}> {
 
 }

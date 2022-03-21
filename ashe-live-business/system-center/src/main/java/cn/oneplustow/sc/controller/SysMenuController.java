@@ -40,7 +40,7 @@ public class SysMenuController extends BaseController
     public AjaxResult list(SysMenu menu)
     {
         List<SysMenu> menus = menuService.selectMenuList(menu);
-        return AjaxResult.success(menuService.buildMenuTree(menus));
+        return AjaxResult.success(menus);
     }
 
     /**

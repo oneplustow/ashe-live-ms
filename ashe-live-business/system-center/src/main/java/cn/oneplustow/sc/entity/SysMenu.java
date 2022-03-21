@@ -57,6 +57,17 @@ public class SysMenu extends SysBaseEntity
     /** 菜单图标 */
     private String icon;
 
+    /** 备注 */
+    private String remark;
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
     /** 子菜单 */
     private List<SysMenu> children = new ArrayList<SysMenu>();
 
@@ -223,7 +234,6 @@ public class SysMenu extends SysBaseEntity
             .append("createTime", getCreateTime())
             .append("updateBy", getUpdateBy())
             .append("updateTime", getUpdateTime())
-            .append("remark", getRemark())
             .toString();
     }
 }

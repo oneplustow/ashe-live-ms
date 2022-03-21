@@ -38,7 +38,7 @@ public class SysDeptController extends BaseController
     public AjaxResult list(SysDept dept)
     {
         List<SysDept> depts = deptService.selectDeptList(dept);
-        return AjaxResult.success(deptService.buildDeptTree(depts));
+        return AjaxResult.success(depts);
     }
 
     /**
@@ -71,7 +71,7 @@ public class SysDeptController extends BaseController
         AjaxResult ajax = AjaxResult.success();
         ajax.put("checkedKeys", deptService.selectDeptListByRoleId(roleId));
         ajax.put("depts", deptService.buildDeptTreeSelect(depts));
-        return ajax;
+        return AjaxResult.success();
     }
 
     /**

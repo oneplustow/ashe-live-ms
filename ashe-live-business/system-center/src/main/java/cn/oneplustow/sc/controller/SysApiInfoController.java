@@ -4,7 +4,7 @@ import cn.oneplustow.common.annoatation.Log;
 import cn.oneplustow.common.domain.AjaxResult;
 import cn.oneplustow.common.enume.BusinessType;
 import cn.oneplustow.common.web.controller.BaseController;
-import cn.oneplustow.common.web.page.TableDataInfo;
+import cn.oneplustow.config.db.model.TableDataInfo;
 import cn.oneplustow.sc.entity.SysApiInfo;
 import cn.oneplustow.sc.service.ISysApiInfoService;
 import org.springframework.beans.factory.annotation.Autowired;

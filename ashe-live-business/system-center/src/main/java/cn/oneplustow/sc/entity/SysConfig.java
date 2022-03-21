@@ -33,6 +33,17 @@ public class SysConfig extends SysBaseEntity
     @Excel(name = "参数键值")
     private String configValue;
 
+    /** 备注 */
+    private String remark;
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
     /** 系统内置（Y是 N否） */
     @Excel(name = "系统内置", readConverterExp = "Y=是,N=否")
     private String configType;
@@ -105,7 +116,6 @@ public class SysConfig extends SysBaseEntity
             .append("createTime", getCreateTime())
             .append("updateBy", getUpdateBy())
             .append("updateTime", getUpdateTime())
-            .append("remark", getRemark())
             .toString();
     }
 }

@@ -3,7 +3,6 @@ package cn.oneplustow.config.db.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -36,23 +35,6 @@ public class SysBaseEntity implements Serializable
     /** 更新时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
-
-    /** 备注 */
-    private String remark;
-
-    /** 数据权限 */
-    @TableField(exist = false)
-    private String dataScope;
-
-    /** 开始时间 */
-    @TableField(exist = false)
-    @JsonIgnore
-    private String beginTime;
-
-    /** 结束时间 */
-    @TableField(exist = false)
-    @JsonIgnore
-    private String endTime;
 
     /** 请求参数 */
     @TableField(exist = false)
@@ -106,46 +88,6 @@ public class SysBaseEntity implements Serializable
     public void setUpdateTime(Date updateTime)
     {
         this.updateTime = updateTime;
-    }
-
-    public String getRemark()
-    {
-        return remark;
-    }
-
-    public void setRemark(String remark)
-    {
-        this.remark = remark;
-    }
-
-    public String getDataScope()
-    {
-        return dataScope;
-    }
-
-    public void setDataScope(String dataScope)
-    {
-        this.dataScope = dataScope;
-    }
-
-    public String getBeginTime()
-    {
-        return beginTime;
-    }
-
-    public void setBeginTime(String beginTime)
-    {
-        this.beginTime = beginTime;
-    }
-
-    public String getEndTime()
-    {
-        return endTime;
-    }
-
-    public void setEndTime(String endTime)
-    {
-        this.endTime = endTime;
     }
 
     public Map<String, Object> getParams()
