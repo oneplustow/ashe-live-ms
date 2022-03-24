@@ -12,6 +12,11 @@
     <artifactId>message-center</artifactId>
     <dependencies>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>cn.oneplustow</groupId>
             <artifactId>system-center-api</artifactId>
         </dependency>
