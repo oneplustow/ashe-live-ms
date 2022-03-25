@@ -54,6 +54,7 @@
         <dynamic-ds.version>3.5.0</dynamic-ds.version>
         <poi.version>4.1.2</poi.version>
         <easyexcel.version>2.2.11</easyexcel.version>
+        <dysmsapi20170525.version>2.0.5</dysmsapi20170525.version>
     </properties>
 
     <dependencies>
@@ -284,6 +285,11 @@
                 <groupId>cn.oneplustow</groupId>
                 <artifactId>opl-tool</artifactId>
                 <version>${opl-tool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>dysmsapi20170525</artifactId>
+                <version>${dysmsapi20170525.version}</version>
             </dependency>
         </dependencies>
 
