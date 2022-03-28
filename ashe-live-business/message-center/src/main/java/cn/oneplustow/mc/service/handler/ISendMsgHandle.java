@@ -1,6 +1,6 @@
 package cn.oneplustow.mc.service.handler;
 
-import cn.oneplustow.mc.vo.SendMessageVo;
+import cn.oneplustow.mc.entity.vo.SendMessageVo;
 
 /**
  * Author lwj

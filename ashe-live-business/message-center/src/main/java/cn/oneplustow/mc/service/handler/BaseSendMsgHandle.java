@@ -4,7 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.oneplustow.api.sc.model.SimpleUser;
 import cn.oneplustow.api.sc.service.UserFeginApi;
 import cn.oneplustow.mc.entity.Message;
-import cn.oneplustow.mc.vo.SendMessageVo;
+import cn.oneplustow.mc.entity.vo.SendMessageVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 

@@ -4,7 +4,7 @@ package cn.oneplustow.mc.service.handler;
 import cn.oneplustow.api.sc.model.SimpleUser;
 import cn.oneplustow.common.exception.WarningMessageException;
 import cn.oneplustow.mc.entity.Message;
-import cn.oneplustow.mc.vo.SendMessageVo;
+import cn.oneplustow.mc.entity.vo.SendMessageVo;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import lombok.extern.slf4j.Slf4j;

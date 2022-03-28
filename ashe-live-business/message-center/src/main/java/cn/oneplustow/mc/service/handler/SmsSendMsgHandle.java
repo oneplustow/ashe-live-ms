@@ -6,7 +6,7 @@ import cn.oneplustow.api.sc.service.ConfigFeginApi;
 import cn.oneplustow.common.constant.Constants;
 import cn.oneplustow.common.exception.WarningMessageException;
 import cn.oneplustow.mc.entity.Message;
-import cn.oneplustow.mc.vo.SendMessageVo;
+import cn.oneplustow.mc.entity.vo.SendMessageVo;
 import com.alibaba.fastjson.JSONObject;
 import com.aliyun.dysmsapi20170525.Client;
 import com.aliyun.dysmsapi20170525.models.SendSmsRequest;

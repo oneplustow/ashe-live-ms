@@ -4,7 +4,9 @@ import cn.oneplustow.api.sc.model.SimpleUser;
 import cn.oneplustow.api.sc.service.ConfigFeginApi;
 import cn.oneplustow.common.exception.WarningMessageException;
 import cn.oneplustow.mc.entity.Message;
-import cn.oneplustow.mc.vo.SendMessageVo;
+import cn.oneplustow.mc.entity.dto.InteriorMessageSaveDto;
+import cn.oneplustow.mc.entity.vo.SendMessageVo;
+import cn.oneplustow.mc.service.IInteriorMessageService;
 import com.alibaba.fastjson.JSONObject;
 import freemarker.cache.StringTemplateLoader;
 import freemarker.template.Configuration;
@@ -25,8 +27,8 @@ import java.util.Map;
 @Component
 public class ImSendMsgHandle extends BaseSendMsgHandle{
 
-//	@Autowired
-//	private IInteriorMessageService interiorMessageService;
+	@Autowired
+	private IInteriorMessageService interiorMessageService;
 
 	@Autowired
 	private ConfigFeginApi configFeginApi;
@@ -44,12 +46,12 @@ public class ImSendMsgHandle extends BaseSendMsgHandle{
 		ImTemplate config = getConfig(sendMessageVo.getEsContent());
 		String title = processTemplate(config.getTitle(), esParam);
 		String content = processTemplate(config.getContent(), esParam);
-//		InteriorMessageSaveDto messageSaveDto = InteriorMessageSaveDto.builder()
-//			.title(title)
-//			.content(content)
-//			.toUser(Long.valueOf(esReceiver))
-//			.build();
-//		interiorMessageService.saveMessage(messageSaveDto);
+		InteriorMessageSaveDto messageSaveDto = InteriorMessageSaveDto.builder()
+			.title(title)
+			.content(content)
+			.toUser(Long.valueOf(esReceiver))
+			.build();
+		interiorMessageService.saveMessage(messageSaveDto);
 		return null;
 	}
 

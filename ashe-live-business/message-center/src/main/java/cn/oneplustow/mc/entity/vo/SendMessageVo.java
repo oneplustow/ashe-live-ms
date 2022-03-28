@@ -1,4 +1,4 @@
-package cn.oneplustow.mc.vo;
+package cn.oneplustow.mc.entity.vo;
 
 
 import cn.oneplustow.common.enume.SendMsgType;
