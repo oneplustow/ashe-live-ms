@@ -4,13 +4,32 @@ import io.jsonwebtoken.Claims;
 
 /**
  * 通用常量信息
- * 
+ *
  * @author ruoyi
  */
-public class Constants
-{
+public class Constants {
+    public interface SysConfigKey {
+        String 短信配置 = "sys_sms_config";
+        String 微信消息模板 = "wechat.msg.template.test";
+    }
 
-    public interface DataScope{
+    /**
+     * 全局是否
+     */
+    public interface YseNo {
+        String NO = "0";
+        String YSE = "1";
+    }
+
+    /**
+     * 站内信状态
+     */
+    public interface InteriorMessageStatus {
+        String 未读 = "0";
+        String 已读 = "1";
+    }
+
+    public interface DataScope {
         String 所有数据权限 = "1";
         String 自定义数据权限 = "2";
         String 本部门数据权限 = "3";
@@ -18,46 +37,7 @@ public class Constants
         String 仅本人 = "5";
         String 本销控区 = "6";
     }
-    public interface OrderStatus{
-        /**订单取消*/
-        String CANCEL_ORDER = "0";
-        /**等待确认*/
-        String PLACE_ORDER = "1";
-        /**等待配货*/
-        String WAIT_ASSORTING = "2";
-        /**配货完成待发货*/
-        String WAIT_DISPATCH = "3";
-        /**已发货*/
-        String ALREADY_DISPATCH = "4";
-        /**已送达*/
-        String ALREADY_DELIVERY = "5";
-        /**订单已完成*/
-        String ALREADY_ORDER = "6";
-    }
-    public interface AllocationStatus{
-        /**待分配配货员*/
-        String WAIT_ALLOCATION = "1";
-        /**已分配配货员*/
-        String ALREADY_ALLOCATION = "2";
-        /**已完成配货*/
-        String ALREADY_ASSORTING = "3";
-    }
-    public interface DispatchBillStatus{
-        /**待分配发货员*/
-        String WAIT_DELIVERY_STAFF = "1";
-        /**已分配发货员*/
-        String ALREADY_DELIVERY_STAFF = "2";
-        /**已送达*/
-        String ALREADY_DELIVERY = "3";
-        /**已确认*/
-        String ALREADY_AFFIRM = "4";
-    }
-    public interface ClearingStatus{
-        /**待结算*/
-        String WAIT_CLEARING = "1";
-        /**已结算*/
-        String ALREADY_CLEARING = "2";
-    }
+
 
     public static String TRIGGER_OPTIMISTIC_LOCK = "TriggerOptimisticLock";
 
@@ -65,7 +45,7 @@ public class Constants
      * UTF-8 字符集
      */
     public static final String UTF8 = "UTF-8";
-    
+
     /**
      * 通用成功标识
      */
