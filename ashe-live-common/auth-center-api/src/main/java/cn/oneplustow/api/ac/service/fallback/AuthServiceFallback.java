@@ -1,7 +1,7 @@
 package cn.oneplustow.api.ac.service.fallback;
 
 import cn.oneplustow.api.ac.model.LoginUser;
-import cn.oneplustow.api.ac.service.AuthService;
+import cn.oneplustow.api.ac.service.AuthFeginApi;
 import cn.oneplustow.api.fallback.BaseFallbackFactory;
 import org.springframework.stereotype.Component;
 
@@ -10,12 +10,12 @@ import org.springframework.stereotype.Component;
  * @date 16/09/2020 11:16
  */
 @Component
-public class AuthServiceFallback extends BaseFallbackFactory<AuthService> {
+public class AuthServiceFallback extends BaseFallbackFactory<AuthFeginApi> {
     @Override
-    public AuthService doCreate(Throwable throwable) {
-        return new AuthService(){
+    public AuthFeginApi doCreate(Throwable throwable) {
+        return new AuthFeginApi(){
             @Override
-            public LoginUser getUserInfo(String authorization) {
+            public LoginUser getLoginUserInfo(String authorization) {
                 return null;
             }
         };

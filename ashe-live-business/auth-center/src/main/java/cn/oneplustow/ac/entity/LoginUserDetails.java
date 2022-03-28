@@ -1,7 +1,7 @@
 package cn.oneplustow.ac.entity;
 
 
-import cn.oneplustow.api.sc.model.SysUserModel;
+import cn.oneplustow.api.sc.model.UserResp;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -66,7 +66,7 @@ public class LoginUserDetails implements UserDetails
     /**
      * 用户信息
      */
-    private SysUserModel user;
+    private UserResp user;
 
     public String getToken()
     {
@@ -82,7 +82,7 @@ public class LoginUserDetails implements UserDetails
     {
     }
 
-    public LoginUserDetails(SysUserModel user, Set<String> permissions)
+    public LoginUserDetails(UserResp user, Set<String> permissions)
     {
         this.user = user;
         this.permissions = permissions;
@@ -225,12 +225,12 @@ public class LoginUserDetails implements UserDetails
         this.urlPermissionMap = urlPermissionMap;
     }
 
-    public SysUserModel getUser()
+    public UserResp getUser()
     {
         return user;
     }
 
-    public void setUser(SysUserModel user)
+    public void setUser(UserResp user)
     {
         this.user = user;
     }

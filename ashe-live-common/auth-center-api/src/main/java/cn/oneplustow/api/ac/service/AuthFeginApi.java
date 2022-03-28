@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @FeignClient(value = "auth-center",fallbackFactory = AuthServiceFallback.class)
 @RequestMapping("auth-center")
-public interface AuthService {
+public interface AuthFeginApi {
 
     /**
      * 获取登录用户信息
      * @param authorization
      * @return
      */
-    @GetMapping("getUserInfo")
-    LoginUser getUserInfo(@RequestParam("authorization") String authorization);
+    @GetMapping("getLoginUserInfo")
+    LoginUser getLoginUserInfo(@RequestParam String authorization);
 }
