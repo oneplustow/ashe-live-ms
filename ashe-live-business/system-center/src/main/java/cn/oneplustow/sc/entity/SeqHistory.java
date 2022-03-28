@@ -23,7 +23,7 @@ public class SeqHistory implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-	@TableId(type = IdType.UUID)
+	@TableId(type = IdType.AUTO)
 	/**id*/
 	private String id;
 

@@ -25,7 +25,7 @@ public class Sequence implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-	@TableId(value = "ID",type = IdType.UUID)
+	@TableId(value = "ID",type = IdType.AUTO)
 	/**编码id*/
 	private String id;
 
