@@ -3,8 +3,8 @@ package cn.oneplustow.gateway.config;
 import cn.hutool.core.codec.Base64;
 import cn.hutool.core.util.StrUtil;
 import cn.oneplustow.api.ac.model.LoginUser;
-import cn.oneplustow.api.ac.service.AuthService;
-import cn.oneplustow.api.sc.service.MenuService;
+import cn.oneplustow.api.ac.service.AuthFeginApi;
+import cn.oneplustow.api.sc.service.MenuFeginApi;
 import cn.oneplustow.common.domain.AjaxResult;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +32,10 @@ import java.util.List;
 public class JwtAuthFilter implements GlobalFilter {
 
     @Autowired
-    private AuthService authService;
+    private AuthFeginApi authFeginApi;
 
     @Autowired
-    private MenuService menuService;
+    private MenuFeginApi menuFeginApi;
 
     @Value("${fo.auth.excludeUrls}")
     private List<String> excludeUrls;
@@ -49,7 +49,7 @@ public class JwtAuthFilter implements GlobalFilter {
         URI uri = request.getURI();
         boolean intercept = isIntercept(exchange);
         String authorization = request.getHeaders().getFirst("authorization");
-        LoginUser userInfo = authService.getUserInfo(authorization);
+        LoginUser userInfo = authFeginApi.getLoginUserInfo(authorization);
         if(intercept) {
             if (!isPermission(userInfo, uri.getPath())) {
                 String msg = StrUtil.format("请求访问：{}，认证失败，无法访问系统资源", uri.getPath());
