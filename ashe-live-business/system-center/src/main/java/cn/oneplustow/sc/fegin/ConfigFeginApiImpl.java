@@ -1,8 +1,9 @@
-package cn.oneplustow.sc.open;
+package cn.oneplustow.sc.fegin;
 
 
-import cn.hutool.core.util.ObjectUtil;
-import cn.oneplustow.common.web.controller.BaseController;
+import cn.oneplustow.api.sc.service.ConfigFeginApi;
+import cn.oneplustow.api.sc.service.RoleFeginApi;
+import cn.oneplustow.sc.service.ISysConfigService;
 import cn.oneplustow.sc.service.ISysRoleService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,26 +21,18 @@ import java.util.Set;
  */
 @Api(tags = "用户信息控制器")
 @RestController
-@RequestMapping("/fegin/system/role")
-public class SysRoleOpen extends BaseController
-{
+@RequestMapping("/fegin/system/config")
+public class ConfigFeginApiImpl implements ConfigFeginApi {
     @Autowired
-    private ISysRoleService roleService;
+    private ISysConfigService configService;
 
     /**
      * 根据用户编号获取详细信息
      */
-    @GetMapping("getRolePermissionByUserId")
-    public Set<String> getRolePermissionByUserId(@RequestParam("id") Long id)
-    {
-
-        if (ObjectUtil.isNotNull(id))
-        {
-            Set<String> roleSet = roleService.selectRolePermissionByUserId(id);
-            return roleSet;
-        }
-        return null;
+    @Override
+    @GetMapping("getConfigByKey")
+    public String getConfigByKey(@RequestParam String key) {
+        return configService.selectConfigByKey(key);
     }
-
 
 }

@@ -28,7 +28,7 @@ public class SimpleUser {
 
     public SimpleUser() {
     }
-    public SimpleUser(SysUserModel sysUser) {
+    public SimpleUser(UserResp sysUser) {
         BeanUtil.copyProperties(sysUser,this);
     }
 }

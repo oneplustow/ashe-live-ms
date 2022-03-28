@@ -5,8 +5,8 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.ReflectUtil;
 import cn.hutool.extra.spring.SpringUtil;
-import cn.oneplustow.api.sc.model.SysDictDataModel;
-import cn.oneplustow.api.sc.service.DictDataService;
+import cn.oneplustow.api.sc.model.DictDataResp;
+import cn.oneplustow.api.sc.service.DictDataFeginApi;
 import cn.oneplustow.common.annoatation.DictValue;
 
 import java.lang.reflect.Field;
@@ -32,11 +32,11 @@ public class DictDataUtil {
         if (CollUtil.isEmpty(objectList)) { return ;}
         Object one = objectList.get(0);
         Map<String, List<Field>> fieldMap = getFieldMap(one);
-        DictDataService dictDataService = SpringUtil.getBean(DictDataService.class);
+        DictDataFeginApi dictDataService = SpringUtil.getBean(DictDataFeginApi.class);
         if(ObjectUtil.isNull(dictDataService)){return;}
         for (Map.Entry<String, List<Field>> stringListEntry : fieldMap.entrySet()) {
-            List<SysDictDataModel> sysDictData = dictDataService.selectDictDataByType(stringListEntry.getKey());
-            Map<String,String> sysDictDataMap = sysDictData.stream().collect(Collectors.toMap(SysDictDataModel::getDictValue, SysDictDataModel::getDictLabel));
+            List<DictDataResp> sysDictData = dictDataService.selectDictDataByType(stringListEntry.getKey());
+            Map<String,String> sysDictDataMap = sysDictData.stream().collect(Collectors.toMap(DictDataResp::getDictValue, DictDataResp::getDictLabel));
             List<Field> fields = stringListEntry.getValue();
             for (Field field : fields) {
                 for (Object object : objectList) {

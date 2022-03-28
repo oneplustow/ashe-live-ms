@@ -1,9 +1,11 @@
-package cn.oneplustow.sc.open;
+package cn.oneplustow.sc.fegin;
 
+import cn.oneplustow.api.sc.model.ApiInfoSaveReq;
+import cn.oneplustow.api.sc.service.ApiInfoFeginApi;
 import cn.oneplustow.sc.entity.SysApiInfo;
 import cn.oneplustow.sc.service.ISysApiInfoService;
+import cn.opl.mapstruct.MapStructContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,16 +17,15 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/fegin/system/apiInfo")
-public class SysApiInfoOpen {
+public class ApiInfoFeginApiImpl implements ApiInfoFeginApi {
     @Autowired
     private ISysApiInfoService apiInfoService;
+    @Autowired
+    private MapStructContext mapStructContext;
 
-    /**
-     * 根据用户编号获取详细信息
-     */
-    @GetMapping("saveApiInfo")
-    public Boolean saveApiInfo(@RequestBody List<SysApiInfo> apiInfoList)
-    {
-        return apiInfoService.saveApiInfo(apiInfoList);
+
+    @Override
+    public Boolean saveApiInfo(@RequestBody List<ApiInfoSaveReq> apiInfoModelList) {
+        return apiInfoService.saveApiInfo(mapStructContext.conver(apiInfoModelList, SysApiInfo.class));
     }
 }

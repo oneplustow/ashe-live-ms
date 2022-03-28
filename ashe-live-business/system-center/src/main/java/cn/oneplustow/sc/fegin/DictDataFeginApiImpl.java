@@ -1,10 +1,12 @@
-package cn.oneplustow.sc.open;
+package cn.oneplustow.sc.fegin;
 
 
 import cn.hutool.core.util.ObjectUtil;
-import cn.oneplustow.common.web.controller.BaseController;
+import cn.oneplustow.api.sc.model.DictDataResp;
+import cn.oneplustow.api.sc.service.DictDataFeginApi;
 import cn.oneplustow.sc.entity.SysDictData;
 import cn.oneplustow.sc.service.ISysDictDataService;
+import cn.opl.mapstruct.MapStructContext;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,22 +25,20 @@ import java.util.List;
 @Api(tags = "用户信息控制器")
 @RestController
 @RequestMapping("/fegin/system/dictData")
-public class SysDictDataOpen extends BaseController
-{
+public class DictDataFeginApiImpl implements DictDataFeginApi {
     @Autowired
     private ISysDictDataService dictDataService;
+    @Autowired
+    private MapStructContext mapStructContext;
 
     /**
      * 根据用户编号获取详细信息
      */
+    @Override
     @GetMapping("selectDictDataByType")
-    public List<SysDictData> selectDictDataByType(@RequestParam("dictType") String dictType)
-    {
-        if (ObjectUtil.isNotNull(dictType))
-        {
-            return dictDataService.selectDictDataByType(dictType);
-        }
-        return new ArrayList<>();
+    public List<DictDataResp> selectDictDataByType(@RequestParam("dictType") String dictType) {
+        return mapStructContext.conver(
+            dictDataService.selectDictDataByType(dictType),DictDataResp.class);
     }
 
 }

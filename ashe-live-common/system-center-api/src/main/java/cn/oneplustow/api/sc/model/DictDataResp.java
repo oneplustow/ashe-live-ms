@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @date 16/09/2020 11:02
  */
 @Data
-public class SysDictDataModel implements Serializable {
+public class DictDataResp implements Serializable {
 
     private static final long serialVersionUID = -1380397892062987901L;
 

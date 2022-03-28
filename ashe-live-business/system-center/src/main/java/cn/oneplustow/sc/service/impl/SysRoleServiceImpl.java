@@ -3,6 +3,7 @@ package cn.oneplustow.sc.service.impl;
 import cn.hutool.core.util.ObjectUtil;
 import cn.oneplustow.common.constant.UserConstants;
 import cn.oneplustow.common.exception.CustomException;
+import cn.oneplustow.common.exception.WarningMessageException;
 import cn.oneplustow.config.db.model.TableDataInfo;
 import cn.oneplustow.config.db.util.PageUtil;
 import cn.oneplustow.sc.entity.SysRole;
@@ -61,6 +62,9 @@ public class SysRoleServiceImpl implements ISysRoleService {
      */
     @Override
     public Set<String> selectRolePermissionByUserId(Long userId) {
+        if (ObjectUtil.isNull(userId)) {
+            throw new WarningMessageException("用户ID不能为空");
+        }
         List<SysRole> perms = roleMapper.selectRolePermissionByUserId(userId);
         Set<String> permsSet = new HashSet<>();
         for (SysRole perm : perms) {

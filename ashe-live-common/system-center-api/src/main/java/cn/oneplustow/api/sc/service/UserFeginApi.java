@@ -1,8 +1,8 @@
 package cn.oneplustow.api.sc.service;
 
 import cn.oneplustow.api.sc.model.SimpleUser;
-import cn.oneplustow.api.sc.model.SysUserModel;
-import cn.oneplustow.api.sc.service.fallback.UserServiceFallback;
+import cn.oneplustow.api.sc.model.UserResp;
+import cn.oneplustow.api.sc.service.fallback.UserFeginApiFallback;
 import cn.oneplustow.api.sc.vo.SaveUserDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +14,9 @@ import java.util.Set;
  * @author cc
  * @date 16/09/2020 11:03
  */
-@FeignClient(value = "system-center",fallbackFactory = UserServiceFallback.class)
+@FeignClient(value = "system-center",fallbackFactory = UserFeginApiFallback.class)
 @RequestMapping("system-center/fegin/system/user")
-public interface UserService {
+public interface UserFeginApi {
 
     /**
      * 获取用户信息
@@ -24,7 +24,7 @@ public interface UserService {
      * @return
      */
     @GetMapping("getUserByName")
-    SysUserModel getUserByName(@RequestParam("userName") String userName);
+    UserResp getUserByName(@RequestParam("userName") String userName);
 
     /**
      * 获取用户信息
@@ -41,5 +41,5 @@ public interface UserService {
      */
 
     @PostMapping("saveMemberUser")
-    public Long saveMemberUser(@RequestBody SaveUserDto saveUserDto);
+    Long saveMemberUser(@RequestBody SaveUserDto saveUserDto);
 }

@@ -10,7 +10,7 @@ import lombok.Data;
  * @date 2021-06-18
  */
 @Data
-public class SysApiInfoModel
+public class ApiInfoSaveReq
 {
     private static final long serialVersionUID = 1L;
 

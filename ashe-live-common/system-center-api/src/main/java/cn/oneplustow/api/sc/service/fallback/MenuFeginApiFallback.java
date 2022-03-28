@@ -1,6 +1,6 @@
 package cn.oneplustow.api.sc.service.fallback;
 
-import cn.oneplustow.api.sc.service.MenuService;
+import cn.oneplustow.api.sc.service.MenuFeginApi;
 import feign.hystrix.FallbackFactory;
 import org.springframework.stereotype.Component;
 
@@ -11,12 +11,12 @@ import java.util.*;
  * @date 16/09/2020 11:16
  */
 @Component
-public class MenuServiceFallback implements FallbackFactory<MenuService> {
+public class MenuFeginApiFallback implements FallbackFactory<MenuFeginApi> {
     @Override
-    public MenuService create(Throwable throwable) {
-        return new MenuService() {
+    public MenuFeginApi create(Throwable throwable) {
+        return new MenuFeginApi() {
             @Override
-            public Set<String> selectMenuPermsByUserId(Long userid) {
+            public Set<String> getMenuPermsByUserId(Long userid) {
                 return new HashSet<>();
             }
 

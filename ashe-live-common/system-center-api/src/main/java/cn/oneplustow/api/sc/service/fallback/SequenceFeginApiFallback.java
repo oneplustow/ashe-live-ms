@@ -1,6 +1,6 @@
 package cn.oneplustow.api.sc.service.fallback;
 
-import cn.oneplustow.api.sc.service.SequenceService;
+import cn.oneplustow.api.sc.service.SequenceFeginApi;
 import feign.hystrix.FallbackFactory;
 import org.springframework.stereotype.Component;
 
@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
  * @date 16/09/2020 11:16
  */
 @Component
-public class SequenceServiceFallback implements FallbackFactory<SequenceService> {
+public class SequenceFeginApiFallback implements FallbackFactory<SequenceFeginApi> {
     @Override
-    public SequenceService create(Throwable throwable) {
-        return new SequenceService(){
+    public SequenceFeginApi create(Throwable throwable) {
+        return new SequenceFeginApi(){
             @Override
             public String apply(String seqName) {
                 return null;

@@ -2,8 +2,8 @@ package cn.oneplustow.api.sc.service.fallback;
 
 import cn.oneplustow.api.fallback.BaseFallbackFactory;
 import cn.oneplustow.api.sc.model.SimpleUser;
-import cn.oneplustow.api.sc.model.SysUserModel;
-import cn.oneplustow.api.sc.service.UserService;
+import cn.oneplustow.api.sc.model.UserResp;
+import cn.oneplustow.api.sc.service.UserFeginApi;
 import cn.oneplustow.api.sc.vo.SaveUserDto;
 import org.springframework.stereotype.Component;
 
@@ -16,13 +16,13 @@ import java.util.Set;
  * @date 16/09/2020 11:16
  */
 @Component
-public class UserServiceFallback extends BaseFallbackFactory<UserService> {
+public class UserFeginApiFallback extends BaseFallbackFactory<UserFeginApi> {
     @Override
-    public UserService doCreate(Throwable throwable) {
-        return new UserService(){
+    public UserFeginApi doCreate(Throwable throwable) {
+        return new UserFeginApi(){
             @Override
-            public SysUserModel getUserByName(String username) {
-                return new SysUserModel();
+            public UserResp getUserByName(String username) {
+                return new UserResp();
             }
 
             @Override

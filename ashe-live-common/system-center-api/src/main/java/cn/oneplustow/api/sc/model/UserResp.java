@@ -11,7 +11,7 @@ import java.util.List;
  * @date 16/09/2020 11:02
  */
 @Data
-public class SysUserModel implements Serializable {
+public class UserResp implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /** 用户ID */
