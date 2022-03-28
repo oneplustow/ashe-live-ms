@@ -2,6 +2,8 @@ package cn.oneplustow.mc.service.handler;
 
 
 import cn.oneplustow.api.sc.model.SimpleUser;
+import cn.oneplustow.api.sc.service.ConfigFeginApi;
+import cn.oneplustow.common.constant.Constants;
 import cn.oneplustow.common.exception.WarningMessageException;
 import cn.oneplustow.mc.entity.Message;
 import cn.oneplustow.mc.vo.SendMessageVo;
@@ -11,6 +13,7 @@ import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
 import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
 import com.aliyun.dysmsapi20170525.models.SendSmsResponseBody;
 import com.aliyun.teaopenapi.models.Config;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -20,8 +23,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class SmsSendMsgHandle extends BaseSendMsgHandle{
 
-//	@Autowired
-//	private ISysConfigService configService;
+	@Autowired
+	private ConfigFeginApi configFeginApi;
 
 	@Override
 	Message doSendMsg(String esReceiver, SendMessageVo sendMessageVo) {
@@ -48,7 +51,7 @@ public class SmsSendMsgHandle extends BaseSendMsgHandle{
 	}
 
 	private SmsConfig getConfig(){
-		String configJson =""; //configService.selectConfigByKey(Constants.SysConfigKey.短信配置);
+		String configJson = configFeginApi.getConfigByKey(Constants.SysConfigKey.短信配置);
 		return JSONObject.parseObject(configJson, SmsConfig.class);
 	}
 

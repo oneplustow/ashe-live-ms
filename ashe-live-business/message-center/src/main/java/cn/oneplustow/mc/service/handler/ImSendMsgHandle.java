@@ -1,6 +1,7 @@
 package cn.oneplustow.mc.service.handler;
 
 import cn.oneplustow.api.sc.model.SimpleUser;
+import cn.oneplustow.api.sc.service.ConfigFeginApi;
 import cn.oneplustow.common.exception.WarningMessageException;
 import cn.oneplustow.mc.entity.Message;
 import cn.oneplustow.mc.vo.SendMessageVo;
@@ -26,9 +27,9 @@ public class ImSendMsgHandle extends BaseSendMsgHandle{
 
 //	@Autowired
 //	private IInteriorMessageService interiorMessageService;
-//
-//	@Autowired
-//	private ISysConfigService configService;
+
+	@Autowired
+	private ConfigFeginApi configFeginApi;
 
 	private Configuration configuration = new Configuration(Configuration.VERSION_2_3_27);
 	{
@@ -66,11 +67,11 @@ public class ImSendMsgHandle extends BaseSendMsgHandle{
 
 	@Override
 	String getReceiver(SimpleUser user) {
-		return user.getUserId() + "";
+		return String.valueOf(user.getUserId());
 	}
 
 	private ImTemplate getConfig(String configKey){
-		String configJson = "";//configService.selectConfigByKey(configKey);
+		String configJson = configFeginApi.getConfigByKey(configKey);
 		return JSONObject.parseObject(configJson, ImTemplate.class);
 	}
 
