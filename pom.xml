@@ -34,7 +34,7 @@
         <swagger.butler.version>2.0.1</swagger.butler.version>
         <sentinel-transport-simple-http.version>1.7.1</sentinel-transport-simple-http.version>
         <swagger2-spring-boot-starter.version>1.1.0</swagger2-spring-boot-starter.version>
-        <mybatis-plus-boot-starter.version>3.4.0</mybatis-plus-boot-starter.version>
+        <mybatis-plus-boot-starter.version>3.4.3</mybatis-plus-boot-starter.version>
         <springfox-boot-starter.version>3.0.0</springfox-boot-starter.version>
         <jwt.version>0.9.0</jwt.version>
         <pagehelper.spring.boot.starter.version>1.2.5</pagehelper.spring.boot.starter.version>
