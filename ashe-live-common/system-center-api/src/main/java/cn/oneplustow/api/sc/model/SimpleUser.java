@@ -25,6 +25,8 @@ public class SimpleUser {
 
     /** 用户性别 */
     private String sex;
+    /** 微信id */
+    private String weChatId;
 
     public SimpleUser() {
     }

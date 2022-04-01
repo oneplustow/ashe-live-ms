@@ -55,6 +55,7 @@
         <poi.version>4.1.2</poi.version>
         <easyexcel.version>2.2.11</easyexcel.version>
         <dysmsapi20170525.version>2.0.5</dysmsapi20170525.version>
+        <weixin-java-mp.version>4.1.0</weixin-java-mp.version>
     </properties>
 
     <dependencies>
@@ -291,6 +292,12 @@
                 <artifactId>dysmsapi20170525</artifactId>
                 <version>${dysmsapi20170525.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>wx-java-mp-spring-boot-starter</artifactId>
+                <version>${weixin-java-mp.version}</version>
+            </dependency>
+
         </dependencies>
 
     </dependencyManagement>
