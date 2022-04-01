@@ -5,7 +5,7 @@ import cn.hutool.core.map.MapUtil;
 
 import cn.oneplustow.api.sc.model.SimpleUser;
 import cn.oneplustow.mc.entity.Message;
-import cn.oneplustow.mc.vo.SendMessageVo;
+import cn.oneplustow.mc.entity.vo.SendMessageVo;
 import me.chanjar.weixin.mp.bean.template.WxMpTemplateData;
 import org.springframework.stereotype.Component;
 
