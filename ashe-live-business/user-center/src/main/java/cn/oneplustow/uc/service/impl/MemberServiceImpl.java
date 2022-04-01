@@ -1,6 +1,6 @@
 package cn.oneplustow.uc.service.impl;
 
-import cn.oneplustow.api.sc.service.UserService;
+import cn.oneplustow.api.sc.service.UserFeginApi;
 import cn.oneplustow.api.sc.vo.SaveUserDto;
 import cn.oneplustow.common.exception.WarningMessageException;
 import cn.opl.mapstruct.MapStructContext;
@@ -23,7 +23,7 @@ import java.util.List;
 public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> implements IMemberService {
 
     @Autowired
-    private UserService userService;
+    private UserFeginApi userService;
     @Autowired
     private MapStructContext mapStructContext;
 

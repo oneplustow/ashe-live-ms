@@ -3,7 +3,7 @@ package cn.oneplustow.sc.controller;
 
 import cn.oneplustow.api.ac.model.LoginUser;
 import cn.oneplustow.api.ac.util.SecurityUtils;
-import cn.oneplustow.api.sc.model.SysUserModel;
+import cn.oneplustow.api.sc.model.UserResp;
 import cn.oneplustow.common.annoatation.Log;
 import cn.oneplustow.common.config.RuoYiConfig;
 import cn.oneplustow.common.enume.BusinessType;
@@ -41,7 +41,7 @@ public class SysProfileController extends BaseController
     public AjaxResult profile()
     {
         LoginUser loginUser = SecurityUtils.getLoginUser();
-        SysUserModel user = loginUser.getUser();
+        UserResp user = loginUser.getUser();
         AjaxResult ajax = AjaxResult.success(user);
         ajax.put("roleGroup", userService.selectUserRoleGroup(user.getUserName()));
         ajax.put("postGroup", userService.selectUserPostGroup(user.getUserName()));
@@ -77,7 +77,7 @@ public class SysProfileController extends BaseController
     public AjaxResult updatePwd(String oldPassword, String newPassword)
     {
         LoginUser loginUser = SecurityUtils.getLoginUser();
-        SysUserModel user = loginUser.getUser();
+        UserResp user = loginUser.getUser();
         String userName = user.getUserName();
         String password = user.getPassword();
         if (!SecurityUtils.matchesPassword(oldPassword, password))

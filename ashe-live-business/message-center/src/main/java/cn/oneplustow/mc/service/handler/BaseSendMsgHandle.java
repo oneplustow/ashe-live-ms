@@ -2,9 +2,9 @@ package cn.oneplustow.mc.service.handler;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.oneplustow.api.sc.model.SimpleUser;
-import cn.oneplustow.api.sc.service.UserService;
+import cn.oneplustow.api.sc.service.UserFeginApi;
 import cn.oneplustow.mc.entity.Message;
-import cn.oneplustow.mc.vo.SendMessageVo;
+import cn.oneplustow.mc.entity.vo.SendMessageVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public abstract class BaseSendMsgHandle implements ISendMsgHandle {
     @Autowired
-    private UserService sysUserService;
+    private UserFeginApi sysUserService;
 
     @Override
     public void sendMsg(SendMessageVo sendMessageVo) {

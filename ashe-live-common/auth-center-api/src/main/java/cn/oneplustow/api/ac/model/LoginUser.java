@@ -1,7 +1,7 @@
 package cn.oneplustow.api.ac.model;
 
 
-import cn.oneplustow.api.sc.model.SysUserModel;
+import cn.oneplustow.api.sc.model.UserResp;
 import lombok.Data;
 
 import java.util.Set;
@@ -63,7 +63,7 @@ public class LoginUser
     /**
      * 用户信息
      */
-    private SysUserModel user;
+    private UserResp user;
 
     public String getToken()
     {
@@ -79,7 +79,7 @@ public class LoginUser
     {
     }
 
-    public LoginUser(SysUserModel user, Set<String> permissions)
+    public LoginUser(UserResp user, Set<String> permissions)
     {
         this.user = user;
         this.permissions = permissions;

@@ -1,9 +1,12 @@
 package cn.oneplustow.mc.service.handler;
 
 import cn.oneplustow.api.sc.model.SimpleUser;
+import cn.oneplustow.api.sc.service.ConfigFeginApi;
 import cn.oneplustow.common.exception.WarningMessageException;
 import cn.oneplustow.mc.entity.Message;
-import cn.oneplustow.mc.vo.SendMessageVo;
+import cn.oneplustow.mc.entity.dto.InteriorMessageSaveDto;
+import cn.oneplustow.mc.entity.vo.SendMessageVo;
+import cn.oneplustow.mc.service.IInteriorMessageService;
 import com.alibaba.fastjson.JSONObject;
 import freemarker.cache.StringTemplateLoader;
 import freemarker.template.Configuration;
@@ -24,11 +27,11 @@ import java.util.Map;
 @Component
 public class ImSendMsgHandle extends BaseSendMsgHandle{
 
-//	@Autowired
-//	private IInteriorMessageService interiorMessageService;
-//
-//	@Autowired
-//	private ISysConfigService configService;
+	@Autowired
+	private IInteriorMessageService interiorMessageService;
+
+	@Autowired
+	private ConfigFeginApi configFeginApi;
 
 	private Configuration configuration = new Configuration(Configuration.VERSION_2_3_27);
 	{
@@ -43,12 +46,12 @@ public class ImSendMsgHandle extends BaseSendMsgHandle{
 		ImTemplate config = getConfig(sendMessageVo.getEsContent());
 		String title = processTemplate(config.getTitle(), esParam);
 		String content = processTemplate(config.getContent(), esParam);
-//		InteriorMessageSaveDto messageSaveDto = InteriorMessageSaveDto.builder()
-//			.title(title)
-//			.content(content)
-//			.toUser(Long.valueOf(esReceiver))
-//			.build();
-//		interiorMessageService.saveMessage(messageSaveDto);
+		InteriorMessageSaveDto messageSaveDto = InteriorMessageSaveDto.builder()
+			.title(title)
+			.content(content)
+			.toUser(Long.valueOf(esReceiver))
+			.build();
+		interiorMessageService.saveMessage(messageSaveDto);
 		return null;
 	}
 
@@ -66,11 +69,11 @@ public class ImSendMsgHandle extends BaseSendMsgHandle{
 
 	@Override
 	String getReceiver(SimpleUser user) {
-		return user.getUserId() + "";
+		return String.valueOf(user.getUserId());
 	}
 
 	private ImTemplate getConfig(String configKey){
-		String configJson = "";//configService.selectConfigByKey(configKey);
+		String configJson = configFeginApi.getConfigByKey(configKey);
 		return JSONObject.parseObject(configJson, ImTemplate.class);
 	}
 

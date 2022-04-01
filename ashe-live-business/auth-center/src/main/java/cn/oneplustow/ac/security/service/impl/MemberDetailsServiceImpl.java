@@ -3,8 +3,8 @@ package cn.oneplustow.ac.security.service.impl;
 import cn.hutool.core.util.ObjectUtil;
 import cn.oneplustow.ac.entity.LoginUserDetails;
 import cn.oneplustow.ac.security.service.SysPermissionService;
-import cn.oneplustow.api.sc.model.SysUserModel;
-import cn.oneplustow.api.sc.service.UserService;
+import cn.oneplustow.api.sc.model.UserResp;
+import cn.oneplustow.api.sc.service.UserFeginApi;
 import cn.oneplustow.common.enume.UserStatus;
 import cn.oneplustow.common.exception.BaseException;
 import org.slf4j.Logger;
@@ -24,7 +24,7 @@ public class MemberDetailsServiceImpl implements UserDetailsService
     private static final Logger log = LoggerFactory.getLogger(MemberDetailsServiceImpl.class);
 
     @Autowired
-    private UserService userService;
+    private UserFeginApi userService;
 
     @Autowired
     private SysPermissionService permissionService;
@@ -32,7 +32,7 @@ public class MemberDetailsServiceImpl implements UserDetailsService
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
     {
-        SysUserModel user = userService.getUserByName(username);
+        UserResp user = userService.getUserByName(username);
         if (ObjectUtil.isNull(user))
         {
             log.info("登录用户：{} 不存在.", username);
@@ -52,7 +52,7 @@ public class MemberDetailsServiceImpl implements UserDetailsService
         return createLoginUser(user);
     }
 
-    public UserDetails createLoginUser(SysUserModel user)
+    public UserDetails createLoginUser(UserResp user)
     {
         return new LoginUserDetails(user, permissionService.getMenuPermission(user));
     }
