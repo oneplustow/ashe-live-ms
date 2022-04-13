@@ -297,6 +297,11 @@
                 <artifactId>wx-java-mp-spring-boot-starter</artifactId>
                 <version>${weixin-java-mp.version}</version>
             </dependency>
+            <dependency>
+                <groupId>cn.afterturn</groupId>
+                <artifactId>easypoi-base</artifactId>
+                <version>${easypoi.version}</version>
+            </dependency>
 
         </dependencies>
 
