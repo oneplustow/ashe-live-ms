@@ -7,7 +7,7 @@ import cn.hutool.core.util.StrUtil;
 import cn.oneplustow.api.ac.model.LoginUser;
 import cn.oneplustow.api.ac.util.SecurityUtils;
 import cn.oneplustow.api.sc.model.SysRoleModel;
-import cn.oneplustow.api.sc.model.SysUserModel;
+import cn.oneplustow.api.sc.model.UserResp;
 import cn.oneplustow.common.constant.Constants;
 import cn.oneplustow.api.ac.annoatation.ArgsInject;
 import org.apache.commons.jxpath.JXPathContext;
@@ -36,7 +36,7 @@ public class ArgsInjectAspect {
         //获取方法参数值
         Object[] args = pjp.getArgs();
         //获取当前登录用户
-        SysUserModel user = loginUser.getUser();
+        UserResp user = loginUser.getUser();
         //获取方法签名
         MethodSignature signature = (MethodSignature)pjp.getSignature();
         //获取方法上的ArgsInject注解
@@ -75,7 +75,7 @@ public class ArgsInjectAspect {
         }
     }
 
-    private Object getDataScopeVluae(String dataScope,SysUserModel user) {
+    private Object getDataScopeVluae(String dataScope, UserResp user) {
         if (Constants.DataScope.仅本人.equalsIgnoreCase(dataScope)) {
             return user.getUserId();
         }

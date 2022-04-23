@@ -1,7 +1,9 @@
 package cn.oneplustow.mc.service.impl;
 
+import cn.hutool.extra.spring.SpringUtil;
 import cn.oneplustow.mc.service.ISysMessageService;
-import cn.oneplustow.mc.vo.SendMessageVo;
+import cn.oneplustow.mc.service.handler.ISendMsgHandle;
+import cn.oneplustow.mc.entity.vo.SendMessageVo;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,11 +16,12 @@ import org.springframework.stereotype.Component;
 public class SysMessageServiceImpl implements ISysMessageService {
     @Override
     public void sendMessage(SendMessageVo sendMessageVo) {
-
-    }
-
-    @Override
-    public String sendVerifyCode(String receive, String configKey) {
-        return null;
+        String implClass = sendMessageVo.getEsType().getImplClass();
+        ISendMsgHandle sendMsgHandle = (ISendMsgHandle) SpringUtil.getBean(implClass);
+        if(sendMessageVo.getAsync() == null || sendMessageVo.getAsync()) {
+           sendMsgHandle.sendMsg(sendMessageVo);
+            return;
+        }
+        sendMsgHandle.sendMsg(sendMessageVo);
     }
 }

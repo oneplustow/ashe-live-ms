@@ -6,7 +6,7 @@ import cn.oneplustow.ac.security.service.SysLoginService;
 import cn.oneplustow.ac.security.service.SysPermissionService;
 import cn.oneplustow.api.ac.model.LoginUser;
 import cn.oneplustow.api.ac.util.SecurityUtils;
-import cn.oneplustow.api.sc.model.SysUserModel;
+import cn.oneplustow.api.sc.model.UserResp;
 import cn.oneplustow.common.constant.Constants;
 import cn.oneplustow.common.domain.AjaxResult;
 import cn.oneplustow.common.web.controller.GlobalExceptionHandler;
@@ -65,7 +65,7 @@ public class SysLoginController extends GlobalExceptionHandler
     public AjaxResult getInfo(String userName)
     {
         LoginUser loginUser = SecurityUtils.getLoginUser();
-        SysUserModel user = loginUser.getUser();
+        UserResp user = loginUser.getUser();
         // 角色集合
         Set<String> roles = permissionService.getRolePermission(user);
         // 权限集合

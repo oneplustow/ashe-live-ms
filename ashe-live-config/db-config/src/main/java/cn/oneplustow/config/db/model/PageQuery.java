@@ -2,6 +2,7 @@ package cn.oneplustow.config.db.model;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.oneplustow.common.util.StringUtils;
+import cn.oneplustow.common.web.util.ServletUtils;
 import cn.oneplustow.config.db.util.SqlUtil;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -56,6 +57,15 @@ public class PageQuery implements Serializable {
      * 每页显示记录数 默认值 默认查全部
      */
     public static final int DEFAULT_PAGE_SIZE = Integer.MAX_VALUE;
+
+    public static <T> Page<T> buildPage() {
+        PageQuery pageQuery = new PageQuery();
+        pageQuery.setPageSize(ServletUtils.getParameterToInt("pageSize",10))
+            .setPageNum(ServletUtils.getParameterToInt("pageNum",1))
+            .setOrderByColumn(ServletUtils.getParameter("orderByColumn"))
+            .setIsAsc(ServletUtils.getParameter("isAsc"));
+        return pageQuery.build();
+    }
 
     public <T> Page<T> build() {
         Integer pageNum = ObjectUtil.defaultIfNull(getPageNum(), DEFAULT_PAGE_NUM);

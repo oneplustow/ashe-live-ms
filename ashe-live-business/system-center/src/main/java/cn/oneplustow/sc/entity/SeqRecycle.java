@@ -23,7 +23,7 @@ public class SeqRecycle implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-	@TableId(value = "ID",type = IdType.UUID)
+	@TableId(type = IdType.AUTO)
 	/**id*/
 	private String id;
 

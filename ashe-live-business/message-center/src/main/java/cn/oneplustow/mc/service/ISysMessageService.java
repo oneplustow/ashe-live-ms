@@ -1,6 +1,6 @@
 package cn.oneplustow.mc.service;
 
-import cn.oneplustow.mc.vo.SendMessageVo;
+import cn.oneplustow.mc.entity.vo.SendMessageVo;
 
 /**
  * Author lwj
@@ -10,6 +10,4 @@ import cn.oneplustow.mc.vo.SendMessageVo;
  **/
 public interface ISysMessageService {
     void sendMessage(SendMessageVo sendMessageVo);
-
-    String sendVerifyCode(String receive, String configKey);
 }
