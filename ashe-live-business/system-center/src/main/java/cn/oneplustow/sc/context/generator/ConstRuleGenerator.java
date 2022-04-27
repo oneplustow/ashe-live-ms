@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 常量规则值生成
- * @author greatmap
+ * @author cc
  */
 @Component
 public class ConstRuleGenerator extends BaseRuleGenerator {

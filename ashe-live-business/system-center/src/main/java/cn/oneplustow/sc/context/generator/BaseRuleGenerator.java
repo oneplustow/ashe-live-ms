@@ -11,7 +11,7 @@ import java.util.Map;
 
 /**
  * 规则生成值基础抽象类
- * @author greatmap
+ * @author cc
  */
 public abstract class BaseRuleGenerator implements RuleGenerator {
 
