@@ -1,11 +1,9 @@
 package cn.oneplustow.mc.test.StringTest;
 
+import io.swagger.models.auth.In;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Author lwj
@@ -22,8 +20,15 @@ public class Test {
 //       int x=123;
 //        System.out.println(reverse(x));
 
-        String s = "aabb";
-        System.out.println(firstUniqChar(s));
+//        String s = "aabb";
+//        System.out.println(firstUniqChar(s));
+
+
+       String s = "anagram";
+       String t = "nagaram";
+
+        System.out.println(isAnagram(s, t));
+
     }
 
     /**
@@ -133,6 +138,49 @@ public class Test {
             }
         }
         return -1;
+    }
+
+    /**
+     * 有效的字母异位词
+     */
+    public static boolean isAnagram(String s, String t) {
+        Map<String, Integer> smap=new HashMap<>();
+        Map<String, Integer> tmap=new HashMap<>();
+        if(null!=s&&null!=t&&s.length()==t.length() ){
+            char[] sc = s.toCharArray();
+            char[] tc = t.toCharArray();
+            for (int i = 0; i < sc.length; i++) {
+                String stemp=String.valueOf(sc[i]);
+                String ttemp=String.valueOf(tc[i]);
+                smap.put(stemp,smap.getOrDefault(stemp,0)+1);
+                tmap.put(ttemp,tmap.getOrDefault(ttemp,0)+1);
+            }
+            for (Map.Entry<String, Integer> e : smap.entrySet()) {
+                  String key= e.getKey();
+                  Integer value= e.getValue();
+                  Integer tvalue = tmap.get(key);
+                if(!value.equals(tvalue)){
+                    return false;
+                }
+
+            }
+            return  true;
+
+        }
+        return  false;
+    }
+    /**
+     * 有效的字母异位词--官方
+     */
+    public static boolean isAnagramG(String s, String t) {
+        if (s.length() != t.length()) {
+            return false;
+        }
+        char[] str1 = s.toCharArray();
+        char[] str2 = t.toCharArray();
+        Arrays.sort(str1);
+        Arrays.sort(str2);
+        return Arrays.equals(str1, str2);
     }
 
 
