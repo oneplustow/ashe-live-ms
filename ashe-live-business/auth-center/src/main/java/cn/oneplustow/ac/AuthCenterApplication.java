@@ -18,7 +18,7 @@ import org.springframework.context.ConfigurableApplicationContext;
  * @author cc
  * @date 14/09/2020 14:07
  */
-@EnableFeignClients("cn.oneplustow.api")
+@EnableFeignClients("cn.oneplustow.api.sc")
 @MapperScan(value={"cn.oneplustow.ac.mapper"})
 @EnableSpringUtil
 @EnableDiscoveryClient
