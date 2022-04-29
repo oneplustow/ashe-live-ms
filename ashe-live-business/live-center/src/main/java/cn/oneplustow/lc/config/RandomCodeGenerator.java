@@ -1,4 +1,4 @@
-package cn.oneplustow.sc.service;
+package cn.oneplustow.lc.config;
 
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.RandomUtil;

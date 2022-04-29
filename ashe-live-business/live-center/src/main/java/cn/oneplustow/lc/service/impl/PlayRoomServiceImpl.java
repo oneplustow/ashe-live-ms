@@ -2,10 +2,10 @@ package cn.oneplustow.lc.service.impl;
 
 
 import cn.hutool.core.lang.Assert;
-import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.oneplustow.common.exception.WarningMessageException;
 import cn.oneplustow.config.db.util.PageUtil;
+import cn.oneplustow.lc.config.RandomCodeGenerator;
 import cn.oneplustow.lc.entity.PlayRoom;
 import cn.oneplustow.lc.entity.StreamServer;
 import cn.oneplustow.lc.entity.StreamServerAllotRecord;
@@ -50,6 +50,8 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
     @Autowired
     private IOssrsService ossrsService;
 
+    @Autowired
+    private RandomCodeGenerator randomCodeGenerator;
 
     @Override
     public List<PlayRoomPageVo> selectStartStatusPage(String roomNumbe, String roomName) {
@@ -80,7 +82,9 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
         PlayRoom playRoom = mapStructContext.conver(savePlayRoomDto, PlayRoom.class);
         if(playRoom.getId() == null){
             initPlayRoom(playRoom);
-            return this.save(playRoom);
+            this.save(playRoom);
+            //保存成功后根据ID 生成随机码
+            playRoom.setRoomNumbe(randomCodeGenerator.gengerCode(playRoom.getId(),7));
         }
         return this.updateById(playRoom);
     }
@@ -93,10 +97,10 @@ public class PlayRoomServiceImpl extends ServiceImpl<PlayRoomMapper, PlayRoom> i
         Assert.isTrue(userCount == 0,"当前用户已经拥有直播间");
         int nameCount = this.count(new LambdaQueryWrapper<PlayRoom>().eq(PlayRoom::getName, playRoom.getName()));
         Assert.isTrue(nameCount == 0,"直播间名称已被占用");
-        if(StrUtil.isBlank(playRoom.getRoomNumbe())) {
-            //todo 直播间名称可以有一定规律进行生产，后续加上序列号生产模块
-            playRoom.setRoomNumbe(IdUtil.simpleUUID());
-        }
+//        if(StrUtil.isBlank(playRoom.getRoomNumbe())) {
+//            //todo 直播间名称可以有一定规律进行生产，后续加上序列号生产模块
+//            playRoom.setRoomNumbe(IdUtil.simpleUUID());
+//        }
     }
 
     private PlayRoomDetailVo getPlayRoomDetailVo(PlayRoom playRoom){
