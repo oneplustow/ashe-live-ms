@@ -4,6 +4,7 @@ import io.swagger.models.auth.In;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Author lwj
@@ -24,10 +25,11 @@ public class Test {
 //        System.out.println(firstUniqChar(s));
 
 
-       String s = "anagram";
-       String t = "nagaram";
-
-        System.out.println(isAnagram(s, t));
+//       String s = "anagram";
+//       String t = "nagaram";
+//
+//        System.out.println(isAnagram(s, t));
+        test();
 
     }
 
@@ -183,6 +185,21 @@ public class Test {
         return Arrays.equals(str1, str2);
     }
 
+    public static void test(){
+        List<A> list =new ArrayList<>();
+        List<String> strings = Arrays.asList("a", "b", "c", "d", "e");
+        for (int i = 0; i < 10; i++) {
+            A a=new A();
+            a.setName(i+"");
+            a.setbName(strings);
+            list.add(a);
+        }
+
+        List<String> ridStrList = list.stream().map(x->x.getbName()).flatMap(List::stream).collect(Collectors.toList());
+        for (String s : ridStrList) {
+            System.out.println(s);
+        }
+    }
 
 
 }
