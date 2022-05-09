@@ -16,3 +16,6 @@ feign:
     enabled: true
 ribbon:
   ReadTimeout: 5000
+
+randomCode:
+  disturb: ashe-live
