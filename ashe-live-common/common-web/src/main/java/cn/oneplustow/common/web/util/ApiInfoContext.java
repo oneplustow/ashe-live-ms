@@ -2,8 +2,8 @@ package cn.oneplustow.common.web.util;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.oneplustow.api.sc.model.SysApiInfoModel;
-import cn.oneplustow.api.sc.service.ApiInfoService;
+import cn.oneplustow.api.sc.model.ApiInfoSaveReq;
+import cn.oneplustow.api.sc.service.ApiInfoFeginApi;
 import cn.oneplustow.common.annoatation.ApiInfo;
 import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,16 +36,16 @@ public class ApiInfoContext {
     private ApplicationContext applicationContext;
 
     //@Autowired
-    private ApiInfoService apiInfoService;
+    private ApiInfoFeginApi apiInfoFeginApi;
 
 
     public Boolean init() {
-        List<SysApiInfoModel> apiInfoList = generateSysApiInfo();
-        apiInfoService.saveApiInfo(apiInfoList);
+        List<ApiInfoSaveReq> apiInfoList = generateSysApiInfo();
+        apiInfoFeginApi.saveApiInfo(apiInfoList);
         return true;
     }
 
-    public List<SysApiInfoModel> generateSysApiInfo(){
+    public List<ApiInfoSaveReq> generateSysApiInfo(){
         //获取所有的RequestMapping
         Map<String, HandlerMapping> allRequestMappings = BeanFactoryUtils.beansOfTypeIncludingAncestors(
                 applicationContext,HandlerMapping.class, true, false);
@@ -60,13 +60,13 @@ public class ApiInfoContext {
         return null;
     }
 
-    private List<SysApiInfoModel> parseRequestMappingHandlerMapping(RequestMappingHandlerMapping requestMappingHandlerMapping){
+    private List<ApiInfoSaveReq> parseRequestMappingHandlerMapping(RequestMappingHandlerMapping requestMappingHandlerMapping){
         //从request 类型的 请求处理映射器里面拿到 映射器方法
         Map<RequestMappingInfo, HandlerMethod> handlerMethods = requestMappingHandlerMapping.getHandlerMethods();
-        List<SysApiInfoModel> apiInfoList = new ArrayList<>();
+        List<ApiInfoSaveReq> apiInfoList = new ArrayList<>();
         //循环遍历每一个 请求映射信息
         for (Map.Entry<RequestMappingInfo, HandlerMethod> requestMappingInfoHandlerMethodEntry : handlerMethods.entrySet()){
-            SysApiInfoModel apiInfo = new SysApiInfoModel();
+            ApiInfoSaveReq apiInfo = new ApiInfoSaveReq();
             //key是请求映射信息，包括请求方法，参数类型，请求url等信息
             RequestMappingInfo requestMappingInfo = requestMappingInfoHandlerMethodEntry.getKey();
             //value是处理方法，包括方法对象，class对象等

@@ -3,7 +3,7 @@ package cn.oneplustow.sc.controller;
 
 import cn.oneplustow.api.ac.model.LoginUser;
 import cn.oneplustow.api.ac.util.SecurityUtils;
-import cn.oneplustow.api.sc.model.SysUserModel;
+import cn.oneplustow.api.sc.model.UserResp;
 import cn.oneplustow.common.annoatation.Log;
 import cn.oneplustow.common.enume.BusinessType;
 import cn.oneplustow.common.constant.UserConstants;
@@ -40,7 +40,7 @@ public class SysMenuController extends BaseController
     public AjaxResult list(SysMenu menu)
     {
         List<SysMenu> menus = menuService.selectMenuList(menu);
-        return AjaxResult.success(menuService.buildMenuTree(menus));
+        return AjaxResult.success(menus);
     }
 
     /**
@@ -136,7 +136,7 @@ public class SysMenuController extends BaseController
     public AjaxResult getRouters(LoginUser loginUser)
     {
         // 用户信息
-        SysUserModel user = loginUser.getUser();
+        UserResp user = loginUser.getUser();
         List<SysMenu> menus = menuService.selectMenuTreeByUserId(1L);
         return AjaxResult.success(menuService.buildMenus(menus));
     }

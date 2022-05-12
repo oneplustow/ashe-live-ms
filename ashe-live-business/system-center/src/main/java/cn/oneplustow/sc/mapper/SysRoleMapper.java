@@ -2,6 +2,7 @@ package cn.oneplustow.sc.mapper;
 
 
 import cn.oneplustow.sc.entity.SysRole;
+import cn.oneplustow.sc.entity.criteria.SysRoleListCriteria;
 
 import java.util.List;
 
@@ -18,7 +19,7 @@ public interface SysRoleMapper
      * @param role 角色信息
      * @return 角色数据集合信息
      */
-    public List<SysRole> selectRoleList(SysRole role);
+    public List<SysRole> selectRoleList(SysRoleListCriteria criteria);
 
     /**
      * 根据用户ID查询角色

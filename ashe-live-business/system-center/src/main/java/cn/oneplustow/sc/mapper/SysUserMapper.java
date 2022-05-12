@@ -1,8 +1,9 @@
 package cn.oneplustow.sc.mapper;
 
 
-import cn.oneplustow.sc.entity.SysUser;
 import cn.oneplustow.api.sc.model.SimpleUser;
+import cn.oneplustow.sc.entity.SysUser;
+import cn.oneplustow.sc.entity.criteria.SysUserListCriteria;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -21,7 +22,7 @@ public interface SysUserMapper extends BaseMapper<SysUser>
      * @param sysUser 用户信息
      * @return 用户信息集合信息
      */
-    public List<SysUser> selectUserList(SysUser sysUser);
+    public List<SysUser> selectUserList(SysUserListCriteria criteria);
 
     /**
      * 通过用户名查询用户

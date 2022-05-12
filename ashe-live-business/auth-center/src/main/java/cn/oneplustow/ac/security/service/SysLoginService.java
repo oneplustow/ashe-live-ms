@@ -8,7 +8,6 @@ import cn.oneplustow.common.constant.Constants;
 import cn.oneplustow.common.exception.CustomException;
 import cn.oneplustow.common.manager.AsyncManager;
 import cn.oneplustow.common.util.MessageUtils;
-import cn.oneplustow.config.redis.util.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -32,8 +31,6 @@ public class SysLoginService
     @Resource
     private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private RedisCache redisCache;
 
     private static final String DES_KEY = "fresh-order";
 
@@ -46,11 +43,11 @@ public class SysLoginService
      * @param uuid 唯一标识
      * @return 结果
      */
-    public String login(String username, String password, String code, String uuid,String clientType)
+    public String login(String username, String password, String code, String uuid)
     {
 //        String verifyKey = Constants.CAPTCHA_CODE_KEY + uuid;
 //        String captcha = redisCache.getCacheObject(verifyKey);
-//        redisCache.deleteObject(verifyKey);
+//        RedisUtils.deleteObject(verifyKey);
 //        if (captcha == null)
 //        {
 //            AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.jcaptcha.expire")));
