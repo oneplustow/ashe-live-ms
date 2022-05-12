@@ -1,11 +1,9 @@
 package cn.oneplustow;
 
-import cn.oneplustow.mc.MessageCenterApplication;
 import org.jasypt.encryption.pbe.PooledPBEStringEncryptor;
 import org.jasypt.encryption.pbe.config.SimpleStringPBEConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
 import org.springframework.util.AntPathMatcher;
 
