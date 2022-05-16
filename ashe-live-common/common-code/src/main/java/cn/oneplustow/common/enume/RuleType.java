@@ -31,7 +31,17 @@ public enum RuleType {
     /**
 	 * 4：随机字符
 	 */
-    RANDOM(4,"随机字符");
+    RANDOM(4,"随机字符"),
+
+    /**
+     * 5：步进数值
+     */
+    LETTER(5,"步进字母"),
+
+    /**
+     * 6：占位字符
+     */
+    PLACEHOLDER(6,"占位字符");
 
     private Integer code;
 
