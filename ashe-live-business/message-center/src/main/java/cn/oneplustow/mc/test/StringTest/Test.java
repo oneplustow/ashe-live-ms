@@ -3,6 +3,7 @@ package cn.oneplustow.mc.test.StringTest;
 import io.swagger.models.auth.In;
 import org.apache.commons.lang3.StringUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -32,6 +33,15 @@ public class Test {
 //        test();
 
         String s="A man, a plan, a canal: Panama";
+
+        // 获取三个月前的时间
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -3);
+        Date time = calendar.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sdf.format(time);
+        System.out.println(date);
+
 
     }
 
@@ -227,6 +237,8 @@ public class Test {
         }
         return true;
     }
+    
+    
 
 
 }
