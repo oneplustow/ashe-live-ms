@@ -3,6 +3,7 @@ package cn.oneplustow.lc.service.impl;
 
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.oneplustow.common.exception.WarningMessageException;
 import cn.oneplustow.lc.entity.PlayRoom;
 import cn.oneplustow.lc.entity.StreamServer;
 import cn.oneplustow.lc.entity.StreamServerAllotRecord;
@@ -76,7 +77,9 @@ public class StreamServerAllotRecordServiceImpl extends ServiceImpl<StreamServer
         if(allotRecord != null){return allotRecord;}
         //获取一个可用的推流服务器
         StreamServer available = streamServerService.getAvailable();
-
+        if(available == null){
+            throw new WarningMessageException("当前没有可用的服务器,请联系管理员");
+        }
         //随机生产6位数密码
         String password = RandomUtil.randomNumbers(6);
 
