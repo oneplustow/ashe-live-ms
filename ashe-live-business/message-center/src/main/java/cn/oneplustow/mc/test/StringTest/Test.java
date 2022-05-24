@@ -35,12 +35,14 @@ public class Test {
         String s="A man, a plan, a canal: Panama";
 
         // 获取三个月前的时间
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MONTH, -3);
-        Date time = calendar.getTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String date = sdf.format(time);
-        System.out.println(date);
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.add(Calendar.MONTH, -3);
+//        Date time = calendar.getTime();
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//        String date = sdf.format(time);
+//        System.out.println(date);
+
+        System.out.println(new Date().getTime());
 
 
     }
