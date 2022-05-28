@@ -69,7 +69,6 @@ public class InteriorMessageServiceImpl extends ServicePlusImpl<InteriorMessageM
 
     @Override
     public TableDataInfo<InteriorMessageVo> queryPageList(InteriorMessageListCriteria bo) {
-
         Page page = this.page(bo.build(), QueryUtil.generate(bo));
 		Page<InteriorMessageVo> pageVo = this.pageVo(bo.build(), QueryUtil.generate(bo), InteriorMessageVo.class);
         return TableDataInfo.build(pageVo);
