@@ -2,7 +2,7 @@ package cn.oneplustow.sc.context;
 
 /**
  * 函数式规则生成
- * @author greatmap
+ * @author cc
  */
 public interface FunctionRule {
 

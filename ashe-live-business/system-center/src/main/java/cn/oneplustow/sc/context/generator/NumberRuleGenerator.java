@@ -10,6 +10,7 @@ import cn.oneplustow.sc.context.ResetFactory;
 import cn.oneplustow.sc.context.Resetor;
 import cn.oneplustow.sc.entity.SeqRule;
 import cn.oneplustow.sc.entity.SeqRuleLinkage;
+import cn.oneplustow.sc.exception.TriggerOptimisticLockException;
 import cn.oneplustow.sc.service.ISeqRuleLinkageService;
 import cn.oneplustow.sc.service.ISeqRuleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,7 +111,7 @@ public class NumberRuleGenerator extends BaseRuleGenerator {
         }
 
         if(!integer){
-            throw new WarningMessageException("更新记录条数小于1,触发乐观锁");
+            throw new TriggerOptimisticLockException("更新记录条数小于1,触发乐观锁");
         }
         return number;
     }
