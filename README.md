@@ -1,7 +1,4 @@
 # ashe-live-ms（寒冰直播）
-<span style="color: red;font-size: 12px;padding-top: -20px">
-    注：现阶段仅供参考，还没到拿来就用的地步。请勿在启动上浪费太多时间！
-</span>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Spring%20Boot-2.2.2.RELEASE-blue" alt="Downloads"/>
@@ -148,11 +145,15 @@ src
 6. 使用推流软件如OBS进行推流即可
 7. 观看直播参考上面的流程
 
+<span style="color: red;font-size: 12px;padding-top: -20px">
+注：现阶段仅供参考，还没到拿来就用的地步。请勿在启动上浪费太多时间！
+</span>
+
 ## 鸣谢
 
 - 感谢 JetBrains 提供的免费开源 License：
 <p align="left">
-    <a target="_blank" href="https://www.jetbrains.com/?from=ashe-livey">
+    <a target="_blank" href="https://www.jetbrains.com/?from=ashe-live">
         <img src="image/jetbrains.png" height="100" alt="jetbrains">
     </a>
 </p>
