@@ -3,6 +3,7 @@ package cn.oneplustow.mc.test.StringTest;
 import io.swagger.models.auth.In;
 import org.apache.commons.lang3.StringUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -29,7 +30,20 @@ public class Test {
 //       String t = "nagaram";
 //
 //        System.out.println(isAnagram(s, t));
-        test();
+//        test();
+
+        String s="A man, a plan, a canal: Panama";
+
+        // 获取三个月前的时间
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.add(Calendar.MONTH, -3);
+//        Date time = calendar.getTime();
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//        String date = sdf.format(time);
+//        System.out.println(date);
+
+//        System.out.println(new Date().getTime());
+
 
     }
 
@@ -200,6 +214,33 @@ public class Test {
             System.out.println(s);
         }
     }
+
+    /**
+     *验证回文串
+     * @param s
+     * @return
+     */
+
+    public static boolean isPalindrome(String s) {
+        if (s.length() == 0)
+            return true;
+        int left = 0, right = s.length() - 1;
+        while (left < right) {
+            //因为题中说了，只考虑字母和数字，所以不是字母和数字的先过滤掉
+            while (left < right && !Character.isLetterOrDigit(s.charAt(left)))
+                left++;
+            while (left < right && !Character.isLetterOrDigit(s.charAt(right)))
+                right--;
+            //然后把两个字符变为小写，在判断是否一样，如果不一样，直接返回false
+            if (Character.toLowerCase(s.charAt(left)) != Character.toLowerCase(s.charAt(right)))
+                return false;
+            left++;
+            right--;
+        }
+        return true;
+    }
+    
+    
 
 
 }
