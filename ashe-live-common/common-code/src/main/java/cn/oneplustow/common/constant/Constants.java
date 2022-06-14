@@ -2,12 +2,43 @@ package cn.oneplustow.common.constant;
 
 import io.jsonwebtoken.Claims;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * 通用常量信息
  *
- * @author ruoyi
  */
 public class Constants {
+
+    public interface OssCloud{
+
+        /**
+         * OSS模块KEY
+         */
+        String SYS_OSS_KEY = "sys_oss:";
+
+        /**
+         * 云存储配置KEY
+         */
+        String CLOUD_STORAGE_CONFIG_KEY = "CloudStorageConfig";
+
+        /**
+         * 缓存配置KEY
+         */
+        String CACHE_CONFIG_KEY = SYS_OSS_KEY + CLOUD_STORAGE_CONFIG_KEY;
+
+        /**
+         * 预览列表资源开关Key
+         */
+        String PEREVIEW_LIST_RESOURCE_KEY = "sys.oss.previewListResource";
+
+        /**
+         * 系统数据ids
+         */
+        List<Integer> SYSTEM_DATA_IDS = Arrays.asList(1, 2, 3, 4);
+    }
+
     public interface SysConfigKey {
         String 短信配置 = "sys_sms_config";
         String 微信消息模板 = "wechat.msg.template.test";
